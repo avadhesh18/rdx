@@ -22,4 +22,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public # Change to match the directory you want to publish to GitHub Pages
+          publish_dir: public # Change to match the directory you want to publish to GitHub Pages
