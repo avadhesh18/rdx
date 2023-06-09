@@ -1,0 +1,106 @@
+<!--headhtml-->
+<script>
+
+ 
+
+ 
+//Loading of posts
+ 
+function doit(){
+query = getget('q')
+if(getget('r') != null){
+console.log(getget('r'));
+query = query+'&r='+getget('r');
+}
+if(getget('u') != null){
+console.log(getget('r'));
+query = query+'&u='+getget('u');
+}
+links = '<a href="search.html?q='+query+'&sort=new">New</a><a href="search.html?q='+query+'&sort=hot">Hot</a><a href="search.html?q='+query+'&sort=top">Top</a><a href="search.html?q='+query+'&sort=top&t=month">Top (month)</a><a href="search.html?q='+query+'&sort=top&t=year">Top (year)</a><a href="search.html?q='+query+'&sort=top&t=all">Top (all)</a>';
+
+
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
+/*
+url = getget('url');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+*/
+
+substoload = getget('q');
+document.getElementById('pagetitletext').innerHTML = getget('q');
+
+
+url='https://www.reddit.com/';
+
+
+if(getget('r') != null){
+url = url+'r/'+getget('r')+'/search.json?q='+substoload+'&restrict_sr=on';
+}
+
+else if(getget('u') != null){
+url = url+'search.json?q=author:'+getget('u')+' '+substoload+'&restrict_sr=on';
+}
+else {
+
+url = url+'search.json?q='+substoload+'';
+}
+
+
+url = url+'&limit=20';
+if(getget('sort') != null){
+console.log(getget('sort'));
+url = url+'&sort='+getget('sort');
+}
+
+if(getget('t') != null){
+console.log(getget('t'));
+url = url+'&t='+getget('t');
+}
+url= url+'&include_over_18=on';
+
+if(getget('after') != null){
+url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+url = url+'&before='+getget('before');
+}
+
+console.log(url);
+
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+ 
+
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = titlesx.replace("/.json", "");
+document.title = titlesx;
+posts = jsonResponse['data']['children'];
+
+
+for(var item in posts) {
+console.log("xx" + item);
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+  
+};
+req.send(null);
+}
+
+
+doit();
+</script>
+</style>
+</body></html>

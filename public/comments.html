@@ -1,0 +1,307 @@
+<!DOCTYPE html><html><head>
+    <title>rdx -  A Lightweight mobile Web Viewer for Reddit</title>
+    <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit."/>
+    <link rel="shortcut icon" href="favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="plus" onclick="toggle('leftbar')">+</span>
+            <span id="pagetitletext" onclick="toggle('subssearch')">Loading...</span>
+            <span id="menu" onclick="toggle('rightbar')"><span class="menubars">Menu</span></span>
+        </div>
+    </header>
+    <div id="menus">
+        <div id="subssearch" class="hidden">
+            <input type="text" id="subssearchi" name="qury" onkeyup="searchsubs(this.value,event)" autocomplete="off">
+            <div id="subslist"></div>
+        </div>
+        <div id="leftbar" class="hidden">
+            <div class="list">
+                <a href="index.html" class="homelinks">Home</a>
+                <a href="subreddit.html?r=all" class="homelinks">All</a>
+                <a href="subreddit.html?r=popular" class="homelinks">Popular</a>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>
+                <div id="cthemew"><a onclick="toggletheme('dark')" id="themebtn">Dark mode</a></div>
+            </div>
+        </div>
+        <div id="rightbar" class="hidden"></div>
+    </div>
+    <div id="body"></div>
+    <script src="functions.js"></script>
+<div id="paginate"></div>
+<script>
+
+ 
+ 
+
+function getget(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+var fill = '';
+var sr = '';
+var thisthread;
+var defaultsort;
+function doit(){
+url = getget('url');
+roqs = url.split('?');
+url = roqs[0];
+roqs = roqs[1];
+url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a>';
+document.getElementById('rightbar').innerHTML = links;
+url = url+'.json?limit=500';
+if(getget('sort') != null){
+url = url+'&sort='+getget('sort');
+
+}
+url = url+'&'+roqs;
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+ var jsonResponse = req.response;
+thisthread = jsonResponse[0]['data']['children'][0]['data'];
+fill += postbuilder(thisthread);
+document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
+document.title= thisthread['title'];
+sr = thisthread['subreddit'];
+comments = jsonResponse[1]['data']['children'];
+loadcomments(comments);
+
+};
+req.send(null);
+}
+
+function handlerepliesmn(repliesca){
+replieslsa = repliesca['data']['children'];
+for( replyxy in replieslsa) {
+if(replieslsa[replyxy]['kind'] == "more"){
+fill += '<div class="comment ccp'+ replieslsa[replyxy]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesls[replyx]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+}
+else {
+fill += cbuilder(replieslsa[replyxy]['data']);
+replieshha  = replieslsa[replyxy]['data']['replies'];
+if(typeof replieshha === 'object' && replieshha !== null){
+fill+= '<a class="viewmore" href="?url=https://www.reddit.com'+replieslsa[replyxy]['data']['permalink']+'" target="_blank">view more replies</a>';
+}
+}}
+}
+
+
+function handlerepliesm(repliesc){
+repliesls = repliesc['data']['children'];
+
+for( replyx in repliesls) {
+if(repliesls[replyx]['kind'] == "more"){
+fill += '<div class="comment ccp'+ repliesls[replyx]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ repliesl[reply]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+}
+else {
+fill += cbuilder(repliesls[replyx]['data']);
+replieshh  = repliesls[replyx]['data']['replies'];
+if(typeof replieshh === 'object' && replieshh !== null){
+handlerepliesmn(replieshh);
+}
+}}
+}
+
+function handlereplies(replies){
+repliesl = replies['data']['children'];
+for( reply in repliesl) {
+//console.log("yy" + reply);
+if(repliesl[reply]['kind'] == "more"){
+fill += '<div class="comment ccp'+ repliesl[reply]['data']['depth'] +'"><div class="comment_author"><a href="?url=https://www.reddit.com'+ comments[item]['data']['permalink'] +' " target="_blank">View other replies</a></div></div>';
+}
+else {
+fill += cbuilder(repliesl[reply]['data']);
+repliesz  = repliesl[reply]['data']['replies'];
+if(typeof repliesz === 'object' && repliesz !== null){
+handlerepliesm(repliesz);
+}
+}}
+}
+
+function loadcomments(comments){
+for( item in comments) {
+console.log(comments[item].kind);
+if(comments[item].kind == 'more'){
+morejson = comments[item].data.children;
+document.getElementById('paginate').innerHTML =  '<button onclick="loadmore()" id="loadmore1">Load More</button>';
+}
+
+fill += cbuilder(comments[item]['data']); 
+replies  = comments[item]['data']['replies'];
+ if(typeof replies === 'object' && replies !== null){
+handlereplies(replies);
+}}
+document.getElementById('body').innerHTML += '<div class="clear"></div>'+fill;
+commentsdivs =   document.getElementById('body').getElementsByClassName('comment');
+for(i=0; i < commentsdivs.length; i++) {
+commentsdivs[i].addEventListener('dblclick', collapse);
+}
+}
+
+//universal post functions
+
+
+var pagenum = 0;
+
+function loadmore(){
+//console.log(morejson);
+urljson = '';
+
+for (var i = pagenum*60; i < morejson.length; i++){
+urljson += morejson[i]+',';
+if(i > 60*(pagenum+1)) {
+pagenum = pagenum + 1;
+break;
+}
+}
+console.log(urljson);
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+urljson = urljson.replace(/,\s*$/, "");
+
+req.open('GET','https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
+req.onload  = function() {
+ var jsonResponse = req.response;
+//thisthread = jsonResponse[0]['data']['children'][0]['data'];
+fill = '';
+//document.getElementById('pagetitletext').innerHTML = thisthread['subreddit']
+comments = jsonResponse['json']['data']['things'];
+loadcomments(comments);
+
+};
+req.send(null);
+
+
+
+}
+
+
+function collapse(){
+thisp = document.getElementById(this.id);
+curx = thisp; curindex = Math.abs(thisp.classList[1].replace('ccp',''));
+
+if(thisp.getAttribute('iscollasped') == '1'){
+while(nxsb = curx.nextSibling) {
+if(nxsb.classList.contains('comment')) {
+thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
+
+if(thisindex > curindex) {
+nxsb.style.display = 'block';
+}
+else {break;}
+}
+else {
+nxsb.style.display = 'block';
+}
+console.log(nxsb);
+curx = nxsb;
+
+
+}
+
+thisp.classList.toggle('collapsed');
+thisp.setAttribute('iscollasped','0');
+
+}
+else {
+
+while(nxsb = curx.nextSibling) {
+if(nxsb.classList.contains('comment')) {
+thisindex = Math.abs(nxsb.classList[1].replace('ccp',''));
+
+if(thisindex > curindex) {
+nxsb.style.display = 'none';
+}
+else {break;}
+}
+else {
+nxsb.style.display = 'none';
+}
+console.log(nxsb);
+curx = nxsb;
+
+
+}
+thisp.classList.toggle('collapsed');
+thisp.setAttribute('iscollasped','1');
+
+}
+}
+
+
+
+doit();
+
+
+function opencmenu(cid){
+cidi = document.getElementById(cid).getAttribute('menushown');
+if(cidi == 'yes'){
+document.getElementById(cid+'cc').remove();
+	  document.getElementById(cid).setAttribute('menushown','no');
+	  console.log('yy');
+}
+else {
+htmltoc = '<div class="cmenu" id="'+cid+'cc"><a onclick="">Save</a></div>';
+	document.getElementById(cid).insertAdjacentHTML("afterBegin",
+          htmltoc);
+ document.getElementById(cid).setAttribute('menushown','yes');		 
+		 }
+		 
+
+}
+
+</script>
+<style>
+.postc.selftext {
+    word-break: break-word;
+    font-size: 15px;
+    max-height: none;
+    overflow: hidden;
+	box-shadow: inset 0 -15px 5px -7px #ddd;
+	box-shadow: none;
+    padding-bottom: 0px;
+}
+.cmenu {
+    text-align: right;
+    font-size: 15px;
+    margin: 0 auto;
+	position: absolute;
+    right: 50px;
+}
+
+.cmenu a {
+    background: var(--bodyc);
+    padding: 2px 10px;
+  
+    box-shadow: 1px 1px 3px #00000055;
+}
+.cmenu a:nth-child(1)
+{
+border-radius:5px 0px 0px 5px;
+}
+
+.cmenu a:nth-child(3)
+{
+border-radius:0px 5px 5px 0px;
+}
+
+
+</style>
+
+</body></html>

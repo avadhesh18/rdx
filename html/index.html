@@ -1,0 +1,82 @@
+<!--headhtml-->
+<script>
+
+ 
+//Loading of posts
+function doit(){
+links = '<a href="home.html?x=y&sort=new">New</a><a href="home.html?x=y&sort=best">Best</a><a href="?x=y&sort=rising">Rising</a><a href="home.html?x=y&sort=top">Top</a>';
+
+
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
+/*
+url = getget('url');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+*/
+
+if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
+substoload = "all";
+}
+else {
+subsarray= JSON.parse(localStorage.getItem("subs"));
+substoload = subsarray.join("+");
+}
+document.getElementById('pagetitletext').innerHTML = 'rdx';
+
+
+url='https://www.reddit.com/r/'+substoload+'/';
+if(getget('sort') != null){
+url = url+''+getget('sort')+'';
+}
+
+
+console.log(url);
+url = url+'.json?limit=20';
+if(getget('t') != null){
+console.log(getget('t'));
+url = url+'&t='+getget('t');
+}
+
+if(getget('after') != null){
+url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+url = url+'&before='+getget('before');
+}
+
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+ 
+
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = titlesx.replace("/.json", "");
+document.title = titlesx;
+posts = jsonResponse['data']['children'];
+
+
+for(var item in posts) {
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+  
+};
+req.send(null);
+}
+
+
+doit();
+</script>
+</body></html>

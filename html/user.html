@@ -1,0 +1,85 @@
+<!--headhtml-->
+<script>
+
+ 
+//Loading of posts
+ 
+function doit(){
+username = getget('u')
+links = '<a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
+if(checklc('subs','u_'+username)){
+links += '<a onclick="unsubscribe(\'u_'+username+'\')" id="subbtn">Unfollow</a>>';
+}
+else {
+links += '<a onclick="subscribe(\'u_'+username+'\')" id="subbtn">follow</a><small style="padding:5px;opacity:0.6;">Only posts posted to user\'s own profile will be displayed in feed.</small>';
+}
+
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
+/*
+url = getget('url');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+*/
+
+substoload = getget('u');
+document.getElementById('pagetitletext').innerHTML = getget('u');
+
+
+url='https://www.reddit.com/user/'+substoload+'/submitted';
+
+
+console.log(url);
+url = url+'.json?limit=20';
+if(getget('sort') != null){
+console.log(getget('sort'));
+url = url+'&sort='+getget('sort');
+}
+if(getget('t') != null){
+console.log(getget('t'));
+url = url+'&t='+getget('t');
+}
+
+if(getget('after') != null){
+url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+url = url+'&before='+getget('before');
+}
+
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+ 
+
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = titlesx.replace("/.json", "");
+document.title = titlesx;
+posts = jsonResponse['data']['children'];
+
+
+for(var item in posts) {
+console.log("xx" + item);
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+  
+};
+req.send(null);
+}
+
+
+doit();
+</script>
+</style>
+</body></html>
