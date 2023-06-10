@@ -26,7 +26,12 @@ $headhtml = '<!DOCTYPE html><html><head>
                 <a href="subreddit.html?r=all" class="homelinks">All</a>
                 <a href="subreddit.html?r=popular" class="homelinks">Popular</a>
                 <div id="subscribed">Subscribe to subreddits to view them here.</div>
-                <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a></div>
+                <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a>
+                <a href="https://github.com/avadhesh18/rdx/" style="
+    display: block;
+    color: #333;
+">Github</a>
+                </div>
             </div>
         </div>
         <div id="rightbar" class="hidden"></div>
