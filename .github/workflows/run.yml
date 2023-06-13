@@ -36,12 +36,16 @@ jobs:
         uses: actions/configure-pages@v3
       - name: Run run.php
         run: php run.php
-      - name: Commit changes
+      - name: Commit files # transfer the new html files back into the repository
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add -A
-          git commit -m "Update static content"        
+          git config --local user.name  ${{ github.actor }}
+          git add --all
+          git commit -m "Updating the repository"
+      - name: Push changes # push the output folder to your repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true     
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
