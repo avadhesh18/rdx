@@ -1,7 +1,7 @@
 <?php
 $headhtml = '<!DOCTYPE html><html><head>
     <title>rdx -  A Lightweight mobile Web Viewer for Reddit</title>
-    <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit."/>
+    <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit. Reader for reddit. Lurk on reddit."/>
     <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
