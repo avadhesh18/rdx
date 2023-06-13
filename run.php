@@ -2,7 +2,8 @@
 $headhtml = '<!DOCTYPE html><html><head>
     <title>rdx -  A Lightweight mobile Web Viewer for Reddit</title>
     <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit."/>
-    <link rel="shortcut icon" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
