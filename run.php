@@ -41,7 +41,7 @@ minimum-scale=1.0">
         <div id="rightbar" class="hidden"></div>
     </div>
     <div id="body"></div>
-    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}\'></script>';
+    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}\'></script> ';
 $files = glob("html/*.html");
 foreach($files as $file){
 echo "Processing ".$file."...";
