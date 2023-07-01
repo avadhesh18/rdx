@@ -150,7 +150,15 @@ div#pagetitle {
 }
 .navigate {
     padding: 10px 0px;
+    margin-bottom: 30px;
 }
+.navigate:after {
+    content: "rdx.overdevs.com - Not affiliated with Reddit";
+    color: #999;
+    text-align: center;
+    display: block;
+}
+
 
 a.next {
     text-align: right;
