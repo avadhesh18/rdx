@@ -35,8 +35,7 @@ minimum-scale=1.0">
                 <a href="https://github.com/avadhesh18/rdx/" style="
     display: block;
     color: #333;
-">Github</a>
-            </div>
+">Github</a></div>
         </div>
         <div id="rightbar" class="hidden"></div>
     </div>
