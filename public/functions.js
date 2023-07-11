@@ -95,7 +95,6 @@ xhr.onreadystatechange = function()
     {
         subslist = xhr.response;
 		fillsubs = '';
-		console.log(subslist);
 		for (var singlesub in subslist['subreddits'] )   
 {
 console.log(subslist[singlesub]);
@@ -178,7 +177,6 @@ returnpost = '';
 	else if (urli.match(/www.reddit.com\/gallery/g))
 	{
 	returnpost += '<div class="postc gallery">';
-	console.log(postjson['media_metadata']);
 	for(var singlept in postjson['media_metadata']) {
 		if(postjson['media_metadata'][singlept]['status'] != 'failed') {
 		singleptlink = postjson['media_metadata'][singlept]['s']['u'];
@@ -202,7 +200,6 @@ returnpost = '';
 	}
 	else if (urli.match(/redgifs/g) && postjson.preview)
 	{
-	console.log(urli);
 	returnpost += '<div class="postc video">';
 	vidurl = postjson['secure_media']['oembed']['thumbnail_url']; 
 	if(typeof vidurl == "undefined"){
