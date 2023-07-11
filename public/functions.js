@@ -178,12 +178,15 @@ returnpost = '';
 	else if (urli.match(/www.reddit.com\/gallery/g))
 	{
 	returnpost += '<div class="postc gallery">';
+	console.log(postjson['media_metadata']);
 	for(var singlept in postjson['media_metadata']) {
+		if(postjson['media_metadata'][singlept]['status'] != 'failed') {
 		singleptlink = postjson['media_metadata'][singlept]['s']['u'];
 		if(typeof singleptlink == "undefined"){          singleptlink = postjson['media_metadata'][singlept]['s']['gif'];          }
 		else {
 		singleptlink = singleptlink.replace("preivew.redd", "i.redd");}
 		returnpost +='<img src="'+singleptlink+'" />';
+		}
 	}
 	returnpost += '</div>';
 	}
@@ -197,9 +200,9 @@ returnpost = '';
 		else {returnpost += 'crosspost';}
 	returnpost += '</div>';
 	}
-	else if (urli.match(/redgifs/g))
+	else if (urli.match(/redgifs/g) && postjson.preview)
 	{
-	
+	console.log(urli);
 	returnpost += '<div class="postc video">';
 	vidurl = postjson['secure_media']['oembed']['thumbnail_url']; 
 	if(typeof vidurl == "undefined"){
