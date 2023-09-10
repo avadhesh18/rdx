@@ -14,7 +14,6 @@ minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
-
 </head>   
 
 <body>
