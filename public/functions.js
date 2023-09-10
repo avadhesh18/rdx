@@ -187,20 +187,28 @@ pjgd.items.forEach((item, index) => {
     pjmdsorted[mediaId] = pjmd[mediaId];
   }
 });
-
-
-
+let g_timgs = '<div class="gallery_thumbs">';
+let fakect = ' actv';
 	for(var singlept in pjmdsorted) {
-		
 		if(pjmdsorted[singlept]['status'] != 'failed') {
 		singleptlink = pjmdsorted[singlept]['s']['u'];
 		if(typeof singleptlink == "undefined"){          singleptlink = pjmdsorted[singlept]['s']['gif'];          }
 		else {
 		singleptlink = singleptlink.replace("preivew.redd", "i.redd");}
-		returnpost +='<img src="'+singleptlink+'" />';
+      	singletmlink =  pjmdsorted[singlept]['p']['0']['u'];
+      	
+      	g_mimg  = '<img src="'+singleptlink+'" alt="main image" id="mi_'+postjson['id']+'"/>';
+      	console.log(singletmlink);
+      	g_timgs += '<img class="gtumb'+fakect+'" src="'+singletmlink+'" data-msrc="'+singleptlink+'" alt="thumbnail" data-id="'+postjson['id']+'">'
+		//returnpost +='<img src="'+singleptlink+'" />';
 		}
+		fakect = '';
 	}
+	returnpost += '<div class="gallery_main">';
+	returnpost += g_mimg;
 	returnpost += '</div>';
+	returnpost +=  g_timgs;
+    returnpost += '</div></div>';
 	}
 	else if (urli.match(/v.redd.it/g))
 	{
@@ -349,6 +357,20 @@ else {
 hls.initialize(video,video.src, false);
          }
         });
+        
+        const gtumbs = document.querySelectorAll('.gtumb');
+                gtumbs.forEach(gtum => {
+gtum.addEventListener("click",function() {
+const curod = this.getAttribute('data-id');
+document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
+
+  document.querySelectorAll('[data-id="'+curod+'"]').forEach(el => el.classList.remove('actv'));
+  
+  this.classList.add('actv');
+
+  });
+  });
+
 
 }
   

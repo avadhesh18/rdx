@@ -1,5 +1,5 @@
 <?php
-$headhtml = ' <!DOCTYPE html><html><head>
+$headhtml = '<!DOCTYPE html><html><head>
     <title>rdx -  A Lightweight mobile Web Viewer for Reddit</title>
     <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Reader for reddit."/>
     <link rel="shortcut icon" href="favicon.ico">

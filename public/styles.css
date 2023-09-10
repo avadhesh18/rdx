@@ -113,15 +113,24 @@ a.viewmore{clear:both;display:block;text-align:right;color:#333;color:var(--ligh
     padding-bottom: 0px;
 }
 .postc.gallery {
-    white-space: pre;
-    overflow-x: scroll;
+
 }
 
 .postc.gallery img {
-    max-width: 300px;
-    max-height: 400px;
+    max-width: 100%;
 
 }
+.gallery_thumbs {
+    white-space: pre;
+    overflow-x: scroll;
+    height: 100px;
+    overflow-y: hidden;
+}
+.gtumb {
+    vertical-align: top;
+}
+.gtumb {width:100px;margin:0px 5px;}
+.gtumb.actv{    border-top: 3px solid var(--linkc);}
 .postc.link a {
     background: #eee;
 	background: var(--greyc);
