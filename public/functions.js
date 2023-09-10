@@ -177,10 +177,25 @@ returnpost = '';
 	else if (urli.match(/www.reddit.com\/gallery/g))
 	{
 	returnpost += '<div class="postc gallery">';
-	for(var singlept in postjson['media_metadata']) {
-		if(postjson['media_metadata'][singlept]['status'] != 'failed') {
-		singleptlink = postjson['media_metadata'][singlept]['s']['u'];
-		if(typeof singleptlink == "undefined"){          singleptlink = postjson['media_metadata'][singlept]['s']['gif'];          }
+	pjmd = postjson['media_metadata'];
+	pjgd= postjson['gallery_data'];
+	const pjmdsorted = {};
+
+pjgd.items.forEach((item, index) => {
+  const mediaId = item.media_id;
+  if (pjmd.hasOwnProperty(mediaId)) {
+    pjmdsorted[mediaId] = pjmd[mediaId];
+  }
+});
+
+
+
+console.log(pjmdsorted);
+	for(var singlept in pjmdsorted) {
+		
+		if(pjmdsorted[singlept]['status'] != 'failed') {
+		singleptlink = pjmdsorted[singlept]['s']['u'];
+		if(typeof singleptlink == "undefined"){          singleptlink = pjmdsorted[singlept]['s']['gif'];          }
 		else {
 		singleptlink = singleptlink.replace("preivew.redd", "i.redd");}
 		returnpost +='<img src="'+singleptlink+'" />';
@@ -307,8 +322,10 @@ return cret;
 }
 function runhsl(){
  const videos = document.querySelectorAll('.reddit_hls');
+                
 
         videos.forEach(video => {
+        	const videoContainer = video.parentElement;
             if (video.canPlayType('application/vnd.apple.mpegurl')) {
                 // Browser natively supports HLS
                 video.src = video.src;
@@ -317,6 +334,7 @@ function runhsl(){
                 const hls = new Hls();
                 hls.loadSource(video.src);
                 hls.attachMedia(video);
+
             } else {
                 // Provide a fallback for unsupported browsers
                 video.src = video.getAttribute('data-fallback');
@@ -325,6 +343,7 @@ function runhsl(){
         });
 
 }
+  
 
 window.onload = function(){
 	curq = getget('q') ? getget('q'): '';
