@@ -196,9 +196,9 @@ let fakect = ' actv';
 		else {
 		singleptlink = singleptlink.replace("preivew.redd", "i.redd");}
       	singletmlink =  pjmdsorted[singlept]['p']['0']['u'];
-      	
+      	if(fakect == ' actv') {
       	g_mimg  = '<img src="'+singleptlink+'" alt="main image" id="mi_'+postjson['id']+'"/>';
-      	console.log(singletmlink);
+      	}
       	g_timgs += '<img class="gtumb'+fakect+'" src="'+singletmlink+'" data-msrc="'+singleptlink+'" alt="thumbnail" data-id="'+postjson['id']+'">'
 		//returnpost +='<img src="'+singleptlink+'" />';
 		}
