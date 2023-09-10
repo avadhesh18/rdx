@@ -190,7 +190,6 @@ pjgd.items.forEach((item, index) => {
 
 
 
-console.log(pjmdsorted);
 	for(var singlept in pjmdsorted) {
 		
 		if(pjmdsorted[singlept]['status'] != 'failed') {
