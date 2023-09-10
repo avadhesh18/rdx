@@ -240,7 +240,8 @@ let fakect = ' actv';
 		vidurl = postjson['secure_media']['oembed']['thumbnail_url'];
 		}
 		vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
-		returnpost +='<video src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" controls> </video>';
+		
+		returnpost +='<video src="'+vidurl+'" poster="'+postjson["preview"]["images"]["0"]["source"]["url"]+'" width="100%" height="240" preload="metadata" controls> </video>';
 	}
 	returnpost += '</div>';
 	}
