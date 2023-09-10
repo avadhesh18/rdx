@@ -1,0 +1,24 @@
+{
+  "short_name": "rdx",
+  "name": "rdx for reddit",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "description": "rdx for reddit is a lightweight web viewer for Reddit.",
+  "categories": ["social", "news"]
+}

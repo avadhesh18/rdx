@@ -3,10 +3,20 @@
     <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit. Reader for reddit."/>
     <link rel="shortcut icon" href="favicon.ico">
   <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="wefwef" />
+    
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, 
 minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 </head>   
 
 <body>
@@ -14,6 +24,7 @@ minimum-scale=1.0">
         <div id="pagetitle">
             <span id="plus" onclick="toggle('leftbar')">+</span>
             <span id="pagetitletext" onclick="toggle('subssearch')">Loading...</span>
+            <svg onclick="toggle('subssearch')" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
             <span id="menu" onclick="toggle('rightbar')"><span class="menubars">Menu</span></span>
         </div>
     </header>
@@ -113,7 +124,7 @@ fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
-  
+  runhsl();
 };
 req.send(null);
 }

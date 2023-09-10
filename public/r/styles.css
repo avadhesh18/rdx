@@ -162,16 +162,10 @@ div#pagetitle {
 
 
 a.next {
-        display: block;
+    text-align: right;
+    display: block;
     color: red;
     text-decoration: none;
-    background: transparent;
-    color: var(--linkc);
-    border: 1px solid var(--linkc);
-    text-align: center;
-    padding: 5px;
-    margin: 10px;
-    border-radius: 6px;
 }
 
 div#subssearch {
@@ -558,13 +552,6 @@ button#loadmore1 {
 .collapsed .comment_text{
 
     animation: collapseit 0.1s linear forwards;
-}
-
-svg#icon-target {
-    width: 7px;
-    color: var(--textc);
-    margin-left: -1px;
-    vertical-align: middle;
 }
 
 @keyframes collapseit{

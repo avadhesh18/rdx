@@ -5,7 +5,7 @@ var bmr = '';
 if(JSON.parse(localStorage.getItem("subs")) !== null){
 subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs"));
 for(x in subslistedarray){
-subslisted += '<a href="subreddit.html?r='+subslistedarray[x]+'" class="homelinks">'+subslistedarray[x]+'</a>';
+subslisted += '<a rel="nofollow" href="/subreddit.html?r='+subslistedarray[x]+'" class="homelinks">'+subslistedarray[x]+'</a>';
 }
 document.getElementById('subscribed').innerHTML = subslisted;
 }
@@ -98,7 +98,7 @@ xhr.onreadystatechange = function()
 		for (var singlesub in subslist['subreddits'] )   
 {
 console.log(subslist[singlesub]);
-fillsubs += '<a href="subreddit.html?r=' + subslist['subreddits'][singlesub]['name']+'">'+subslist['subreddits'][singlesub]['name']+'</a>';
+fillsubs += '<a rel="nofollow" href="/subreddit.html?r=' + subslist['subreddits'][singlesub]['name']+'">'+subslist['subreddits'][singlesub]['name']+'</a>';
 }
 document.getElementById('subslist').innerHTML = fillsubs;
 		}
@@ -111,7 +111,7 @@ if(q.length > 1){
 var key = event.keyCode || event.charCode;
 if( key == 13 ) {
 if(typeof subslist['subreddits'] !== undefined) {
-window.location = 'subreddit.html?r=' + subslist['subreddits'][0]['name']+'';}
+window.location = '/subreddit.html?r=' + subslist['subreddits'][0]['name']+'';}
 }}
 }
 
@@ -123,11 +123,11 @@ subbtn.setAttribute( "onclick",  'unsubscribe(\''+sub+'\')' );
  subbtn.innerHTML = 'Unsubscribe';}
 
 function replaceRedditLinks(htmlContent) {
-  var replacedText = htmlContent.replace(/href="\/u\/([^"]+)"/g, 'href="user.html?u=$1"').replace(/href="\/r\/([^"]+)"/g, 'href="subreddit.html?r=$1"')
+  var replacedText = htmlContent.replace(/href="\/u\/([^"]+)"/g, 'href="user.html?u=$1"').replace(/href="\/r\/([^"]+)"/g, 'href="/subreddit.html?r=$1"')
   .replace(/(href=\"https:\/\/(old.|www.|)reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-                                  return 'href="comments.html?url=' + encodeURIComponent(p1).replace(/href%3D%22/g,'');
+                                  return 'href="/comments.html?url=' + encodeURIComponent(p1).replace(/href%3D%22/g,'');
                                 }).replace(/(href=\"https:\/\/reddit\.com\/r\/[^\/]+\/comments\/[^"]+)(\?[^"]+)?/g, function(match, p1, p2) {
-                                  return 'comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
+                                  return '/comments.html?url=' + encodeURIComponent(p1 + (p2 || ""));
                                 });  return replacedText;
 }
 
@@ -141,7 +141,7 @@ if(checklc('a18','yes') != true) {
 over18 = post['over_18'] ? "over18" :" ";
 }
 ismod = (post['distinguished'] == "moderator") ? " moderator" :" ";
-returnfpost +=  '<div class="post" id="'+post['id']+'"><div class="post_author"><a href="subreddit.html?r='+post["subreddit"]+'">'+post["subreddit_name_prefixed"]+'</a> &bull;  <a href="user.html?u='+post["author"]+'">'+post["author"]+'</a>  &bull; '+timeagoed+'</div><div class="post_link'+ sticky+' '+ismod+'"><a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['title']+'</a></div>';
+returnfpost +=  '<div class="post" id="'+post['id']+'"><div class="post_author"><a rel="nofollow" href="/subreddit.html?r='+post["subreddit"]+'">'+post["subreddit_name_prefixed"]+'</a> &bull;  <a rel="nofollow" href="/user.html?u='+post["author"]+'">'+post["author"]+'</a>  &bull; '+timeagoed+'</div><div class="post_link'+ sticky+' '+ismod+'"><a rel="nofollow" href="/comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['title']+'</a></div>';
 if(post["selftext_html"] != null){
 var replacedText = replaceRedditLinks(post["selftext_html"]);
 
@@ -155,7 +155,7 @@ returnfpost += postbuilder(post['crosspost_parent_list'][0]);
 }
 else {
 if(over18 === 'over18') {returnfpost += '<button onclick="allown_sfw()" class="sfwtoggle">Click to Allow this content</button>';}
-if(typeof urli != "undefined"){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'"><small>Open URL</small></a></div>'; }
+if(typeof urli != "undefined"){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'" rel="nofollow" target="_blank"><small>Open URL</small></a></div>'; }
 if(post['poll_data'] != null){
 returnfpost += pollbuilder(post);
 }
@@ -192,10 +192,8 @@ returnpost = '';
 	{
 	returnpost += '<div class="postc video">';
 		if(postjson['secure_media'] != null) {
-		vidurl =  postjson['secure_media']['reddit_video']['hls_url']; 
-		fallbackurl = postjson['secure_media']['reddit_video']['fallback_url']; 
-		//returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio>	';
-		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" data-fallback="'+fallbackurl+'" poster="'+postjson["preview"]['images']['0']['source']['url']+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
+		vidurl =  postjson['secure_media']['reddit_video']['fallback_url']; 
+		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio>	';
 		}
 		else {returnpost += 'crosspost';}
 	returnpost += '</div>';
@@ -302,33 +300,14 @@ ismod = comment['distinguished'] == 	" moderator" ? "ismod" : "";
 
 
 
-cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div></div>';
+cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="/user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div></div>';
 return cret;
 }
-function runhsl(){
- const videos = document.querySelectorAll('.reddit_hls');
 
-        videos.forEach(video => {
-            if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                // Browser natively supports HLS
-                video.src = video.src;
-            } else if (Hls.isSupported()) {
-                // Use hls.js for HLS playback
-                const hls = new Hls();
-                hls.loadSource(video.src);
-                hls.attachMedia(video);
-            } else {
-                // Provide a fallback for unsupported browsers
-                video.src = video.getAttribute('data-fallback');
-                
-            }
-        });
-
-}
 
 window.onload = function(){
 	curq = getget('q') ? getget('q'): '';
-	html1  =          '<form class="search" action="search.html"><input type="search" name="q" value="'+curq+'"/><br style="clear:both;">';
+	html1  =          '<form class="search" action="/search.html"><input type="search" name="q" value="'+curq+'"/><br style="clear:both;">';
 	    if (window.location.href.indexOf("?r=") > -1 || window.location.href.indexOf("&r=") > -1) {
     html1 += '<input type="checkbox" id="chk1" name="r" value="'+getget('r')+'" checked><label for="chk1">Only search r/'+getget('r')+'</label>';
     }
@@ -336,10 +315,7 @@ window.onload = function(){
     html1 += '<input type="checkbox" id="chk1" name="u" value="'+getget('u')+'" checked><label for="chk1">Only search u/'+getget('u')+'</label>';
     }
 	
-		    if (window.location.href.indexOf("/r/") > -1) {
-				ther = window.location.href.match(/r\/(.*?)\//s)[1];
-    html1 += '<input type="checkbox" id="chk1" name="r" value="'+ther+'" checked><label for="chk1">Only search r/'+ther+'</label>';
-    }
+	
 	html1 += '<input type="submit" value="Search"/></form>';
 
 	
@@ -348,7 +324,6 @@ window.onload = function(){
 
 	
 }
-
 
 
 

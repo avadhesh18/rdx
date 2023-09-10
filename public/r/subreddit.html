@@ -1,0 +1,119 @@
+ <!DOCTYPE html><html lang="en"><head>
+    <title>rdx -  A Lightweight mobile Web Viewer for Reddit</title>
+    <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit. Reader for reddit."/>
+    <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" href="/favicon.png">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
+minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+</head>   
+
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="plus" onclick="toggle('leftbar')">+</span>
+            <span id="pagetitletext" onclick="toggle('subssearch')">Loading...</span>
+            <span id="menu" onclick="toggle('rightbar')"><span class="menubars">Menu</span></span>
+        </div>
+    </header>
+    <div id="menus">
+        <div id="subssearch" class="hidden">
+            <input type="text" id="subssearchi" name="qury" onkeyup="searchsubs(this.value,event)" autocomplete="off">
+            <div id="subslist"></div>
+        </div>
+        <div id="leftbar" class="hidden">
+            <div class="list">
+                <a rel="nofollow" href="/index.html" class="homelinks">Home</a>
+                <a rel="nofollow" href="/subreddit.html?r=all" class="homelinks">All</a>
+                <a rel="nofollow" href="/subreddit.html?r=popular" class="homelinks">Popular</a>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>
+                <div id="cthemew"><a onclick="toggletheme('dark')" id="themebtn">Dark mode</a>
+                
+                </div>
+                <a href="https://github.com/avadhesh18/rdx/" style="display: block;
+    color: #999;color:var(--lightc);padding:5px;
+">Github</a></div>
+        </div>
+        <div id="rightbar" class="hidden"></div>
+    </div>
+    <div id="body"></div>
+    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}'></script> 
+<script>
+
+ 
+ var getsrname = getget('r');
+
+ 
+function doit(){
+links = '<a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=new">New</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=best">Best</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=rising">Rising</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top">Top</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=month">Top (month)</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=year">Top (year)</a><a rel="nofollow" href="/subreddit.html?r='+getsrname+'&sort=top&t=all">Top (all)</a>';
+if(checklc('subs',getsrname)){
+links += '<a onclick="unsubscribe(\''+getsrname+'\')" id="subbtn">Unsubscribe</a>';
+}
+else {
+links += '<a onclick="subscribe(\''+getsrname+'\')" id="subbtn">Subscribe</a>';
+}
+
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
+
+
+substoload = getsrname;
+document.getElementById('pagetitletext').innerHTML = getsrname;
+
+
+url='https://www.reddit.com/r/'+substoload+'/';
+if(getget('sort') != null){
+url = url+''+getget('sort')+'';
+}
+
+
+
+url = url+'.json?limit=20';
+if(getget('t') != null){
+url = url+'&t='+getget('t');
+}
+
+if(getget('after') != null){
+url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+url = url+'&before='+getget('before');
+}
+
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+ 
+
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = getsrname;
+document.title = titlesx+' - Top 20 posts from r/'+titlesx;
+_desc = 'Top 20 '+titlesx+' posts from Reddit subreddit r/'+titlesx+' on a lighweight Reddit viewer, no login & ad-free.';
+document.querySelector('meta[name="description"]').setAttribute("content", _desc);
+posts = jsonResponse['data']['children'];
+
+
+for(var item in posts) {
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+var curpage = curpage.replace(/\/r\//,'/');
+if(jsonResponse['data']['after'] != null) {
+fill += '<a rel="nofollow" class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+  
+};
+req.send(null);
+}
+
+doit();
+</script>
+</style>
+</body></html>
