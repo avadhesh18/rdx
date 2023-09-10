@@ -54,5 +54,4 @@ $newfilename = str_replace('html/','public/',$file);
 file_put_contents($newfilename,$data);
    }
 
-
 ?>
