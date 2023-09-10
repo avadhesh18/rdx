@@ -99,7 +99,7 @@ document.title= thisthread['title'];
 sr = thisthread['subreddit'];
 comments = jsonResponse[1]['data']['children'];
 loadcomments(comments);
-
+runhsl();
 };
 req.send(null);
 }
@@ -201,7 +201,7 @@ fill = '';
 //document.getElementById('pagetitletext').innerHTML = thisthread['subreddit']
 comments = jsonResponse['json']['data']['things'];
 loadcomments(comments);
-runhsl();
+
 };
 req.send(null);
 
