@@ -8,8 +8,7 @@ $headhtml = ' <!DOCTYPE html><html><head>
  <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="rdx" />
     <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, 
-minimum-scale=1.0">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
