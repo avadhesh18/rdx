@@ -206,7 +206,7 @@ pjgd.items.forEach((item, index) => {
 	{
 	returnpost += '<div class="postc video">';
 		if(postjson['secure_media'] != null) {
-		vidurl =  postjson['secure_media']['reddit_video']['hls_url']; 
+		vidurl =  postjson['secure_media']['reddit_video']['dash_url']; 
 		fallbackurl = postjson['secure_media']['reddit_video']['fallback_url']; 
 		//returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio>	';
 		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" data-fallback="'+fallbackurl+'" poster="'+postjson["preview"]['images']['0']['source']['url']+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
@@ -325,20 +325,23 @@ function runhsl(){
 
         videos.forEach(video => {
         	const videoContainer = video.parentElement;
-            if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          //  if (video.canPlayType('application/vnd.apple.mpegurl')) {
                 // Browser natively supports HLS
-                video.src = video.src;
-            } else if (Hls.isSupported()) {
+           //     video.src = video.src;
+       //     } else if (Hls.isSupported()) {
                 // Use hls.js for HLS playback
-                const hls = new Hls();
-                hls.loadSource(video.src);
-                hls.attachMedia(video);
+       //         const hls = new Hls();
+        //        hls.loadSource(video.src);
+         //       hls.attachMedia(video);
 
-            } else {
+          //  } else {
                 // Provide a fallback for unsupported browsers
-                video.src = video.getAttribute('data-fallback');
+            //    video.src = video.getAttribute('data-fallback');
                 
-            }
+           // }
+           const hls = dashjs.MediaPlayer().create();
+hls.initialize(video,video.src, false);
+           
         });
 
 }
