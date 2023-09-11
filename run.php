@@ -37,9 +37,7 @@ $headhtml = '<!DOCTYPE html><html><head>
                 <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a>
                 
                 </div>
-                <a href="https://github.com/avadhesh18/rdx/" style="display: block;
-    color: #999;color:var(--lightc);padding:5px;
-">Github</a></div>
+            </div>
         </div>
         <div id="rightbar" class="hidden"></div>
     </div>
@@ -50,6 +48,9 @@ foreach($files as $file){
 echo "Processing ".$file."...";
 $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
+$data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> </body>',$data);
+
+
 $newfilename = str_replace('html/','public/',$file);
 file_put_contents($newfilename,$data);
    }

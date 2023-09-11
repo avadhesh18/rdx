@@ -1,0 +1,69 @@
+
+<!DOCTYPE html><html><head>
+    <title>Updates to RDX for reddit </title>
+    <meta name="description" content="updates page of rdx for Reddit."/>
+    <link rel="shortcut icon" href="favicon.ico"> 
+  <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style>#body {
+    padding: 15px;
+}
+b,li{display:block;padding:5px;margin:5px;}
+</style>
+</head>   
+
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="pagetitletext">Updates</span>
+        </div>
+    </header>
+    <div id="body">
+<b>11 Sep 2023</b>
+<li>NEW: Add to home screen for an app like experience..</li>
+<li>FIXED: Audio not playing in videos.</li>
+<li>NEW: Donation button added to help support rdx..</li>
+<li>NEW: Gallery view.</li>
+<li>NEW: Tap on any comment to collapse the thread.</li>
+<b>7 Jul 2023</b>
+<li>NEW: Tap on subreddit name on header to change subreddit quickly.</li>
+<li>FIXED: Giphy gifs.</li>
+</div>
+    <script>
+
+if(localStorage.getItem('color') == 'dark'){
+toggletheme('dark');
+}
+else {}
+
+function toggletheme(color){
+if(color == 'dark'){
+	
+document.documentElement.style.setProperty('--bodyc', '#111222');
+document.documentElement.style.setProperty('--textc', 'white');
+document.documentElement.style.setProperty('--linkc', '#d9d983');
+document.documentElement.style.setProperty('--greyc', '#222233');
+document.documentElement.style.setProperty('--lightc', '#ddd');
+localStorage.setItem('color','dark');
+}
+else {
+	
+		
+document.documentElement.style.setProperty('--bodyc', 'white');
+document.documentElement.style.setProperty('--textc', 'black');
+document.documentElement.style.setProperty('--linkc', '#27598c');
+document.documentElement.style.setProperty('--greyc', '#eee');
+document.documentElement.style.setProperty('--lightc', '#444');
+localStorage.setItem('color','light');
+}
+	
+}
+
+    </script>
+    </body></html>

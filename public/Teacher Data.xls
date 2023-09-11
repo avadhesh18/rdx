@@ -1,0 +1,55 @@
+<div>
+	<table cellspacing="0" rules="all" border="1" id="ContentPlaceHolder1_gv1" style="width:100%;border-collapse:collapse;">
+		<tr>
+			<th scope="col">Name</th><th scope="col">EmployeeID</th><th scope="col">FatherName</th><th scope="col">Gender</th><th scope="col">DOB</th><th scope="col">Post</th><th scope="col">Subject</th><th scope="col">Date Of Joining</th><th scope="col">Address</th><th scope="col">Aadhar No</th><th scope="col">PAN No</th><th scope="col">Mobile No</th><th scope="col">Blood Group</th>
+		</tr><tr>
+			<td>ABHISHEK JANGID</td><td>RJBW202208022769</td><td>Ghanshyam khati</td><td>M</td><td>31-01-2001</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>14/10/2022</td><td>&nbsp;</td><td>XXXXXXXX9111</td><td>XXXXj2710m</td><td>XXXXXX5557</td><td>AB+</td>
+		</tr><tr>
+			<td>ANUKUL SHARMA</td><td>RJBW202208014180</td><td>CHANDRA PRAKASH SHARMA</td><td>M</td><td>22-09-1998</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>18/10/2022</td><td>&nbsp;</td><td>XXXXXXXX4782</td><td>XXXXS5117N</td><td>XXXXXX7526</td><td>O+</td>
+		</tr><tr>
+			<td>ARTI PARIHAR</td><td>RJBW201208009651</td><td>SHIV RAJ SINGH</td><td>F</td><td>21-09-1988</td><td>Senior Teacher (II Gr.)</td><td>Science</td><td>22/05/2018</td><td>B-265 &quot;SHIV-KUNJ&quot; SUBHASH NAGAR, BHILWARA</td><td>XXXXXXXX2816</td><td>XXXXP4937L</td><td>XXXXXX1090</td><td>O+</td>
+		</tr><tr>
+			<td>ASHA JOSHI</td><td>RJBW199108019975</td><td>GYAN CHAND JOSHI</td><td>F</td><td>13-08-1972</td><td>Senior Teacher (II Gr.)</td><td>Sanskrit</td><td>30/04/2016</td><td>JAY SIYARAM MARJ JAHAJPUR  WARD -6 DISTT BHILWARA</td><td>XXXXXXXX6183</td><td>XXXXJ1845L</td><td>XXXXXX0397</td><td>A+</td>
+		</tr><tr>
+			<td>CHITRA GAUTAM</td><td>RJTO200536019085</td><td>GHAN SHYAM GAUTAM</td><td>F</td><td>09-12-1978</td><td>Senior Teacher (II Gr.)</td><td>English</td><td>29/04/2016</td><td>230 TAJ COLONY OPP ROADWAYS DEPOT TONK</td><td>XXXXXXXX3104</td><td>XXXXG9930P</td><td>XXXXXX8747</td><td>A+</td>
+		</tr><tr>
+			<td>DURGESH KUMARI</td><td>RJBW201208044734</td><td>RAM RATAN MEENA</td><td>F</td><td>27-06-1987</td><td>Teacher (III Gr.) Level 2</td><td>English</td><td>24/09/2018</td><td>4, NEAR PRAKASH HOTEL, JAIPUR ROAD, DEOLI</td><td>XXXXXXXX5120</td><td>XXXXD1369Q</td><td>XXXXXX8602</td><td>O+</td>
+		</tr><tr>
+			<td>GHISA LAL GURJAR</td><td>RJBW198508025854</td><td>ROOP LAL GURJAR</td><td>M</td><td>03-03-1964</td><td>Lecturer (I Gr.)</td><td>Hindi Literature</td><td>29/05/2018</td><td>V- ASAN P0ST- AMARWASI TEH- JAHAJPUR DIST-BHILWARA</td><td>XXXXXXXX4182</td><td>XXXXG9475J</td><td>XXXXXX7091</td><td>O+</td>
+		</tr><tr>
+			<td>GHIZALA PARVEEN</td><td>RJBW202008025917</td><td>MOHAMMED UMAR</td><td>F</td><td>25-01-1993</td><td>Senior Teacher (II Gr.)</td><td>Urdu</td><td>19/08/2020</td><td>DIWAN JI KE KUWE KE PAAS, KALIPALTAN, TONK, RAJASTHAN</td><td>XXXXXXXX0478</td><td>XXXXP3798G</td><td>XXXXXX4762</td><td>B+</td>
+		</tr><tr>
+			<td>GURTEJ SINGH</td><td>RJBW202208007199</td><td>Jaswant Singh</td><td>M</td><td>10-05-1985</td><td>Lecturer (I Gr.)</td><td>Home Science</td><td>23/03/2022</td><td>&nbsp;</td><td>XXXXXXXX0477</td><td>XXXXS8753R</td><td>XXXXXX0182</td><td>B+</td>
+		</tr><tr>
+			<td>INDIRA SHARMA</td><td>RJBW199208006136</td><td>BHANWAR LAL VIDYARTHY</td><td>F</td><td>12-01-1964</td><td>Teacher (III Gr.) Level 2</td><td>Mathematics/ Science</td><td>13/06/2016</td><td>INDIRA SHARMA JAISHIYA RAM MARG JAHAZPUR</td><td>XXXXXXXX6028</td><td>XXXXS7499G</td><td>XXXXXX6851</td><td>B+</td>
+		</tr><tr>
+			<td>MENA KUMARI JAIN</td><td>RJBW200508028567</td><td>PREM CHAND JAIN</td><td>F</td><td>25-12-1978</td><td>Teacher (III Gr.) Level 2</td><td>Hindi</td><td>09/06/2016</td><td>GALGATTI CHORAHA JAHAZPUR- BHILWARA</td><td>XXXXXXXX7289</td><td>XXXXJ2892P</td><td>XXXXXX2357</td><td>B+</td>
+		</tr><tr>
+			<td>MUKESH KUMAR KASOTIYA</td><td>RJBW200408000530</td><td>KALU RAM KASOTIYA</td><td>M</td><td>15-09-1985</td><td>&nbsp;</td><td>---</td><td>27/01/2023</td><td>BAGHSURI  BHWANI KHERA TH-NASIRABAD DIST-AJMER</td><td>XXXXXXXX0823</td><td>XXXXK8822D</td><td>XXXXXX3512</td><td>O+</td>
+		</tr><tr>
+			<td>MURALIDHAR SHARMA</td><td>RJBW201908005210</td><td>SHAMBHU DAYAL SHARMA</td><td>M</td><td>01-02-1993</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>02/12/2022</td><td>VILL. POST LUHARA TEH. NEWAI DIST. TONK</td><td>XXXXXXXX2293</td><td>XXXXS4655M</td><td>XXXXXX6684</td><td>B+</td>
+		</tr><tr>
+			<td>NEHA BULA</td><td>RJBW201308035564</td><td>VINOD KUMAR BULA</td><td>F</td><td>15-08-1992</td><td>Lab Assistant (III Gr.)</td><td>---</td><td>11/06/2018</td><td>Prarabdh,near jain mandir, Vivekanand colony,deoli</td><td>XXXXXXXX2665</td><td>XXXXB1888H</td><td>XXXXXX7630</td><td>O+</td>
+		</tr><tr>
+			<td>PRABHU LAL MEENA</td><td>RJJO201725041746</td><td>MOHAN LAL MEENA</td><td>M</td><td>01-07-1994</td><td>Senior Assistant</td><td>---</td><td>04/03/2022</td><td>VILLAGE POST LUHARI KALAN THSIL JHAZPUR DIST BHILWARA</td><td>XXXXXXXX4477</td><td>XXXXM9010R</td><td>XXXXXX1994</td><td>O+</td>
+		</tr><tr>
+			<td>PRERANA CHOWHAN</td><td>RJBW199008008801</td><td>YUDDHVEER SINGH</td><td>F</td><td>08-05-1966</td><td>Lecturer (I Gr.)</td><td>Biology (Science Stream)</td><td>26/10/2015</td><td>DEOLI ROAD JAHAJPUR</td><td>XXXXXXXX0007</td><td>XXXXC6860L</td><td>XXXXXX0282</td><td>B+</td>
+		</tr><tr>
+			<td>PRIYANKA MEENA</td><td>RJBW201308001674</td><td>RATAN LAL MEENA</td><td>F</td><td>16-07-1983</td><td>Senior Teacher (II Gr.)</td><td>Social Science</td><td>26/06/2015</td><td>CHAWANDIA COURT KE PASS  JAHAJPUR BHILWARA</td><td>XXXXXXXX4154</td><td>XXXXM0711K</td><td>XXXXXX4002</td><td>O+</td>
+		</tr><tr>
+			<td>RAM GOPAL MEENA</td><td>RJBW198908013757</td><td>BHUWANI RAM MEENA</td><td>M</td><td>10-07-1966</td><td>Lecturer (I Gr.)</td><td>Political Science</td><td>05/08/2017</td><td>GADOLI, JAHAZPUR, BHILWARA</td><td>XXXXXXXX8522</td><td>XXXXM8921B</td><td>XXXXXX7450</td><td>B+</td>
+		</tr><tr>
+			<td>SANDEEP KUMAR SWARNKAR</td><td>RJBW201508004118</td><td>NAND KISHORE SWARNKAR</td><td>M</td><td>01-01-1989</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>17/10/2022</td><td>jai siya ram marg near devla baba temple jahazpur </td><td>XXXXXXXX6257</td><td>XXXXS3130B</td><td>XXXXXX6764</td><td>B+</td>
+		</tr><tr>
+			<td>SHAKUNTALA VYAS</td><td>RJBW198608018234</td><td>KAJORI MAL SHARMA</td><td>F</td><td>14-01-1964</td><td>Lecturer (I Gr.)</td><td>Geography</td><td>28/08/2017</td><td>JANTA COLONY , BEHIND OF BUS STAND , DEOLI , TONK</td><td>XXXXXXXX2495</td><td>XXXXv4433e</td><td>XXXXXX0244</td><td>O+</td>
+		</tr><tr>
+			<td>SHEETAL SHARMA</td><td>RJBW200508028465</td><td>ANJANI KUMAR SHARMA</td><td>F</td><td>03-12-1981</td><td>Principal &amp; Equivalent</td><td>---</td><td>04/10/2021</td><td>SHEETAL SHARMA D/O SHREE ANJANI KUMAR SHARMA NEAR JAIN TEMPLE JAHAZPUR DIST. - BHILWARA [RAJ]</td><td>XXXXXXXX2285</td><td>XXXXs4598r</td><td>XXXXXX6698</td><td>B+</td>
+		</tr><tr>
+			<td>TANNAVI LODWAL</td><td>RJBW202008025571</td><td>BANWARI LAL LODWAL</td><td>F</td><td>21-02-1997</td><td>Lab Assistant (III Gr.)</td><td>---</td><td>15/08/2020</td><td>NEAR BAIRWA HOSTEL, JAIPUR ROAD, PHAGI, JAIPUR</td><td>XXXXXXXX1399</td><td>XXXXL4247K</td><td>XXXXXX8843</td><td>A+</td>
+		</tr><tr>
+			<td>VISHAL GOUTAM</td><td>RJBW201708021401</td><td>YANTI KUMAR SHARMA</td><td>M</td><td>04-07-1991</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>18/10/2022</td><td>V/P ANWA TEHSIL-DOONI</td><td>XXXXXXXX0863</td><td>XXXXG2205A</td><td>XXXXXX5066</td><td>B+</td>
+		</tr><tr>
+			<td>VISHNU KUMAR GOUTTAM</td><td>RJBW201708017173</td><td>MURARI LAL GOUTTAM</td><td>M</td><td>03-07-1994</td><td>Teacher (III Gr.) Level 1</td><td>---</td><td>02/12/2022</td><td>VIIL-SALRIYA KHURD, POST-RASED, BLOCK-SHAHPURA</td><td>XXXXXXXX7667</td><td>XXXXG7773D</td><td>XXXXXX0870</td><td>B+</td>
+		</tr>
+	</table>
+</div>

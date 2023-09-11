@@ -1,0 +1,111 @@
+
+<!DOCTYPE html><html><head>
+    <title>Contact </title>
+    <meta name="description" content="contact rdx for Reddit."/>
+    <link rel="shortcut icon" href="favicon.ico"> 
+  <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
+    <style>form {
+    padding: 15px;
+}
+
+input.bfii {
+    display: block;
+    padding: 5px 10px;
+    margin: 10px;
+    width: 79%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    border: 1px solid var(--textc);
+    background: var(--bodyc);
+    color: var(--textc);
+}
+
+textarea.bfit {
+    height: 82px;
+    display: block;
+    padding: 5px 10px;
+    margin: 10px;
+    width: 79%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    border: 1px solid var(--textc);
+    background: var(--bodyc);
+    color: var(--textc);
+    font-family: sans-serif;
+}
+
+input.bfis {}
+
+input.bfis {background: var(--linkc);color: var(--greyc);padding: 10px 30px;margin: 10px;border: 0px;cursor: pointer;border-radius: 10px;}
+
+p {
+    margin: 15px 30px 0px;
+}</style>
+</head>   
+
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="pagetitletext">Contact rdx</span>
+        </div>
+    </header>
+    <div id="body">
+    <p>Please provide your feedback and suggestions!</p>
+    <form method="post" action="https://support.overdevs.com/">
+    <input type="text" name="name" placeholder="Name" class="bfii" required>
+        <input type="email" name="emaik" placeholder="E-mail" class="bfii" required>
+        <textarea placeholder="Your message" class="bfit" id="txt" required></textarea>
+          <div class="g-recaptcha" data-sitekey="6Ld4JBgoAAAAAJnSjUrI84em4zJ4m3A9rfPsBUwd"></div>
+
+<input type="submit" class="bfis">
+    </form>
+    </div>
+    <script>
+            const textarea = document.getElementById('txt');
+textarea.value = '\n\n\n\n\n\n';
+        textarea.value += `User Agent: ${navigator.userAgent}\n`;
+        textarea.value += `Browser Language: ${navigator.language}\n`;
+        textarea.value += `Screen Resolution: ${window.screen.width}x${window.screen.height}\n`;
+        textarea.value += `Window Size: ${window.innerWidth}x${window.innerHeight}\n`;
+
+
+if(localStorage.getItem('color') == 'dark'){
+toggletheme('dark');
+}
+else {}
+
+function toggletheme(color){
+if(color == 'dark'){
+	
+document.documentElement.style.setProperty('--bodyc', '#111222');
+document.documentElement.style.setProperty('--textc', 'white');
+document.documentElement.style.setProperty('--linkc', '#d9d983');
+document.documentElement.style.setProperty('--greyc', '#222233');
+document.documentElement.style.setProperty('--lightc', '#ddd');
+localStorage.setItem('color','dark');
+}
+else {
+	
+		
+document.documentElement.style.setProperty('--bodyc', 'white');
+document.documentElement.style.setProperty('--textc', 'black');
+document.documentElement.style.setProperty('--linkc', '#27598c');
+document.documentElement.style.setProperty('--greyc', '#eee');
+document.documentElement.style.setProperty('--lightc', '#444');
+localStorage.setItem('color','light');
+}
+	
+}
+
+    </script>
+    </body></html>
