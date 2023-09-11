@@ -48,7 +48,7 @@ foreach($files as $file){
 echo "Processing ".$file."...";
 $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
-$data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> </body>',$data);
+$data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> </body>',$data);
 
 
 $newfilename = str_replace('html/','public/',$file);

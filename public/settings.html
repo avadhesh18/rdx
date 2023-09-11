@@ -1,0 +1,126 @@
+
+<!DOCTYPE html><html><head>
+    <title>Settings - rdx for reddit </title>
+    <meta name="description" content="settings page of rdx for Reddit."/>
+    <link rel="shortcut icon" href="favicon.ico"> 
+  <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style>#body {
+    padding: 15px;
+}
+b,li{display:block;padding:5px;margin:5px;}
+</style>
+</head>   
+
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="pagetitletext">Settings</span>
+        </div>
+    </header>
+    <div id="body">
+    
+      <b>Export Subscriptions:</b>
+      <li>
+    <button onclick="exportData()">Export Data</button></li>
+
+    <b>Import Data:</b>
+   <li> <input type="file" id="importInput" accept=".json"><br>
+    <button onclick="importData()">Upload & Import</button>
+    </li>
+    
+
+</div>
+    <script>
+
+if(localStorage.getItem('color') == 'dark'){
+toggletheme('dark');
+}
+else {}
+
+function toggletheme(color){
+if(color == 'dark'){
+	
+document.documentElement.style.setProperty('--bodyc', '#111222');
+document.documentElement.style.setProperty('--textc', 'white');
+document.documentElement.style.setProperty('--linkc', '#d9d983');
+document.documentElement.style.setProperty('--greyc', '#222233');
+document.documentElement.style.setProperty('--lightc', '#ddd');
+localStorage.setItem('color','dark');
+}
+else {
+	
+		
+document.documentElement.style.setProperty('--bodyc', 'white');
+document.documentElement.style.setProperty('--textc', 'black');
+document.documentElement.style.setProperty('--linkc', '#27598c');
+document.documentElement.style.setProperty('--greyc', '#eee');
+document.documentElement.style.setProperty('--lightc', '#444');
+localStorage.setItem('color','light');
+}
+	
+}
+
+        function exportData() {
+            const subs = localStorage.getItem('subs');
+            if (subs) {
+                const data = JSON.parse(subs);
+                const jsonData = JSON.stringify(data, null, 2);
+                const blob = new Blob([jsonData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'rdx_subs.json';
+                a.click();
+                URL.revokeObjectURL(url);
+            } else {
+                alert('Please subscribe to some subs before exporting!');
+            }
+        }
+
+        // Function to update localStorage with new data
+        function updateLocalStorage(data) {
+            localStorage.setItem('subs', JSON.stringify(data));
+        }
+
+        // Function to display the stored data
+        function displayStoredData() {
+          //  const subsData = exportData();
+            document.getElementById('storedData').textContent = JSON.stringify(subsData, null, 2);
+        }
+
+        // Function to import data from a JSON file
+        function importData() {
+            const fileInput = document.getElementById('importInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+                    try {
+                        const importedData = JSON.parse(event.target.result);
+                       
+
+                        updateLocalStorage(importedData);
+                       // displayStoredData();
+                        alert('Data imported successfully.');
+                    } catch (error) {
+                        alert(error+'Error importing data. Make sure the file is valid JSON.');
+                    }
+                };
+
+                reader.readAsText(file);
+            }
+        }
+
+
+    
+    </script>
+    </body></html>
+
