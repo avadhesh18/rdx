@@ -4,7 +4,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <meta name="description" content="rdx is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Reader for reddit."/>
     <link rel="shortcut icon" href="favicon.ico"> 
   <link rel="icon" href="favicon.png">
-      <link rel="manifest" href="/manifest.json" />
+<link rel="manifest" href="/manifest.json" />
  <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="rdx" />
     <meta   name="apple-mobile-web-app-status-bar-style" content="default" />

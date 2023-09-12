@@ -26,12 +26,15 @@ b,li{display:block;padding:5px;margin:5px;}
     </header>
     <div id="body">
     
+      <b>Change display mode</b>
+      <li id="cthemew"><a onclick="toggletheme('dark')" id="themebtn" style="color:var(--linkc)">Change to Dark mode</a></li>
       <b>Export Subscriptions:</b>
       <li>
     <button onclick="exportData()">Export Data</button></li>
 
-    <b>Import Data:</b>
-   <li> <input type="file" id="importInput" accept=".json"><br>
+    <b>Import Subscriptions:</b>
+    <li>Upload a rdx_subs.json file to import your rdx subscriptions.</li>
+   <li> <input type="file" id="importInput" accept=".json"><br><br>
     <button onclick="importData()">Upload & Import</button>
     </li>
     
@@ -46,7 +49,8 @@ else {}
 
 function toggletheme(color){
 if(color == 'dark'){
-	
+		document.getElementById('cthemew').innerHTML = '<a style="color:var(--linkc)" onclick="toggletheme(\'light\')" id="themebtn">Change to Light mode</a>';
+
 document.documentElement.style.setProperty('--bodyc', '#111222');
 document.documentElement.style.setProperty('--textc', 'white');
 document.documentElement.style.setProperty('--linkc', '#d9d983');
@@ -55,7 +59,8 @@ document.documentElement.style.setProperty('--lightc', '#ddd');
 localStorage.setItem('color','dark');
 }
 else {
-	
+			document.getElementById('cthemew').innerHTML = '<a style="color:var(--linkc)" onclick="toggletheme(\'dark\')" id="themebtn">Change to Dark mode</a>';
+
 		
 document.documentElement.style.setProperty('--bodyc', 'white');
 document.documentElement.style.setProperty('--textc', 'black');
