@@ -53,8 +53,8 @@ $headhtml = '<!DOCTYPE html><html><head>
     <header id="header">
         <div id="pagetitle">
             <span id="plus" onclick="toggle(\'leftbar\')">+</span>
-            <span id="pagetitletext" onclick="toggle(\'subssearch\')">Loading...</span>
-            <svg onclick="toggle(\'subssearch\')" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg>
+            <span id="taptoopenmenu" onclick="toggle(\'subssearch\')"><span id="pagetitletext">Loading...</span>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></span>
             <span id="menu" onclick="toggle(\'rightbar\')"><span class="menubars">Menu</span></span>
         </div>
     </header>
