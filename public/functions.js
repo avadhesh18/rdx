@@ -222,7 +222,11 @@ let fakect = ' actv';
 		if(typeof vidposter == "undefined"){
 			vidposter = postjson["thumbnail"];
 		}
-		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" data-fallback="'+fallbackurl+'" data-hls="'+hlsurl+'" poster="'+postjson["preview"]['images']['0']['source']['url']+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
+		else {
+			
+			vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
+		}
+		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" data-fallback="'+fallbackurl+'" data-hls="'+hlsurl+'" poster="'+vidposter+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
 		}
 		else {returnpost += 'crosspost';}
 	returnpost += '</div>';
