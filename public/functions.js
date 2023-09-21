@@ -218,7 +218,7 @@ let fakect = ' actv';
 		hlsurl =  postjson['secure_media']['reddit_video']['hls_url']; 
 		fallbackurl = postjson['secure_media']['reddit_video']['fallback_url']; 
 		//returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" onplay="playaud(\'a'+postjson['id']+'\')"  onpause="pauseaud(\'a'+postjson['id']+'\')"  onseeking="pauseaud(\'a'+postjson['id']+'\')"  onseeked="seeked(\''+postjson['id']+'\')"   controls> </video><audio src="'+urli+'/DASH_audio.mp4" id="a'+postjson['id']+'" controls></audio>	';
-		vidposter = postjson["preview"]['images']['0']['source']['url'];
+		vidposter = postjson["preview"];
 		if(typeof vidposter == "undefined"){
 			vidposter = postjson["thumbnail"];
 		}
