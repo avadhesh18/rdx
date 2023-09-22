@@ -64,11 +64,12 @@ $headhtml = '<!DOCTYPE html><html><head>
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks">Home</a>
+                <a onClick="window.location.reload()" class="homelinks">Refresh</a>
                 <a href="subreddit.html?r=all" class="homelinks">All</a>
                 <a href="subreddit.html?r=popular" class="homelinks">Popular</a>
                 <div id="subscribed">Subscribe to subreddits to view them here.</div>
                 <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a>
-                 </div>
+              </div>
             </div>
         </div>
         <div id="rightbar" class="hidden"></div>
