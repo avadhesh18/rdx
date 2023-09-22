@@ -156,7 +156,7 @@ div#pagetitle {
     text-align: center;
     background: #eee;
 	background:var(--greyc);
-    padding: 8px;
+    padding: 10px;
 }
 .navigate {
     padding: 10px 0px;
@@ -365,8 +365,8 @@ div#header {
 span#plus {
     float: left;
 	    position: absolute;
-    left: 10px;
-    padding: 5px 10px 5px 5px;
+       left: 0px;
+    padding: 5px 13px 5px 12px;
     margin-top: -5px;
 }
 a.wholethumb {
@@ -548,7 +548,8 @@ form.search {
 }span.authorttext.isop {}
 
 span#menu {
-    margin-top: -5px;
+      padding: 5px 5px 10px 10px;
+    margin-top: -10px;
 }
 div#paginate {
     text-align: center;
@@ -603,4 +604,20 @@ a.bmac {
 overflow:hidden;
 
     }
+}
+span#taptoopenmenu {
+    padding: 10px;
+}
+@media all and (display-mode: standalone) {
+header#header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+div#body {
+    margin-top: 43px;
+}
+
 }
