@@ -78,7 +78,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}\'></script> ';
 $files = glob("html/*.html");
 foreach($files as $file){
-echo "Processing ".$file."...";
+echo "Processing: ".$file."...";
 $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
 $data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> </body>',$data);
