@@ -226,7 +226,7 @@ let fakect = ' actv';
 			
 			vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
 		}
-		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'" data-fallback="'+fallbackurl+'" data-hls="'+hlsurl+'" poster="'+vidposter+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
+		returnpost +='<video id="v'+postjson['id']+'" src="'+vidurl+'#t=0.001" data-fallback="'+fallbackurl+'" data-hls="'+hlsurl+'" poster="'+vidposter+'" width="100%" height="240" preload="metadata" class="reddit_hls"  controls> </video>';
 		}
 		else {returnpost += 'crosspost';}
 	returnpost += '</div>';
@@ -249,7 +249,7 @@ let fakect = ' actv';
 		}
 		vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
 		
-		returnpost +='<video src="'+vidurl+'" poster="'+postjson["preview"]["images"]["0"]["source"]["url"]+'" width="100%" height="240" preload="metadata" controls> </video>';
+		returnpost +='<video src="'+vidurl+'#t=0.001" poster="'+postjson["preview"]["images"]["0"]["source"]["url"]+'" width="100%" height="240" preload="metadata" controls> </video>';
 	}
 	returnpost += '</div>';
 	}
@@ -278,7 +278,7 @@ let fakect = ' actv';
 	{
 	returnpost += '<div class="postc video">';
 	vidurl = urli.replace(".gifv", ".mp4") 
-	returnpost +='<video src="'+vidurl+'" poster="'+postjson["thumbnail"]+'" width="100%" height="240" preload="metadata" controls> </video>';
+	returnpost +='<video src="'+vidurl+'" poster="'+postjson["thumbnail"]+'#t=0.001" width="100%" height="240" preload="metadata" controls> </video>';
 	returnpost += '</div>';
 	}
 	else {
