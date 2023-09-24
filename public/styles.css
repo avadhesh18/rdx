@@ -537,6 +537,7 @@ button.sfwtoggle {
     border: 1px solid;
     width: 100%;
 }
+
 div#popitup {
     background: black;
     background: var(--greyc);
@@ -611,7 +612,7 @@ span#menu {
 }
 div#paginate {
     text-align: center;
-}
+} 
 
 button#loadmore1 {
     background: var(--greyc);
@@ -622,6 +623,24 @@ button#loadmore1 {
     width: 123px;
     margin-bottom: 10px;
     font-size: 17px;
+}
+.comment-reply span {
+    color: var(--lightc);
+    font-size: 14px;
+    text-transform: lowedrcase;
+    padding: 3px 7px;
+    margin-bottom: -5px;
+    display:inline-block;
+      background:var(--bodyc);
+    border-radius:4px;
+    margin-right:10px;
+    margin-left:-5px;
+    
+}
+
+.comment-reply {
+    margin-bottom: -3px;
+   
 }
 .collapsed .comment_text{
 

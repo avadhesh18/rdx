@@ -164,8 +164,8 @@ returnfpost += pollbuilder(post);
 
 
 returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
-if(localStorage.getItem('clientId') != null){
-returnfpost += ' &bull; <span onclick="replyto(\'t3_'+post['id']+'\')">Reply</span>';
+if (localStorage.getItem('clientId') !== null && window.location.href.includes('comments.html')) {
+  returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
 returnfpost += '</div></div>';
 return returnfpost;
@@ -471,9 +471,15 @@ function submitComment(thingId, commentText, accessToken) {
         	    document.getElementById('cmntbtn').disabled = false;
     document.getElementById('cmntbtn').value = 'Submit';
         document.getElementById('popitup').style.display = 'none';
-
+document.getElementById('commentText').value = '';
     ebId = thingId.replace(/^(t1_|t3_)/, '');
-            ebId.insertAdjacentHTML('afterEnd','<div class="comment ccp0"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">'+commentText+'</div></div>');
+    let ccclass= "ccp0";
+    if(document.getElementById(ebId).className != "post"){
+     let ccNumber = document.getElementById("bin").className.match(/ccp\d+/)[0].replace("ccp", "");
+     ccNumber = Math.floor(ccNumber)+1;
+ccclass = "ccp" + ccNumber;
+}
+            document.getElementById('ebId').insertAdjacentHTML('afterEnd','<div class="comment '+ccclass+'"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">'+commentText+'</div></div>');
         }
     })
     .catch(error => {
