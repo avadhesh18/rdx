@@ -11,7 +11,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="styles.css" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
-     <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_14_Pro_Max_landscape.png">
+ <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_14_Pro_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png">
@@ -86,8 +86,11 @@ $data = str_replace('<!--headhtml-->',$headhtml,$data);
 
 $data = str_replace('</body>','<div class="footer"><a href="https://www.producthunt.com/posts/rdx-for-reddit?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-rdx&#0045;for&#0045;reddit" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=415907&theme=light" alt="rdx&#0032;for&#0032;Reddit - An&#0032;Apollo&#0032;inspired&#0032;web&#0032;viewer&#0032;for&#0032;Reddit | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a> <br><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> </body>',$data);
 
+
+
+
 $newfilename = str_replace('html/','public/',$file);
 file_put_contents($newfilename,$data);
-   }
+      }
 
 ?>
