@@ -339,10 +339,14 @@ isop = comment['is_submitter'] == true ? "isop" : "";
 ismod = comment['distinguished'] == 	" moderator" ? "ismod" : "";
 
 
-
+ 
 cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div>';
 if(localStorage.getItem('clientId') != null){
-cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span></div>';
+cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span>';
+if(localStorage.getItem('userName') == comment['author']){
+cret += '<span onclick="editto(\'t1_'+comment['id']+'\')">Reply</span><span onclick="deleteto(\'t1_'+comment['id']+'\')">Reply</span>';
+}
+cret += '</div>';
 }
 cret += '</div>';
 return cret;
@@ -402,24 +406,43 @@ document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
 function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
+document.getElementById('actype').value = "c";
 }
-
-function makeComment() {
+function editto(cmtid){
+document.getElementById('popitup').style.display = 'block';
+document.getElementById('cmtid').value = cmtid;
+document.getElementById('actype').value = "e";
+}
+function deleteto(cmtid){
+document.getElementById('cmtid').value = cmtid;
+document.getElementById('actype').value = "d";
+apiAction();
+}
+function apiAction() {
     const accessToken = localStorage.getItem('accessToken');
     const expiresIn = localStorage.getItem('expiresIn');
     const refreshToken = localStorage.getItem('refreshToken');
     const clientId = localStorage.getItem('clientId');
     const clientSecret = localStorage.getItem('clientSecret');
     const redirectUri = 'https://rdx.overdevs.com/login.html'; 
-    const thingId =  document.getElementById('cmtid').value;
-    const commentText = document.getElementById('commentText').value;
+    const actionType  = document.getElementById('actype').value;
+ 
     document.getElementById('cmntbtn').disabled = true;
     document.getElementById('cmntbtn').value = 'Submitting...';
     if (accessToken && expiresIn) {
         const currentTimestamp = Date.now();
         const expiresAt = parseInt(expiresIn);
         if (currentTimestamp < expiresAt) {
-            submitComment(thingId, commentText, accessToken);
+        if(actionType == "c") {
+            submitComment(accessToken);
+           }
+           else if(actionType == "e") {
+           	editComment(accessToken);
+           }
+           else if(actionType == "d") {
+           	delComment(accessToken);
+           }
+           else {}
         } else {
             // Access token has expired, renew it using refreshToken
             fetch(tokenUrl, {
@@ -439,7 +462,16 @@ function makeComment() {
                 localStorage.setItem('accessToken', newAccessToken);
                 localStorage.setItem('refreshToken', newRefreshToken);
                 localStorage.setItem('expiresIn', expirationTimestamp.toString());
-                submitComment(thingId, commentText, newAccessToken);
+                  if(actionType == "c") {
+            submitComment(accessToken);
+           }
+           else if(actionType == "e") {
+           	editComment(accessToken);
+           }
+           else if(actionType == "d") {
+           	delComment(accessToken);
+           }
+           else {}
             })
             .catch(error => {
             	    document.getElementById('cmntbtn').disabled = false;
@@ -452,7 +484,9 @@ function makeComment() {
     }
 }
 
-function submitComment(thingId, commentText, accessToken) {
+function submitComment(accessToken) {
+   const thingId =  document.getElementById('cmtid').value;
+    const commentText = document.getElementById('commentText').value;
     const commentUrl = 'https://oauth.reddit.com/api/comment';
     fetch(commentUrl, {
         method: 'POST',
@@ -472,7 +506,7 @@ function submitComment(thingId, commentText, accessToken) {
     document.getElementById('cmntbtn').value = 'Submit';
         document.getElementById('popitup').style.display = 'none';
 document.getElementById('commentText').value = '';
-    ebId = thingId.replace(/^(t1_|t3_)/, '');
+    let ebId = thingId.replace(/^(t1_|t3_)/, '');
     let ccclass= "ccp0";
     if(document.getElementById(ebId).className != "post"){
      let ccNumber = document.getElementById(ebId).className.match(/ccp\d+/)[0].replace("ccp", "");
@@ -489,7 +523,64 @@ ccclass = "ccp" + ccNumber;
     });
 }
 
+function editComment(accessToken) {
+   const thingId =  document.getElementById('cmtid').value;
+    const commentText = document.getElementById('commentText').value;
+    const commentUrl = 'https://oauth.reddit.com/api/editusertext';
+    fetch(commentUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${accessToken}`,
+            'Content-Type': 'application/x-www-form-urlencoded',         },
+        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`, 
+            })
+    .then(response => response.json())
+    .then(commentData => {
+        if (commentData.errors && commentData.errors.length > 0) {
+        	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+            alert('Error editing comment:'+ commentData.errors);
+        } else {
+        	    document.getElementById('cmntbtn').disabled = false;
+        	     document.getElementById('cmntbtn').value = 'Submit';
+        	        document.getElementById('popitup').style.display = 'none';
+document.getElementById('commentText').value = '';
+let ebId = thingId.replace(/^(t1_|t3_)/, '');
+        	    document.getElementById(ebId).querySelector('.comment_text').textContent = commentText;
+        } 
+    })
+    .catch(error => {
+    	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+        alert('Error editing comment:'+ error);
+    });
+}
 
+function delComment(accessToken) {
+   const thingId =  document.getElementById('cmtid').value;
+   const commentUrl = 'https://oauth.reddit.com/api/del';
+    fetch(commentUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${accessToken}`,
+            'Content-Type': 'application/x-www-form-urlencoded',         },
+        body: `id=${thingId}`, 
+            })
+    .then(response => response.json())
+    .then(commentData => {
+        if (commentData.errors && commentData.errors.length > 0) {
+
+            alert('Error deleting comment:'+ commentData.errors);
+        } else {
+        	
+let ebId = thingId.replace(/^(t1_|t3_)/, '');
+        	    document.getElementById(ebId).style.display = 'none';
+        } 
+    })
+    .catch(error => {
+        alert('Error deleting comment:'+ error);
+    });
+}
 
 window.onload = function(){
 	curq = getget('q') ? getget('q'): '';
