@@ -165,7 +165,7 @@ returnfpost += pollbuilder(post);
 
 returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
 if(localStorage.getItem('clientId') != null){
-cret += ' &bull; <span onclick="replyto(\'t3_'+post['id']+'\')">Reply</span>';
+returnfpost += ' &bull; <span onclick="replyto(\'t3_'+post['id']+'\')">Reply</span>';
 }
 returnfpost += '</div></div>';
 return returnfpost;
