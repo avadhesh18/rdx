@@ -97,7 +97,7 @@ document.documentElement.style.setProperty('--lightc', '#ddd');
                 localStorage.setItem('clientSecret', inputClientSecret);
 
                
-                const authUrl = `${authorizeUrl}?client_id=${inputClientId}&response_type=code&state=random_state&redirect_uri=${encodeURIComponent(redirectUri)}&duration=permanent&scope=submit`;
+                const authUrl = `${authorizeUrl}?client_id=${inputClientId}&response_type=code&state=random_state&redirect_uri=${encodeURIComponent(redirectUri)}&duration=permanent&scope=submit,edit,identity,vote,privatemessages`;
                 window.location.href = authUrl;
             });
         } else {
@@ -124,10 +124,18 @@ document.documentElement.style.setProperty('--lightc', '#ddd');
                     localStorage.setItem('accessToken', accessToken);
                     localStorage.setItem('refreshToken', refreshToken);
                     localStorage.setItem('expiresIn', expirationTimestamp.toString());
+                    fetch('https://oauth.reddit.com/api/v1/me', {
+  headers: {
+    'Authorization': 'Bearer '+accessToken
+  }
+})
+  .then(response => response.json())
+  .then(data => localStorage.setItem('userName', data.name))
+  .catch(error => console.error('Error:', error));
  document.getElementById('login').style.display = 'block';
  setTimeout(() => {
                     window.location.href = 'index.html';
-                    }, 3000);
+                    }, 20000);
                 })
                 .catch(error => {
                     alert('Error:', error);
