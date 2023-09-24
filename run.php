@@ -89,7 +89,7 @@ $data = str_replace('</body>','<div class="footer"><a href="https://www.producth
     <span onclick="document.getElementById(\'popitup\').style.display=\'none\'">Cancel</span>
 <textarea class="cmntarea" id="commentText" placeholder="Write a reply!"></textarea>
 <input id="cmtid" value="" type="hidden"/><button id="cmntbtn" onclick="makeComment();">Submit</button>
-</div></body>',$data);
+</div>  </body>',$data);
 
 
 
