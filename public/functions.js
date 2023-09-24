@@ -402,7 +402,7 @@ document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
   	if(navigator.share){const t=window.location.href;const n=document.title;const e={title:n,url:t};navigator.share(e).then(()=>{console.log("Shared successfully")}).catch(e=>{console.error("Error sharing:",e)})}
   	else{const t=window.location.href,n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n),alert("Link copied to clipboard: "+t)}
   }
-
+ 
 function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
