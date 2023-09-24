@@ -344,7 +344,7 @@ cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div
 if(localStorage.getItem('clientId') != null){
 cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span>';
 if(localStorage.getItem('userName') == comment['author']){
-cret += '<span onclick="editto(\'t1_'+comment['id']+'\')">Reply</span><span onclick="deleteto(\'t1_'+comment['id']+'\')">Reply</span>';
+cret += '<span onclick="editto(\'t1_'+comment['id']+'\')">Edit</span><span onclick="deleteto(\'t1_'+comment['id']+'\')">Delete</span>';
 }
 cret += '</div>';
 }
@@ -411,12 +411,17 @@ document.getElementById('actype').value = "c";
 function editto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
+let ebid = cmtid.replace(/^(t1_|t3_)/, '');
+document.getElementById('commentText').value = document.getElementById(ebId).querySelector('.comment_text').textContent;
 document.getElementById('actype').value = "e";
 }
 function deleteto(cmtid){
-document.getElementById('cmtid').value = cmtid;
-document.getElementById('actype').value = "d";
-apiAction();
+ const confirmation = confirm("Are you sure you want to delete this?");
+    if (confirmation) {
+        document.getElementById('cmtid').value = cmtid;
+        document.getElementById('actype').value = "d";
+        apiAction();
+    }
 }
 function apiAction() {
     const accessToken = localStorage.getItem('accessToken');
