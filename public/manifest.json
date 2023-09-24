@@ -17,7 +17,19 @@
   ],
   "start_url": "/",
   "display": "standalone",
+  "scope": "https://rdx.overdevs.com/"
   "theme_color": "#000000",
+  "shortcuts" : [
+  {
+    "name": "All",
+    "url": "/subreddit.html?r=all",
+    "description": "View r/all"
+  },
+  {
+    "name": "Popular",
+    "url": "/subreddit.html?r=all"
+  }
+],
   "background_color": "#000000",
   "description": "rdx for reddit is a lightweight web viewer for Reddit.",
   "categories": ["social", "news"]
