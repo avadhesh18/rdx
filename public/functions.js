@@ -411,7 +411,7 @@ document.getElementById('actype').value = "c";
 function editto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
-let ebid = cmtid.replace(/^(t1_|t3_)/, '');
+let ebId = cmtid.replace(/^(t1_|t3_)/, '');
 document.getElementById('commentText').value = document.getElementById(ebId).querySelector('.comment_text').textContent;
 document.getElementById('actype').value = "e";
 }
