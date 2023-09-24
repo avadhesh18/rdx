@@ -1,0 +1,143 @@
+<!DOCTYPE html><html><head>
+    <title>Enable login - rdx for reddit </title>
+    <meta name="description" content="Enable of rdx for Reddit."/>
+    <link rel="shortcut icon" href="favicon.ico"> 
+  <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+ <meta name="robots" content="noindex,nofollow"/>
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style>#body {
+    padding: 15px;
+}
+b,li{display:block;padding:5px;margin:5px;}
+form {
+    padding: 15px;
+}
+
+input[type=text] {
+    display: block;
+    padding: 5px 10px;
+    margin: 10px;
+    width: 79%;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    border: 1px solid var(--textc);
+    background: var(--bodyc);
+    color: var(--textc);
+}
+input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 30px;margin: 10px;border: 0px;cursor: pointer;border-radius: 10px;}
+
+</style>
+</head>   
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="pagetitletext">Login to RDX</span>
+        </div>
+    </header>
+    <div id="body">
+    <div id="authForm" style="display: none;">
+    <li>If you want to log in to RDX to be able to reply to posts etc. (very limited functionality ) </li><li> 1. Go to <a href="https://www.reddit.com/prefs/apps">https://www.reddit.com/prefs/apps</a> then login and create an app. </li><li> 2. Name it anything, select script(personal use) under use </li><li> 3. In the redirect url enter https://rdx.overdevs.com/login.html</li><li>4. Copy the client id (displayed below your username), client secret here and then authorise.</li>
+    
+ <form>
+        <li >Client ID:</li>
+        <input type="text" id="clientId" required><br>
+        <li>Client Secret:</li>
+        <input type="text" id="clientSecret" required><br>
+        <input type="submit" value="Authorise">
+    </form>
+    <li>Everything is saved locally on your phone. RDX does not save your client secret and id anywhere except your phone. <br>After login you will be redirected to homepage.</li>
+</div>
+<div id="login" style="display: none;">
+Log in succesful! Redirecting you to homepage in 3 seconds!
+</div>
+    
+
+</div>
+    <script>
+
+if(localStorage.getItem('color') == 'dark'){
+toggletheme('dark');
+}
+else {}
+
+function toggletheme(color){
+if(color == 'dark'){
+document.documentElement.style.setProperty('--bodyc', '#111222');
+document.documentElement.style.setProperty('--textc', 'white');
+document.documentElement.style.setProperty('--linkc', '#d9d983');
+document.documentElement.style.setProperty('--greyc', '#222233');
+document.documentElement.style.setProperty('--lightc', '#ddd');
+}}
+
+    const authorizeUrl = 'https://www.reddit.com/api/v1/authorize';
+    const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
+    const commentUrl = 'https://oauth.reddit.com/api/comment';
+
+
+    function redirectToAuth() {
+        const clientId = localStorage.getItem('clientId');
+        const clientSecret = localStorage.getItem('clientSecret');
+        const redirectUri = 'https://rdx.overdevs.com/login.html'; 
+        
+        if (!clientId || !clientSecret) {
+            document.getElementById('authForm').style.display = 'block';
+
+            document.getElementById('authForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const inputClientId = document.getElementById('clientId').value;
+                const inputClientSecret = document.getElementById('clientSecret').value;
+
+                localStorage.setItem('clientId', inputClientId);
+                localStorage.setItem('clientSecret', inputClientSecret);
+
+               
+                const authUrl = `${authorizeUrl}?client_id=${inputClientId}&response_type=code&state=random_state&redirect_uri=${encodeURIComponent(redirectUri)}&duration=permanent&scope=submit`;
+                window.location.href = authUrl;
+            });
+        } else {
+      
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            if (code) {
+                fetch(tokenUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+                    },
+                    body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(redirectUri)}`,
+                })
+                .then(response => response.json())
+                .then(tokenData => {
+                    const accessToken = tokenData.access_token;
+                    const refreshToken = tokenData.refresh_token;
+                    const expiresIn = tokenData.expires_in; // Expires in seconds
+
+                    const expirationTimestamp = Date.now() + (expiresIn * 1000);
+
+                    localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('refreshToken', refreshToken);
+                    localStorage.setItem('expiresIn', expirationTimestamp.toString());
+ document.getElementById('login').style.display = 'block';
+ setTimeout(() => {
+                    window.location.href = 'index.html';
+                    }, 3000);
+                })
+                .catch(error => {
+                    alert('Error:', error);
+                });
+            }
+        }
+    }
+
+    redirectToAuth();
+
+    
+    </script>
+    </body></html>

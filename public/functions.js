@@ -161,7 +161,13 @@ returnfpost += pollbuilder(post);
 }
 }
 
-returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments</div></div>';
+
+
+returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
+if(localStorage.getItem('clientId') != null){
+cret += ' &bull; <span onclick="replyto(\'t3_'+post['id']+'\')">Reply</span>';
+}
+returnfpost += '</div></div>';
 return returnfpost;
 }
 function allown_sfw(){
@@ -334,7 +340,11 @@ ismod = comment['distinguished'] == 	" moderator" ? "ismod" : "";
 
 
 
-cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div></div>';
+cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div>';
+if(localStorage.getItem('clientId') != null){
+cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span></div>';
+}
+cret += '</div>';
 return cret;
 }
 function runhsl(){
@@ -388,6 +398,92 @@ document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
   	if(navigator.share){const t=window.location.href;const n=document.title;const e={title:n,url:t};navigator.share(e).then(()=>{console.log("Shared successfully")}).catch(e=>{console.error("Error sharing:",e)})}
   	else{const t=window.location.href,n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n),alert("Link copied to clipboard: "+t)}
   }
+
+function replyto(cmtid){
+document.getElementById('popitup').style.display = 'block';
+document.getElementById('cmtid').value = cmtid;
+}
+
+function makeComment() {
+    const accessToken = localStorage.getItem('accessToken');
+    const expiresIn = localStorage.getItem('expiresIn');
+    const refreshToken = localStorage.getItem('refreshToken');
+    const clientId = localStorage.getItem('clientId');
+    const clientSecret = localStorage.getItem('clientSecret');
+    const redirectUri = 'https://rdx.overdevs.com/login.html'; 
+    const thingId =  document.getElementById('cmtid').value;
+    const commentText = document.getElementById('commentText').value;
+    document.getElementById('cmntbtn').disabled = true;
+    document.getElementById('cmntbtn').value = 'Submitting...';
+    if (accessToken && expiresIn) {
+        const currentTimestamp = Date.now();
+        const expiresAt = parseInt(expiresIn);
+        if (currentTimestamp < expiresAt) {
+            submitComment(thingId, commentText, accessToken);
+        } else {
+            // Access token has expired, renew it using refreshToken
+            fetch(tokenUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+                },
+                body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
+            })
+            .then(response => response.json())
+            .then(tokenData => {
+                const newAccessToken = tokenData.access_token;
+                const newRefreshToken = tokenData.refresh_token;
+                const expiresIn = tokenData.expires_in; // Expires in seconds
+                const expirationTimestamp = currentTimestamp + (expiresIn * 1000);
+                localStorage.setItem('accessToken', newAccessToken);
+                localStorage.setItem('refreshToken', newRefreshToken);
+                localStorage.setItem('expiresIn', expirationTimestamp.toString());
+                submitComment(thingId, commentText, newAccessToken);
+            })
+            .catch(error => {
+            	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+                alert('Error refreshing token:', error);
+            });
+        }
+    } else {
+        window.location.href = 'login.html';
+    }
+}
+
+function submitComment(thingId, commentText, accessToken) {
+    const commentUrl = 'https://oauth.reddit.com/api/comment';
+    fetch(commentUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${accessToken}`,
+            'Content-Type': 'application/x-www-form-urlencoded',         },
+        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`, 
+            })
+    .then(response => response.json())
+    .then(commentData => {
+        if (commentData.errors && commentData.errors.length > 0) {
+        	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+            alert('Error submitting comment:'+ commentData.errors);
+        } else {
+        	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+        document.getElementById('popitup').style.display = 'none';
+
+    ebId = thingId.replace(/^(t1_|t3_)/, '');
+            ebId.insertAdjacentHTML('afterEnd','<div class="comment ccp0"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">'+commentText+'</div></div>');
+        }
+    })
+    .catch(error => {
+    	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+        alert('Error submitting comment:'+ error);
+    });
+}
+
+
 
 window.onload = function(){
 	curq = getget('q') ? getget('q'): '';

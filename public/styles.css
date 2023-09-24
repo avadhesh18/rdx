@@ -537,6 +537,55 @@ button.sfwtoggle {
     border: 1px solid;
     width: 100%;
 }
+div#popitup {
+    background: black;
+    background: var(--greyc);
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-top: 5px solid var(--bodyc);
+    z-index:1000;
+}
+
+textarea#commentText {
+    background: grey;
+    background: var(--bodyc);
+    width: 88%;
+    margin: 15px auto 15px;
+    padding:10px;
+    border:1px solid var(--bodyc);
+    display: block;
+    color: var(--textc);
+    font-family: sans-serif;
+    max-width: 400px;
+    height: 75px;
+    clear: both;
+    outline: none;
+}
+
+button#cmntbtn {
+    display: block;
+    color: red;
+    text-decoration: none;
+    background: transparent;
+    color: var(--linkc);
+    border: 1px solid var(--linkc);
+    text-align: center;
+    padding: 5px;
+    margin: 10px;
+    border-radius: 6px;
+    width: 90%;
+    margin: 0 auto 25px;
+    max-width: 400px;
+}
+
+div#popitup span {
+    float: right;
+    padding: 10px 20px;
+    display: block;
+    color: var(--linkc);
+}
 div#cthemew a {
     color: var(--linkc);
     padding: 10px;
