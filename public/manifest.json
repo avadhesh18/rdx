@@ -17,7 +17,7 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "scope": "https://rdx.overdevs.com/"
+  "scope": "https://rdx.overdevs.com/",
   "theme_color": "#000000",
   "shortcuts" : [
   {
