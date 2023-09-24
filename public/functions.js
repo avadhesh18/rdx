@@ -478,7 +478,7 @@ document.getElementById('commentText').value = '';
      let ccNumber = document.getElementById(ebId).className.match(/ccp\d+/)[0].replace("ccp", "");
      ccNumber = Math.floor(ccNumber)+1;
 ccclass = "ccp" + ccNumber;
-} 
+}  
             document.getElementById(ebId).insertAdjacentHTML('afterEnd','<div class="comment '+ccclass+'"><div class="comment_author"><span class="authorttext ">You</span>  <span class="comment_meta">1 votes • Just now </span></div><div class="comment_text">'+commentText+'</div></div>');
         } 
     })

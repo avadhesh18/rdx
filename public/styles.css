@@ -547,6 +547,7 @@ div#popitup {
     bottom: 0;
     border-top: 5px solid var(--bodyc);
     z-index:1000;
+    box-shadow:0px -16px 32px #0000004d;
 }
 
 textarea#commentText {
