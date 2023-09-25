@@ -6,7 +6,7 @@
  
 function doit(){
 username = getget('u')
-links = '<a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
+links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
 if(checklc('subs','u_'+username)){
 links += '<a onclick="unsubscribe(\'u_'+username+'\')" id="subbtn">Unfollow</a>>';
 }
