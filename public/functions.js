@@ -680,7 +680,10 @@ window.onload = function(){
     }
 	html1 += '<input type="submit" value="Search"/></form>';
 	if (localStorage.getItem('refreshToken') !== null) {
+		const uu = localStorage.getItem('userName');
+			html1 +=  '<a href="user.html?u=+'+uu+'" class="homelinks">'+uu+'</a>';
 		html1 +=  '<a href="inbox.html" class="homelinks">Inbox</a>';
+	
 	}
 	
 	document.getElementById("leftbar").insertAdjacentHTML("afterBegin",
