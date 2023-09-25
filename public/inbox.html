@@ -208,25 +208,23 @@ console.log(inboxMessages);
     const context = itemData.context;
 
 const date = new Date(created_utc * 1000);
-const userTimezoneOffset = date.getTimezoneOffset();
-date.setMinutes(date.getMinutes() - userTimezoneOffset);
 const options = {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'};
 
-const formattedDate = date.toLocaleString(undefined, options);
+const formattedDate = date.toLocaleString(date, options);
 
     if (kind === 't1') {
+      html += `<div class="inboxmsgwrap" id="${name}"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a></span> &bull;  <span class="ibxtime">${formattedDate}</span></div>`;
+      html += `<div class="ibxsub">${subject}</div>`;
+      html += `<div class="ibxlink"><a href="comments.html?url=${context}">${link_title}</a></div>`;
+      html += `<div class="ibxmsg">↪ ${body_html}</div>`;
+      html += `<div class="ibxactions"><span onclick="replyto('${name}')">Reply</span></div></div>`;
+    } else if (kind === 't4') {
       html += `<div class="inboxmsgwrap" id="${name}"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
-      html += `<div class="ibxlink"><a href="${context}">${link_title}</a></div>`;
       html += `<div class="ibxmsg">${body_html}</div>`;
-      html += `<div class="ibxactions"><button onclick="replyto('${name}')">Reply</button></div></div>`;
-    } else if (kind === 't4') {
-      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
-      html += `<div class="ibxsub">${subject}</div>`;
-      html += `<div class="ibxmsg">${body_html}</div>`;
-      html += `<div class="ibxactions"><button onclick="replyto('${name}')">Reply</button></div></div>`;
+      html += `<div class="ibxactions"><span onclick="replyto('${name}')">Reply</span></div></div>`;
 
-    }
+    } 
   });
 document.getElementById('inboxbody').innerHTML = html;
     }
@@ -238,4 +236,45 @@ document.getElementById('inboxbody').innerHTML = html;
 }
   inboxto();
     </script>
+    <style>.inboxmsgwrap {
+    background: var(--greyc);
+    margin: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+    word-wrap: break-word;
+    line-height: 19px;
+}
+
+.ibxmeta {
+    font-size: 14px;
+    padding: 10px;
+}
+
+.ibxsub {
+    padding: 10px;
+    background: var(--bodyc);
+    border: 2px solid var(--greyc);
+    font-weight: 600;
+}
+
+.ibxlink {
+    padding: 7px 10px;
+}
+
+.ibxmsg {
+    padding: 5px 10px;
+}
+
+.ibxactions {
+    padding: 10px;
+}
+
+.ibxlink a {
+    color: var(--linkc);
+    text-decoration: none;
+}
+
+.ibxactions span {
+    color: var(--linkc);
+}</style>
     </body></html>

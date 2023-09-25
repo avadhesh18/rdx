@@ -167,7 +167,7 @@ returnfpost += pollbuilder(post);
 
 
 returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
-if (localStorage.getItem('clientId') !== null && window.location.href.includes('comments.html')) {
+if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
   returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
 returnfpost += '</div></div>';
@@ -344,7 +344,7 @@ ismod = comment['distinguished'] == 	" moderator" ? "ismod" : "";
 
  
 cret = '<div class="comment ccp'+comment['depth']+'" id="'+comment['id']+'"><div class="comment_author"><span class="authorttext '+isop+''+ismod+'"><a class="authorlink" href="user.html?u='+ comment['author'] +'">'+ comment['author'] +'</a></span>  <span class="comment_meta">'+ comment['score'] +' votes &bull; '+timeagoed+' </span></div><div class="comment_text">'+ replaceRedditLinks(htmlDecode(comment['body_html'])) +'</div>';
-if(localStorage.getItem('clientId') != null){
+if(localStorage.getItem('refreshToken') != null){
 cret += '<div class="comment-reply"><span onclick="replyto(\'t1_'+comment['id']+'\')">Reply</span>';
 if(localStorage.getItem('userName') == comment['author']){
 cret += '<span onclick="editto(\'t1_'+comment['id']+'\')">Edit</span><span onclick="deleteto(\'t1_'+comment['id']+'\')">Delete</span>';
@@ -679,16 +679,12 @@ window.onload = function(){
     html1 += '<input type="checkbox" id="chk1" name="r" value="'+ther+'" checked><label for="chk1">Only search r/'+ther+'</label>';
     }
 	html1 += '<input type="submit" value="Search"/></form>';
-
+	if (localStorage.getItem('refreshToken') !== null) {
+		html1 +=  '<a href="inbox.html" class="homelinks">Inbox</a>';
+	}
 	
 	document.getElementById("leftbar").insertAdjacentHTML("afterBegin",
           html1);
 
 	
 }
-
-
-
-
-
-
