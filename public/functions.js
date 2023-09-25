@@ -410,7 +410,7 @@ function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
 document.getElementById('actype').value = "c";
-    let ebId = thingId.replace(/^(t1_|t3_)/, '');
+    let ebId = cmtid.replace(/^(t1_|t3_)/, '');
     if(document.getElementById(ebId).className != "post"){
     	    	document.getElementById('helptext').textContent = 'Reply to: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
     	
