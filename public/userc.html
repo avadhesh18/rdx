@@ -84,7 +84,7 @@
  
 function doit(){
 username = getget('u')
-links = '<a href="userc.html?u='+username+'">Comments</a><a href="user.html?u='+username+'&sort=new">New</a><a href="user.html?u='+username+'&sort=hot">Hot</a><a href="user.html?u='+username+'&sort=top">Top</a><a href="user.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="user.html?u='+username+'&sort=top&t=all">Top (all)</a>';
+links = '<a href="user.html?u='+username+'&sort=new">New</a><a href="usecr.html?u='+username+'&sort=hot">Hot</a><a href="userc.html?u='+username+'&sort=top">Top</a><a href="userc.html?u='+username+'&sort=top&t=month">Top (month)</a><a href="userc.html?u='+username+'&sort=top&t=all">Top (all)</a>';
 if(checklc('subs','u_'+username)){
 links += '<a onclick="unsubscribe(\'u_'+username+'\')" id="subbtn">Unfollow</a>>';
 }
@@ -105,7 +105,7 @@ substoload = getget('u');
 document.getElementById('pagetitletext').innerHTML = getget('u');
 
 
-url='https://www.reddit.com/user/'+substoload+'/submitted';
+url='https://www.reddit.com/user/'+substoload+'/comments';
 
 
 console.log(url);
@@ -142,7 +142,7 @@ posts = jsonResponse['data']['children'];
 for(var item in posts) {
 console.log("xx" + item);
 pid =  posts[item]['data'];
-fill += postbuilder(pid);
+fill += cpostbuilder(pid);
 }
 fill += '<div class="navigate">';
 var curpage = window.location.href.replace(/\&after.*/,'');
@@ -151,9 +151,26 @@ fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
-  runhsl();
+  
 };
 req.send(null);
+}
+
+function cpostbuilder(id){ 
+
+returncfpost = '';
+post = id;
+timeagoed = timeago(post['created_utc']*1000);
+returncfpost +=  '<div class="post" id="'+post['id']+'"><div class="post_author"><a href="subreddit.html?r='+post["subreddit"]+'">'+post["subreddit_name_prefixed"]+'</a> &bull;  <a href="user.html?u='+post["link_author"]+'">'+post["link_author"]+'</a></div><div class="post_link"><a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['link_title']+'</a></div>';
+
+
+
+
+cpostret = returncfpost;
+cpostret +=  cbuilder(id);
+cpostret += '</div>';
+ return cpostret;
+
 }
 
 
