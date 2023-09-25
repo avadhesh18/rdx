@@ -447,8 +447,8 @@ function apiAction() {
     const redirectUri = 'https://rdx.overdevs.com/login.html'; 
     const actionType  = document.getElementById('actype').value;
  
-    document.getElementById('cmntbtn').disabled = true;
-    document.getElementById('cmntbtn').value = 'Submitting...';
+    document.getElementById('cmntbtn').inner = true;
+    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
     if (accessToken && expiresIn) {
         const currentTimestamp = Date.now();
         const expiresAt = parseInt(expiresIn);
@@ -495,7 +495,7 @@ function apiAction() {
             })
             .catch(error => {
             	    document.getElementById('cmntbtn').disabled = false;
-    document.getElementById('cmntbtn').value = 'Submit';
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
                 alert('Error refreshing token:', error);
             });
         }
@@ -519,11 +519,11 @@ function submitComment(accessToken) {
     .then(commentData => {
         if (commentData.errors && commentData.errors.length > 0) {
         	    document.getElementById('cmntbtn').disabled = false;
-    document.getElementById('cmntbtn').value = 'Submit';
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
             alert('Error submitting comment:'+ commentData.errors);
         } else {
         	    document.getElementById('cmntbtn').disabled = false;
-    document.getElementById('cmntbtn').value = 'Submit';
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
         document.getElementById('popitup').style.display = 'none';
 document.getElementById('commentText').value = '';
     let ebId = thingId.replace(/^(t1_|t3_)/, '');
@@ -558,7 +558,7 @@ function editComment(accessToken) {
     .then(commentData => {
         if (commentData.errors && commentData.errors.length > 0) {
         	    document.getElementById('cmntbtn').disabled = false;
-    document.getElementById('cmntbtn').value = 'Submit';
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
             alert('Error editing comment:'+ commentData.errors);
         } else {
         	    document.getElementById('cmntbtn').disabled = false;
@@ -571,7 +571,7 @@ let ebId = thingId.replace(/^(t1_|t3_)/, '');
     })
     .catch(error => {
     	    document.getElementById('cmntbtn').disabled = false;
-    document.getElementById('cmntbtn').value = 'Submit';
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
         alert('Error editing comment:'+ error);
     });
 }
