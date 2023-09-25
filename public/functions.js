@@ -427,7 +427,7 @@ document.getElementById('cmtid').value = cmtid;
 let ebId = cmtid.replace(/^(t1_|t3_)/, '');
 document.getElementById('commentText').value = document.getElementById(ebId).querySelector('.comment_text').textContent;
 document.getElementById('actype').value = "e";
- document.getElementById('helptext').textContent = 'Replying to: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
+ document.getElementById('helptext').textContent = 'Editing: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
  document.getElementById('commentText').focus();
 }
 function deleteto(cmtid){
@@ -438,6 +438,12 @@ function deleteto(cmtid){
         apiAction();
     }
 }
+
+function inboxto(){
+    document.getElementById('actype').value = "i";
+        apiAction();
+}
+
 function apiAction() {
     const accessToken = localStorage.getItem('accessToken');
     const expiresIn = localStorage.getItem('expiresIn');
@@ -447,8 +453,7 @@ function apiAction() {
     const redirectUri = 'https://rdx.overdevs.com/login.html'; 
     const actionType  = document.getElementById('actype').value;
  
-    document.getElementById('cmntbtn').inner = true;
-    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
+  
     if (accessToken && expiresIn) {
         const currentTimestamp = Date.now();
         const expiresAt = parseInt(expiresIn);
@@ -461,6 +466,9 @@ function apiAction() {
            }
            else if(actionType == "d") {
            	delComment(accessToken);
+           }
+              else if(actionType == "i") {
+           	getInbox(accessToken);
            }
            else {}
         } else {
@@ -491,6 +499,9 @@ function apiAction() {
            else if(actionType == "d") {
            	delComment(accessToken);
            }
+            else if(actionType == "i") {
+           	getInbox(accessToken);
+           }
            else {}
             })
             .catch(error => {
@@ -505,6 +516,8 @@ function apiAction() {
 }
 
 function submitComment(accessToken) {
+  document.getElementById('cmntbtn').disabled = true;
+    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
    const thingId =  document.getElementById('cmtid').value;
     const commentText = document.getElementById('commentText').value;
     const commentUrl = 'https://oauth.reddit.com/api/comment';
@@ -544,6 +557,8 @@ ccclass = "ccp" + ccNumber;
 }
 
 function editComment(accessToken) {
+  document.getElementById('cmntbtn').disabled = true;
+    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
    const thingId =  document.getElementById('cmtid').value;
     const commentText = document.getElementById('commentText').value;
     const commentUrl = 'https://oauth.reddit.com/api/editusertext';
@@ -600,6 +615,40 @@ let ebId = thingId.replace(/^(t1_|t3_)/, '');
     .catch(error => {
         alert('Error deleting comment:'+ error);
     });
+}
+
+function getInbox(accessToken) {
+const inboxUrl = 'https://oauth.reddit.com/message/inbox';
+
+fetch(inboxUrl, {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`
+    },
+})
+.then(response => response.json())
+.then(inboxData => {
+    if (inboxData.error) {
+        console.error('Error fetching inbox messages:', inboxData.error);
+    } else {
+        const inboxMessages = inboxData.data.children;
+console.log(inboxMessages);
+      
+    //    const postNotifications = inboxMessages.filter((message) => {
+          
+   //         return message.data.subject.includes('commented') || message.data.subject.includes('replied');
+    //    });
+
+
+      //  postNotifications.forEach((notification) => {
+   //         console.log(notification.data.subject);
+   //     });
+    }
+})
+.catch(error => {
+    console.error('Error fetching inbox messages:', error);
+});
+
 }
 
 window.onload = function(){
