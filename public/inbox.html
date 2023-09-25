@@ -34,6 +34,11 @@ b,li{display:block;padding:5px;margin:5px;}
 <input id="actype" type="hidden" value="i"/>
 
 </div>
+<div id="popitup" style="display:none;"> 
+  <span onclick="document.getElementById('popitup').style.display='none'">Cancel</span>
+  <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea> 
+<input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button> 
+</div> 
     <script>
 
 if(localStorage.getItem('color') == 'dark'){
@@ -50,6 +55,17 @@ document.documentElement.style.setProperty('--greyc', '#222233');
 document.documentElement.style.setProperty('--lightc', '#ddd');
 }}
  
+ function replyto(cmtid){
+document.getElementById('popitup').style.display = 'block';
+document.getElementById('cmtid').value = cmtid;
+document.getElementById('actype').value = "c";
+  
+    	    	document.getElementById('helptext').textContent = 'Reply to:  '+document.getElementById(cmtid).querySelector('.ibxsub').textContent;
+    	
+    
+    document.getElementById('commentText').focus();
+}
+
  function inboxto(){
     document.getElementById('actype').value = "i";
         apiAction();
@@ -126,6 +142,39 @@ function apiAction() {
     }
 }
 
+function submitComment(accessToken) {
+  document.getElementById('cmntbtn').disabled = true;
+    document.getElementById('cmntbtn').innerHTML = 'Submitting...';
+   const thingId =  document.getElementById('cmtid').value;
+    const commentText = document.getElementById('commentText').value;
+    const commentUrl = 'https://oauth.reddit.com/api/comment';
+    fetch(commentUrl, {
+        method: 'POST',
+        headers: {
+            'Authorization': `bearer ${accessToken}`,
+            'Content-Type': 'application/x-www-form-urlencoded',         },
+        body: `api_type=json&text=${encodeURIComponent(commentText)}&thing_id=${thingId}`, 
+            })
+    .then(response => response.json())
+    .then(commentData => {
+        if (commentData.errors && commentData.errors.length > 0) {
+        	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
+            alert('Error submitting:'+ commentData.errors);
+        } else {
+        	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
+        document.getElementById('popitup').style.display = 'none';
+document.getElementById('commentText').value = '';
+        } 
+    })
+    .catch(error => {
+    	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').value = 'Submit';
+        alert('Error submitting comment:'+ error);
+    });
+}
+
 
   function getInbox(accessToken) {
 const inboxUrl = 'https://oauth.reddit.com/message/inbox';
@@ -154,7 +203,7 @@ console.log(inboxMessages);
     const created_utc = itemData.created_utc;
     const subject = itemData.subject;
     const link_title = itemData.link_title;
-    const body_html = itemData.body_html;
+    const body_html = itemData.body;
     const name = itemData.name;
     const context = itemData.context;
 
@@ -162,7 +211,7 @@ console.log(inboxMessages);
     const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
 
     if (kind === 't1') {
-      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
+      html += `<div class="inboxmsgwrap" id="${name}"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
       html += `<div class="ibxlink"><a href="${context}">${link_title}</a></div>`;
       html += `<div class="ibxmsg">${body_html}</div>`;
@@ -171,6 +220,8 @@ console.log(inboxMessages);
       html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
       html += `<div class="ibxmsg">${body_html}</div></div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${name}')">Reply</button></div></div>`;
+
     }
   });
 document.getElementById('inboxbody').innerHTML = html;
