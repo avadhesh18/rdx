@@ -215,7 +215,7 @@ const formattedDate = date.toLocaleString(date, options);
     if (kind === 't1') {
       html += `<div class="inboxmsgwrap" id="${name}"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a></span> &bull;  <span class="ibxtime">${formattedDate}</span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
-      html += `<div class="ibxlink"><a href="comments.html?url=${context}">${link_title}</a></div>`;
+      html += `<div class="ibxlink"><a href="comments.html?url=https://www.reddit.com${context}">${link_title}</a></div>`;
       html += `<div class="ibxmsg">↪ ${body_html}</div>`;
       html += `<div class="ibxactions"><span onclick="replyto('${name}')">Reply</span></div></div>`;
     } else if (kind === 't4') {
