@@ -3,7 +3,10 @@ var bmr = '';
 
 
 if(JSON.parse(localStorage.getItem("subs")) !== null){
-subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs")); subslistedarray.sort();
+subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs")); 
+  subslistedarray.sort(function(a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+  });
 for(x in subslistedarray){
 subslisted += '<a href="subreddit.html?r='+subslistedarray[x]+'" class="homelinks">'+subslistedarray[x]+'</a>';
 }
@@ -407,6 +410,16 @@ function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
 document.getElementById('cmtid').value = cmtid;
 document.getElementById('actype').value = "c";
+    let ebId = thingId.replace(/^(t1_|t3_)/, '');
+    if(document.getElementById(ebId).className != "post"){
+    	    	document.getElementById('helptext').textContent = 'Reply to: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
+    	
+    }
+    else {
+    	document.getElementById('helptext').textContent = 'Reply to:' +document.getElementById(ebId).querySelector('.post_link a').textContent;
+    	
+    }
+    document.getElementById('commentText').focus();
 }
 function editto(cmtid){
 document.getElementById('popitup').style.display = 'block';
@@ -414,6 +427,8 @@ document.getElementById('cmtid').value = cmtid;
 let ebId = cmtid.replace(/^(t1_|t3_)/, '');
 document.getElementById('commentText').value = document.getElementById(ebId).querySelector('.comment_text').textContent;
 document.getElementById('actype').value = "e";
+ document.getElementById('helptext').textContent = 'Replying to: '+document.getElementById(ebId).querySelector('.comment_text').textContent;
+ document.getElementById('commentText').focus();
 }
 function deleteto(cmtid){
  const confirmation = confirm("Are you sure you want to delete this?");

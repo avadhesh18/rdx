@@ -565,6 +565,7 @@ textarea#commentText {
     height: 75px;
     clear: both;
     outline: none;
+    font-size:17px;
 }
 
 button#cmntbtn {
@@ -581,6 +582,17 @@ button#cmntbtn {
     width: 90%;
     margin: 0 auto 25px;
     max-width: 400px;
+    font-size:17px;
+}
+#helptext {
+    clear: both;
+    margin: 10px 15px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: var(--bodyc);
+    padding: 5px;
 }
 
 div#popitup span {
