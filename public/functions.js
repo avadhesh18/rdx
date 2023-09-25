@@ -3,7 +3,7 @@ var bmr = '';
 
 
 if(JSON.parse(localStorage.getItem("subs")) !== null){
-subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs"));
+subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs")); subslistedarray.sort();
 for(x in subslistedarray){
 subslisted += '<a href="subreddit.html?r='+subslistedarray[x]+'" class="homelinks">'+subslistedarray[x]+'</a>';
 }

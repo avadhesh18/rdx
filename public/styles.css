@@ -539,15 +539,16 @@ button.sfwtoggle {
 } 
 
 div#popitup {
-    background: black;
+background: black;
     background: var(--greyc);
     position: fixed;
     left: 0;
     right: 0;
-    bottom: 0;
+    top: 45px;
     border-top: 5px solid var(--bodyc);
-    z-index:1000;
-    box-shadow:0px -16px 32px #0000004d;
+    z-index: 1000;
+    box-shadow: 0px -16px 32px #0000004d;
+    height: 92vh;
 }
 
 textarea#commentText {
