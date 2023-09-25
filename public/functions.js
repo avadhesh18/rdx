@@ -513,7 +513,7 @@ function apiAction() {
     } else {
         window.location.href = 'login.html';
     }
-}
+} 
 
 function submitComment(accessToken) {
   document.getElementById('cmntbtn').disabled = true;
@@ -634,15 +634,28 @@ fetch(inboxUrl, {
         const inboxMessages = inboxData.data.children;
 console.log(inboxMessages);
       
-    //    const postNotifications = inboxMessages.filter((message) => {
-          
-   //         return message.data.subject.includes('commented') || message.data.subject.includes('replied');
-    //    });
+    let html = '';
 
+  inboxMessages.forEach((item) => {
+    const { kind, inboxMessages: { author, created_utc, subject, link_title, body_html, tname, context } } = item;
+    const date = new Date(created_utc * 1000);
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
 
-      //  postNotifications.forEach((notification) => {
-   //         console.log(notification.data.subject);
-   //     });
+    if (kind === 't1') {
+      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
+      html += `<div class="ibxsub">${subject}</div>`;
+      html += `<div class="ibxlink"><a href="comments.html?url=https://www.reddit.com${context}">${link_title}</a></div>`;
+      html += `<div class="ibxmsg">${body_html}</div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
+    } else if (kind === 't4') {
+      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
+      html += `<div class="ibxsub">${subject}</div>`;
+      html += `<div class="ibxmsg">${body_html}</div></div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
+
+    }
+  });
+document.getElementById('inboxbody').innerHTML = html;
     }
 })
 .catch(error => {

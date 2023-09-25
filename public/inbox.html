@@ -15,22 +15,9 @@
     padding: 15px;
 }
 b,li{display:block;padding:5px;margin:5px;}
-form {
-    padding: 15px;
-}
 
-input[type=text] {
-    display: block;
-    padding: 5px 10px;
-    margin: 10px;
-    width: 79%;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    border: 1px solid var(--textc);
-    background: var(--bodyc);
-    color: var(--textc);
-}
-input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 30px;margin: 10px;border: 0px;cursor: pointer;border-radius: 10px;}
+
+
 
 </style>
 </head>   
@@ -41,22 +28,10 @@ input[type=submit] {background: var(--linkc);color: var(--greyc);padding: 10px 3
         </div>
     </header>
     <div id="body">
-    <div id="authForm" style="display: none;">
-    <li>If you want to log in to RDX to be able to reply to posts etc. (very limited functionality ) </li><li> 1. Go to <a href="https://www.reddit.com/prefs/apps">https://www.reddit.com/prefs/apps</a> then login and create an app. </li><li> 2. Name it anything, select script(personal use) under use </li><li> 3. In the redirect url enter https://rdx.overdevs.com/login.html</li><li>4. Copy the client id (displayed below your username), client secret here and then authorise.</li>
-    
- <form>
-        <li >Client ID:</li>
-        <input type="text" id="clientId" required><br>
-        <li>Client Secret:</li>
-        <input type="text" id="clientSecret" required><br>
-        <input type="submit" value="Authorise">
-    </form>
-    <li>Everything is saved locally on your phone. RDX does not save your client secret and id anywhere except your phone. <br>After login you will be redirected to homepage.</li>
+    <div id="inboxbody">
+ 
 </div>
-<div id="login" style="display: none;">
-Log in succesful! Redirecting you to homepage in 3 seconds!
-</div>
-    
+<input id="actype" type="hidden" value="i"/>
 
 </div>
     <script>
@@ -75,77 +50,129 @@ document.documentElement.style.setProperty('--greyc', '#222233');
 document.documentElement.style.setProperty('--lightc', '#ddd');
 }}
  
-    const authorizeUrl = 'https://www.reddit.com/api/v1/authorize';
-    const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
-    const commentUrl = 'https://oauth.reddit.com/api/comment';
+ function inboxto(){
+    document.getElementById('actype').value = "i";
+        apiAction();
+}
 
-
-    function redirectToAuth() {
-        const clientId = localStorage.getItem('clientId');
-        const clientSecret = localStorage.getItem('clientSecret');
-        const redirectUri = 'https://rdx.overdevs.com/login.html'; 
-        
-        if (!clientId || !clientSecret) {
-            document.getElementById('authForm').style.display = 'block';
-
-            document.getElementById('authForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const inputClientId = document.getElementById('clientId').value;
-                const inputClientSecret = document.getElementById('clientSecret').value;
-
-                localStorage.setItem('clientId', inputClientId);
-                localStorage.setItem('clientSecret', inputClientSecret);
-
-               
-                const authUrl = `${authorizeUrl}?client_id=${inputClientId}&response_type=code&state=random_state&redirect_uri=${encodeURIComponent(redirectUri)}&duration=permanent&scope=submit,edit,identity,vote,privatemessages`;
-                window.location.href = authUrl;
-            });
+function apiAction() {
+    const accessToken = localStorage.getItem('accessToken');
+    const expiresIn = localStorage.getItem('expiresIn');
+    const refreshToken = localStorage.getItem('refreshToken');
+    const clientId = localStorage.getItem('clientId');
+    const clientSecret = localStorage.getItem('clientSecret');
+    const redirectUri = 'https://rdx.overdevs.com/login.html'; 
+    const actionType  = document.getElementById('actype').value;
+ 
+  
+    if (accessToken && expiresIn) {
+        const currentTimestamp = Date.now();
+        const expiresAt = parseInt(expiresIn);
+        if (currentTimestamp < expiresAt) {
+        if(actionType == "c") {
+            submitComment(accessToken);
+           }
+           else if(actionType == "e") {
+           	editComment(accessToken);
+           }
+           else if(actionType == "d") {
+           	delComment(accessToken);
+           }
+              else if(actionType == "i") {
+           	getInbox(accessToken);
+           }
+           else {}
         } else {
-      
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            if (code) {
-                fetch(tokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
-                    },
-                    body: `grant_type=authorization_code&code=${code}&redirect_uri=${encodeURIComponent(redirectUri)}`,
-                })
-                .then(response => response.json())
-                .then(tokenData => {
-                    const accessToken = tokenData.access_token;
-                    const refreshToken = tokenData.refresh_token;
-                    const expiresIn = tokenData.expires_in; // Expires in seconds
-
-                    const expirationTimestamp = Date.now() + (expiresIn * 1000);
-
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('refreshToken', refreshToken);
-                    localStorage.setItem('expiresIn', expirationTimestamp.toString());
-                    fetch('https://oauth.reddit.com/api/v1/me', {
-  headers: {
-    'Authorization': 'Bearer '+accessToken
-  }
-})
-  .then(response => response.json())
-  .then(data => localStorage.setItem('userName', data.name))
-  .catch(error => console.error('Error:', error));
- document.getElementById('login').style.display = 'block';
- setTimeout(() => {
-                    window.location.href = 'index.html';
-                    }, 20000);
-                })
-                .catch(error => {
-                    alert('Error:', error);
-                });
-            }
+            // Access token has expired, renew it using refreshToken
+            fetch(tokenUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+                },
+                body: `grant_type=refresh_token&refresh_token=${refreshToken}`,
+            })
+            .then(response => response.json())
+            .then(tokenData => {
+                const newAccessToken = tokenData.access_token;
+                const newRefreshToken = tokenData.refresh_token;
+                const expiresIn = tokenData.expires_in; // Expires in seconds
+                const expirationTimestamp = currentTimestamp + (expiresIn * 1000);
+                localStorage.setItem('accessToken', newAccessToken);
+                localStorage.setItem('refreshToken', newRefreshToken);
+                localStorage.setItem('expiresIn', expirationTimestamp.toString());
+                  if(actionType == "c") {
+            submitComment(accessToken);
+           }
+           else if(actionType == "e") {
+           	editComment(accessToken);
+           }
+           else if(actionType == "d") {
+           	delComment(accessToken);
+           }
+            else if(actionType == "i") {
+           	getInbox(accessToken);
+           }
+           else {}
+            })
+            .catch(error => {
+            	    document.getElementById('cmntbtn').disabled = false;
+    document.getElementById('cmntbtn').innerHTML = 'Submit';
+                alert('Error refreshing token:', error);
+            });
         }
+    } else {
+        window.location.href = 'login.html';
     }
+}
 
-    redirectToAuth();
 
-    
+  function getInbox(accessToken) {
+const inboxUrl = 'https://oauth.reddit.com/message/inbox';
+
+fetch(inboxUrl, {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`
+    },
+})
+.then(response => response.json())
+.then(inboxData => {
+    if (inboxData.error) {
+        console.error('Error fetching inbox messages:', inboxData.error);
+    } else {
+        const inboxMessages = inboxData.data.children;
+console.log(inboxMessages);
+      
+    let html = '';
+
+  inboxMessages.forEach((item) => {
+    const { kind, inboxMessages: { author, created_utc, subject, link_title, body_html, tname, context } } = item;
+    const date = new Date(created_utc * 1000);
+    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+
+    if (kind === 't1') {
+      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
+      html += `<div class="ibxsub">${subject}</div>`;
+      html += `<div class="ibxlink"><a href="comments.html?url=https://www.reddit.com${context}">${link_title}</a></div>`;
+      html += `<div class="ibxmsg">${body_html}</div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
+    } else if (kind === 't4') {
+      html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
+      html += `<div class="ibxsub">${subject}</div>`;
+      html += `<div class="ibxmsg">${body_html}</div></div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
+
+    }
+  });
+document.getElementById('inboxbody').innerHTML = html;
+    }
+})
+.catch(error => {
+    console.error('Error fetching inbox messages:', error);
+});
+
+}
+  inboxto();
     </script>
     </body></html>
