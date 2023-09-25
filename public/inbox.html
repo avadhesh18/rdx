@@ -146,23 +146,31 @@ console.log(inboxMessages);
       
     let html = '';
 
-  inboxMessages.forEach((item) => {
-    const { kind, inboxMessages: { author, created_utc, subject, link_title, body_html, tname, context } } = item;
+ inboxMessages.forEach((item) => {
+    const kind = item.kind;
+    const itemData = item.data;
+
+    const author = itemData.author;
+    const created_utc = itemData.created_utc;
+    const subject = itemData.subject;
+    const link_title = itemData.link_title;
+    const body_html = itemData.body_html;
+    const name = itemData.name;
+    const context = itemData.context;
+
     const date = new Date(created_utc * 1000);
     const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
 
     if (kind === 't1') {
       html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
-      html += `<div class="ibxlink"><a href="comments.html?url=https://www.reddit.com${context}">${link_title}</a></div>`;
+      html += `<div class="ibxlink"><a href="${context}">${link_title}</a></div>`;
       html += `<div class="ibxmsg">${body_html}</div>`;
-      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
+      html += `<div class="ibxactions"><button onclick="replyto('${name}')">Reply</button></div></div>`;
     } else if (kind === 't4') {
       html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
       html += `<div class="ibxmsg">${body_html}</div></div>`;
-      html += `<div class="ibxactions"><button onclick="replyto('${tname}')">Reply</button></div></div>`;
-
     }
   });
 document.getElementById('inboxbody').innerHTML = html;
