@@ -207,8 +207,12 @@ console.log(inboxMessages);
     const name = itemData.name;
     const context = itemData.context;
 
-    const date = new Date(created_utc * 1000);
-    const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${date.getHours()}:${date.getMinutes()}`;
+const date = new Date(created_utc * 1000);
+const userTimezoneOffset = date.getTimezoneOffset();
+date.setMinutes(date.getMinutes() - userTimezoneOffset);
+const options = {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric'};
+
+const formattedDate = date.toLocaleString(undefined, options);
 
     if (kind === 't1') {
       html += `<div class="inboxmsgwrap" id="${name}"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
@@ -219,7 +223,7 @@ console.log(inboxMessages);
     } else if (kind === 't4') {
       html += `<div class="inboxmsgwrap"><div class="ibxmeta"><span class="ibxauthor"><a href="user.html?u=${author}">u/${author}</a> &bull;  <span class="ibxtime">${formattedDate}</span></span></div>`;
       html += `<div class="ibxsub">${subject}</div>`;
-      html += `<div class="ibxmsg">${body_html}</div></div>`;
+      html += `<div class="ibxmsg">${body_html}</div>`;
       html += `<div class="ibxactions"><button onclick="replyto('${name}')">Reply</button></div></div>`;
 
     }
