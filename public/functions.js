@@ -667,19 +667,20 @@ document.getElementById('inboxbody').innerHTML = html;
 
 window.onload = function(){
 	curq = getget('q') ? getget('q'): '';
-	html1  =          '<form class="search" action="search.html"><input type="search" name="q" value="'+curq+'"/><br style="clear:both;">';
+	html1  =          '<form class="search" action="search.html"><input type="search" name="q" value="'+curq+'"/>';
+	html1 += '<input type="submit" value="Search"/><br style="clear:both;">';
 	    if (window.location.href.indexOf("?r=") > -1 || window.location.href.indexOf("&r=") > -1) {
-    html1 += '<input type="checkbox" id="chk1" name="r" value="'+getget('r')+'" checked><label for="chk1">Only search r/'+getget('r')+'</label>';
+    html1 += '<input type="checkbox" id="chk1" name="r" value="'+getget('r')+'" checked><label for="chk1"> Only search r/'+getget('r')+'</label>';
     }
 		    if (window.location.href.indexOf("?u=") > -1 || window.location.href.indexOf("&u=") > -1) {
-    html1 += '<input type="checkbox" id="chk1" name="u" value="'+getget('u')+'" checked><label for="chk1">Only search u/'+getget('u')+'</label>';
+    html1 += '<input type="checkbox" id="chk1" name="u" value="'+getget('u')+'" checked><label for="chk1"> Only search u/'+getget('u')+'</label>';
     }
 	
 		    if (window.location.href.indexOf("/r/") > -1) {
 				ther = window.location.href.match(/r\/(.*?)\//s)[1];
-    html1 += '<input type="checkbox" id="chk1" name="r" value="'+ther+'" checked><label for="chk1">Only search r/'+ther+'</label>';
+    html1 += '<input type="checkbox" id="chk1" name="r" value="'+ther+'" checked><label for="chk1"> Only search r/'+ther+'</label>';
     }
-	html1 += '<input type="submit" value="Search"/></form>';
+	html1 += '</form>';
 	if (localStorage.getItem('refreshToken') !== null) {
 		const uu = localStorage.getItem('userName');
 		html1 +=  '<a href="user.html?u=+'+uu+'" class="homelinks">'+uu+'</a>';

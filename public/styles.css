@@ -454,15 +454,15 @@ span.menubars:after {
     margin-top:3px;
 }
 .search input[type="search"] {
-    display: block;
+  display: block;
     background: var(--greyc);
-    width: calc(100% - 20px);
-    padding: 5px;
+    width: calc(100% - 76px);
+    padding: 4px;
     border: 1px solid var(--lightc);
-    border-radius: 10px;
-    font-size: 15px;
+    border-radius: 5px;
+    font-size: 16px;
     outline: none;
-    max-width: 300px;
+    max-width: 600px;
     color: var(--textc);
     float: left;
 }
@@ -484,14 +484,20 @@ word-wrap: break-word;
 
 .search input[type="submit"] {
     font-size: 12px;
-    background: var(--greyc);
-    padding: 2px 5px;
+    background: var(--lightc);
+    padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
     margin-left: 5px;
-    color: var(--textc);
+    color: var(--bodyc);
     border: 1px solid var(--textc);
 }
+input#chk1 {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+
 span.horimenu {
     float: right;
     font-size: 23px;
@@ -618,8 +624,9 @@ span.comment_meta {
     margin-left: 7px;
 }
 form.search {
-    padding: 5px 10px;
+    padding: 5px 5px;
     clear: both;
+    line-height: 27px;
 }
 .isop {
     color: var(--linkc);
