@@ -361,8 +361,20 @@ a.homelinks {
 }
 a.homelinks.half {
     display: inline-block;
-    width: 48%;
-    border-bottom: 10px solid var(--greyc);
+    width: calc(50% - 8px);
+    border-bottom: 8px solid var(--greyc);
+    border-right: 1px solid var(--greyc);
+}
+a.homelinks.halfit {
+     width: 50%;
+    width: calc(50% - 11px);
+    display: inline-block;
+    padding: 0px;
+    padding: 10px 5px;
+}
+
+a.homelinks.halfit:nth-child(odd) {
+    border-right: 1px solid var(--greyc);
 }
 div#header {
     user-select: none;
