@@ -100,6 +100,7 @@ function apiAction() {
            else {}
         } else {
             // Access token has expired, renew it using refreshToken
+                const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
             fetch(tokenUrl, {
                 method: 'POST',
                 headers: {

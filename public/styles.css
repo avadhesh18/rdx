@@ -359,6 +359,11 @@ a.homelinks {
     font-size: 16px;
     padding-left: 2%;
 }
+a.homelinks.half {
+    display: inline-block;
+    width: 48%;
+    border-bottom: 10px solid var(--greyc);
+}
 div#header {
     user-select: none;
 }

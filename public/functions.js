@@ -473,6 +473,7 @@ function apiAction() {
            else {}
         } else {
             // Access token has expired, renew it using refreshToken
+            const tokenUrl = 'https://www.reddit.com/api/v1/access_token';
             fetch(tokenUrl, {
                 method: 'POST',
                 headers: {
@@ -681,9 +682,9 @@ window.onload = function(){
 	html1 += '<input type="submit" value="Search"/></form>';
 	if (localStorage.getItem('refreshToken') !== null) {
 		const uu = localStorage.getItem('userName');
-			html1 +=  '<a href="user.html?u=+'+uu+'" class="homelinks">'+uu+'</a>';
-		html1 +=  '<a href="inbox.html" class="homelinks">Inbox</a>';
-	
+		html1 +=  '<a href="user.html?u=+'+uu+'" class="homelinks">'+uu+'</a>';
+		html1 +=  '<a href="inbox.html" class="homelinks half">Inbox</a>';
+		html1 +=  '<a href="login.html" class="homelinks half">Logout</a>';
 	}
 	
 	document.getElementById("leftbar").insertAdjacentHTML("afterBegin",
