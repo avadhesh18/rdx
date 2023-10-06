@@ -250,7 +250,7 @@ let fakect = ' actv';
 		returnpost += vidurl;
 	}
 	else {
-		if(typeof postjson['preview']['reddit_video_preview'] != "undefined") {
+		if(postjson['preview'] && typeof postjson['preview']['reddit_video_preview'] != "undefined") {
 		vidurl = postjson['preview']['reddit_video_preview']['fallback_url'];
 		}
 		else if (postjson['secure_media']['oembed']['thumbnail_url']) {
