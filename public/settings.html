@@ -38,7 +38,14 @@ b,li{display:block;padding:5px;margin:5px;}
     <button onclick="importData()">Upload & Import</button>
     </li>
     
-
+<b>How to import subscriptions from Reddit?</b>
+<li style="line-height:150%;">1. Go to <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a>. <br>2. Add this link (bookmarklet) <a href="javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split('/r/')[1].split('+');const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();">rdx importer</a> to your bookmarks bar and press it while on you are on the reddit page mentioned above.<br>
+<small>If you are unable to add the bookmark through the link, go to Bookmarks on your web browser, Add new bookmark, in the title field fill "rdx importer" and in the url field copy and paste the below text:
+<textarea>javascript:(function(){const subnames=document.querySelector('.subscription-box a').href.split("/r/")[1].split("+");const jsonData=JSON.stringify(subnames,null,2);const blob=new Blob([jsonData],{type:'application/json'});const downloadLink=Object.assign(document.createElement('a'),{href:URL.createObjectURL(blob),download:'rdx_subs.json'});document.body.appendChild(downloadLink).click()&&document.body.removeChild(downloadLink);})();</textarea><br>
+Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.reddit.com/subreddits</a> and in the search filed of the browser search for "rdx import" and press the link that shows up in suggestions. 
+</small><br>
+3. It will download a file called rdx_subs.json, upload the file on this page to import your subs.
+</li>
 </div>
     <script>
 
