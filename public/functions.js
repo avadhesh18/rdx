@@ -405,6 +405,47 @@ document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
   	if(navigator.share){const t=window.location.href;const n=document.title;const e={title:n,url:t};navigator.share(e).then(()=>{console.log("Shared successfully")}).catch(e=>{console.error("Error sharing:",e)})}
   	else{const t=window.location.href,n=document.createElement("textarea");n.value=t,document.body.appendChild(n),n.select(),document.execCommand("copy"),document.body.removeChild(n),alert("Link copied to clipboard: "+t)}
   }
+  
+function saveit(e) {
+
+if(e.innerHTML == 'Saved') {
+window.location.href = 'saved.html';
+return false;
+}
+        const u = window.location.href;
+        const t = document.title;
+        const s = document.querySelector('.post_author a').innerText;
+        const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
+        savedLinks.push({u, t,s});
+        localStorage.setItem('savedlinks', JSON.stringify(savedLinks));
+        e.innerHTML = 'Saved';
+    }
+
+    function displayit() {
+          const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
+    const linksContainer = document.getElementById('links-container');
+    linksContainer.innerHTML = '';
+
+    for (let i = savedLinks.length - 1; i >= 0; i--) {
+        const link = savedLinks[i];
+
+        const linkElement = document.createElement('div');
+        linkElement.className = 'post';
+        linkElement.innerHTML = '<div class="post_author"><a href="subreddit.html?r='+link.s.replace('r/','')+'">'+link.s+'</a> <span onclick="removeit(' + i + ');" style="float:right;color: var(--lightc);">X</span> </div><div class="post_link"><a href="'+link.u+'">'+link.t+'</a></div>';
+        linksContainer.appendChild(linkElement);
+    }
+    }
+    function removeit(index) {
+    const savedLinks = JSON.parse(localStorage.getItem('savedlinks')) || [];
+    
+    // Ensure index is within bounds
+    if (index >= 0 && index < savedLinks.length) {
+        savedLinks.splice(index, 1); // Remove the element at the specified index
+        localStorage.setItem('savedlinks', JSON.stringify(savedLinks));
+        displayit(); // Update the display after removing the link
+    }
+}
+
  
 function replyto(cmtid){
 document.getElementById('popitup').style.display = 'block';
