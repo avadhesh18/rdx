@@ -177,6 +177,22 @@ function allown_sfw(){
 	addlc('a18','yes');
 	window.location.reload();
 }
+function preloadImage(im_url) {
+  // Create a div element to contain the image tag
+  let container = document.createElement('div');
+
+  // Set the innerHTML of the container with the image tag
+  container.innerHTML = `<img src="${im_url}" />`;
+
+  // Append the container to the document body to trigger loading
+  document.body.appendChild(container);
+
+  // Remove the container after a short delay (you can adjust the delay as needed)
+  setTimeout(function() {
+    document.body.removeChild(container);
+  }, 1);
+}
+
 function urlpreview(urli,postjson) {
 returnpost = '';	
 	if (urli.match(/.(jpg|jpeg|png|gif)$/i))
@@ -208,7 +224,9 @@ let fakect = ' actv';
       	if(fakect == ' actv') {
       	g_mimg  = '<img src="'+singleptlink+'" alt="main image" id="mi_'+postjson['id']+'"/>';
       	}
-      	g_timgs += '<img class="gtumb'+fakect+'" src="'+singletmlink+'" data-msrc="'+singleptlink+'" alt="thumbnail" data-id="'+postjson['id']+'">'
+      	g_timgs += '<img class="gtumb'+fakect+'" src="'+singletmlink+'" data-msrc="'+singleptlink+'" alt="thumbnail" data-id="'+postjson['id']+'">';
+      	 preloadImage(singleptlink);
+
 		//returnpost +='<img src="'+singleptlink+'" />';
 		}
 		fakect = '';
@@ -302,6 +320,8 @@ let fakect = ' actv';
 	}
 	return returnpost;
 }
+
+
 function pollbuilder(postjson) {
 	returnpoll = '<div class="poll">';
 	for(popt in postjson['poll_data']['options']){
@@ -393,7 +413,7 @@ document.getElementById("mi_"+curod).src= this.getAttribute('data-msrc');
   document.querySelectorAll('[data-id="'+curod+'"]').forEach(el => el.classList.remove('actv'));
   
   this.classList.add('actv');
-
+document.getElementById("mi_"+curod).scrollIntoView(); 
   });
   });
 

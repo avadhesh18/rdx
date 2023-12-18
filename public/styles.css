@@ -122,14 +122,15 @@ a.viewmore{clear:both;display:block;text-align:right;color:#333;color:var(--ligh
 }
 .gallery_thumbs {
     white-space: pre;
-    overflow-x: scroll;
+   overflow-x: auto;
     height: 100px;
     overflow-y: hidden;
 }
 .gtumb {
     vertical-align: top;
 }
-.gtumb {width:100px;margin:0px 5px;}
+.gtumb {width:100px;margin:0px 5px;    object-fit: cover;
+    height: 100px;}
 .gtumb.actv{    border-top: 3px solid var(--linkc);}
 .postc.link a {
     background: #eee;
@@ -483,6 +484,10 @@ span.menubars:after {
 }
 .comment_text p{
 word-wrap: break-word;
+line-height: 124%;
+}
+a:hover,a:active {
+    opacity: 0.8;
 }
 .comment_text img {
     max-width: 99%;

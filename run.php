@@ -19,7 +19,7 @@ $headhtml = '<!DOCTYPE html><html><head>
             <span id="plus" onclick="toggle(\'leftbar\')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Menu"><path d="M140.001-254.616v-59.999h679.998v59.999H140.001Zm0-195.385v-59.998h679.998v59.998H140.001Zm0-195.384v-59.999h679.998v59.999H140.001Z"></path></svg></span>
             <span id="taptoopenmenu" onclick="toggle(\'subssearch\')"><span id="pagetitletext">Loading...</span>
             <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></span>
-            <span id="menu" onclick="toggle(\'rightbar\')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Sort and other options"><path d="M480-150q-32.5 0-55.25-22.75T402-228q0-32.5 22.75-55.25T480-306q32.5 0 55.25 22.75T558-228q0 32.5-22.75 55.25T480-150Zm0-252q-32.5 0-55.25-22.75T402-480q0-32.5 22.75-55.25T480-558q32.5 0 55.25 22.75T558-480q0 32.5-22.75 55.25T480-402Zm0-252q-32.5 0-55.25-22.75T402-732q0-32.5 22.75-55.25T480-810q32.5 0 55.25 22.75T558-732q0 32.5-22.75 55.25T480-654Z"></path></svg></span>
+            <span id="menu" onclick="toggle(\'rightbar\')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Sort and other options"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"></path></svg></span>
         </div>
     
     <div id="menus">
