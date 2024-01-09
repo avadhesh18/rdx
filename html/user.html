@@ -31,7 +31,8 @@ url='https://www.reddit.com/user/'+substoload+'/submitted';
 
 
 console.log(url);
-url = url+'.json?limit=20';
+limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
 if(getget('sort') != null){
 console.log(getget('sort'));
 url = url+'&sort='+getget('sort');

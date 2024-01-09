@@ -34,7 +34,8 @@ url = url+''+getget('sort')+'';
 
 
 console.log(url);
-url = url+'.json?limit=20';
+limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
 if(getget('t') != null){
 console.log(getget('t'));
 url = url+'&t='+getget('t');

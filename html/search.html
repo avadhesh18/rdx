@@ -47,8 +47,8 @@ else {
 url = url+'search.json?q='+substoload+'';
 }
 
-
-url = url+'&limit=20';
+limit = localStorage.getItem('ppg') || 20;
+url = url+'&limit='+limit;
 if(getget('sort') != null){
 console.log(getget('sort'));
 url = url+'&sort='+getget('sort');

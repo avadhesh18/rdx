@@ -29,7 +29,7 @@ $headhtml = '<!DOCTYPE html><html><head>
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a> | | <a href="settings.html">Settings</a>
               </div> 
             </div>
         </div>
