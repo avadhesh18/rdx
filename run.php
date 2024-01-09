@@ -12,7 +12,6 @@ $headhtml = '<!DOCTYPE html><html><head>
     <link rel="stylesheet" href="styles.css" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
     </head>  
-
 <body>
     <header id="header">
         <div id="pagetitle">
@@ -48,7 +47,7 @@ $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
 
 
-$data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="190" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> <div id="popitup" style="display:none;"> 
+$data = str_replace('</body>','<div class="footer"><a href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="140" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps">Donate</a>.<br><br><small><a href="new.html">What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> <div id="popitup" style="display:none;"> 
   <span onclick="document.getElementById(\'popitup\').style.display=\'none\'">Cancel</span>
   <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>      
 <input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>    

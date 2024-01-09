@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="styles.css" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
     </head>  
-
 <body>
     <header id="header">
         <div id="pagetitle">
@@ -113,6 +112,9 @@ fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
   runhsl();
+};
+req.onerror = function () {
+document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
 };
 req.send(null);
 }
