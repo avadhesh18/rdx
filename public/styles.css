@@ -37,7 +37,7 @@ blockquote {
 
 p {margin: 0;margin-bottom: 12px;}
 
-.comment_author{font-size:14px;    overflow: hidden;}
+.comment_author{font-size:14px;    overflow: hidden;    margin-bottom: 2px;}
 .comment_text p{margin:0;padding:0;margin-bottom:5px}
 
 .comment.ccp1{border-left:2px solid #d82c2b;margin-left:15px}
@@ -91,6 +91,7 @@ a.viewmore{clear:both;display:block;text-align:right;color:#333;color:var(--ligh
 	color: #27598c;
 	color: var(--linkc);
 	word-break: break-word;
+	font-weight:600;
 }
 .post_link {
     padding: 6px 0px 8px;
@@ -100,9 +101,7 @@ a.viewmore{clear:both;display:block;text-align:right;color:#333;color:var(--ligh
     max-width: 100%;
 }
 
-.post_link a:visited {
-  /*  color: #27598c; */
-}
+
 .postc.selftext {
     word-break: break-word;
     font-size: 15px;

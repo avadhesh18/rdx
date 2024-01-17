@@ -27,7 +27,7 @@ b,li{display:block;padding:5px;margin:5px;}
     <div id="body">
     
       <b>Change display mode</b>
-      <li id="cthemew"><a onclick="toggletheme('dark')" id="themebtn" style="color:var(--linkc)">Change to Dark mode</a></li>
+      <li id="cthemew"><a href="themes.html" style="color:var(--linkc)">Change Theme</a></li>
       <b>Posts per page</b>
       <li>
       <input id="ppg" type="range" min="10" max="60" step="5" onchange="changedppg();"/> <span id="outppg">20</span>
@@ -53,10 +53,12 @@ Now go to the reddit <a href="https://old.reddit.com/subreddits">https://old.red
 </div>
     <script>
 
-if(localStorage.getItem('color') == 'dark'){
-toggletheme('dark');
-}
-else {}
+function toggletheme(){const t=localStorage.getItem('tname')||"default";if(t!='default'){for(let e of ['bodyc','textc','linkc','greyc','lightc'])document.documentElement.style.setProperty('--'+e,localStorage.getItem(e))}
+else{for(let e of ['bodyc','textc','linkc','greyc','lightc'])document.documentElement.style.setProperty('--'+e,['white','black','#27598c','#eee','#444'][['bodyc','textc','linkc','greyc','lightc'].indexOf(e)])}}
+function togglefont(){const f=localStorage.getItem('fname')||"default";if(f!='default'){const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f+'&display=swap';document.head.appendChild(l);document.body.style.fontFamily=f+',sans-serif'}
+else{document.body.style.fontFamily='sans-serif'}}
+togglefont();toggletheme();
+
 var curpp = localStorage.getItem('ppg') || 20;
 document.getElementById('outppg').innerHTML = curpp;
 document.getElementById('ppg').value = curpp;
@@ -64,30 +66,9 @@ function changedppg() {
 localStorage.setItem('ppg',document.getElementById('ppg').value);
 document.getElementById('outppg').innerHTML = document.getElementById('ppg').value + " (saved)";
 }
-function toggletheme(color){
-if(color == 'dark'){
-		document.getElementById('cthemew').innerHTML = '<a style="color:var(--linkc)" onclick="toggletheme(\'light\')" id="themebtn">Change to Light mode</a>';
 
-document.documentElement.style.setProperty('--bodyc', '#111222');
-document.documentElement.style.setProperty('--textc', 'white');
-document.documentElement.style.setProperty('--linkc', '#d9d983');
-document.documentElement.style.setProperty('--greyc', '#222233');
-document.documentElement.style.setProperty('--lightc', '#ddd');
-localStorage.setItem('color','dark');
-}
-else {
-			document.getElementById('cthemew').innerHTML = '<a style="color:var(--linkc)" onclick="toggletheme(\'dark\')" id="themebtn">Change to Dark mode</a>';
 
-		
-document.documentElement.style.setProperty('--bodyc', 'white');
-document.documentElement.style.setProperty('--textc', 'black');
-document.documentElement.style.setProperty('--linkc', '#27598c');
-document.documentElement.style.setProperty('--greyc', '#eee');
-document.documentElement.style.setProperty('--lightc', '#444');
-localStorage.setItem('color','light');
-}
-	
-}
+
 
         function exportData() {
             const subs = localStorage.getItem('subs');

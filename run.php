@@ -29,7 +29,7 @@ $headhtml = '<!DOCTYPE html><html><head>
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a onclick="toggletheme(\'dark\')" id="themebtn">Dark mode</a> | <a href="settings.html">Settings</a> 
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Change Theme</a> | <a href="settings.html">Settings</a> 
               </div> 
             </div>
         </div>
@@ -59,8 +59,6 @@ $data = str_replace('<!-- rdx -->','<div class="infotext">
 <p>Discover a seamless Reddit browsing experience with rdx, a mobile-friendly web viewer designed for speed and simplicity. Based on the now closed Apollo app, rdx allows you to navigate Reddit without the distraction of ads.</p>
 <h2>Enjoy Reddit Anywhere: rdx\'s Mobile-Friendly Design and Dark Mode</h2>
 <p>Experience the freedom of browsing Reddit on the mobile easily with rdx\'s mobile-friendly design. The interface is optimized for various devices, ensuring a smooth experience across different screen sizes. Additionally, rdx offers a Dark Mode for users who prefer a more comfortable and eye-friendly viewing experience, making it easy to enjoy Reddit in any lighting condition.</p>
-<h2>Support rdx Development: Donate and Provide Feedback</h2>
-<p>If you find rdx valuable for your Reddit exploration, consider supporting its development. You can contribute by providing feedback on your experience and making a donation here. Your support helps enhance the features and performance of rdx, ensuring a better browsing experience for all users. Additionally, check out the "What\'s New?" section for updates, adjust settings according to your preferences, and explore rdx\'s source code on GitHub.</p>
 </div> ',$data);
 }
 

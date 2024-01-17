@@ -25,6 +25,9 @@ b,li{display:block;padding:5px;margin:5px;}
         </div>
     </header>
     <div id="body">
+         <b>17 Jan 2023</b>
+           <li>NEW: Multiple themes to match your style. <a href="themes.html">Check now</a> </li>
+
            <b>9 Jan 2023</b>
            <li>ADDED: Setting to change the number of posts displayed per page. </li>
         <b>11 Dec 2023</b>
@@ -51,34 +54,11 @@ b,li{display:block;padding:5px;margin:5px;}
 <li><a href="login.html">.</a>  </li>
 </div>
     <script>
-  
-if(localStorage.getItem('color') == 'dark'){
-toggletheme('dark');
-}
-else {}
-
-function toggletheme(color){
-if(color == 'dark'){
-	
-document.documentElement.style.setProperty('--bodyc', '#111222');
-document.documentElement.style.setProperty('--textc', 'white');
-document.documentElement.style.setProperty('--linkc', '#d9d983');
-document.documentElement.style.setProperty('--greyc', '#222233');
-document.documentElement.style.setProperty('--lightc', '#ddd');
-localStorage.setItem('color','dark');
-}
-else {
-	
-		
-document.documentElement.style.setProperty('--bodyc', 'white');
-document.documentElement.style.setProperty('--textc', 'black');
-document.documentElement.style.setProperty('--linkc', '#27598c');
-document.documentElement.style.setProperty('--greyc', '#eee');
-document.documentElement.style.setProperty('--lightc', '#444');
-localStorage.setItem('color','light');
-}
-	
-}
+function toggletheme(){const t=localStorage.getItem('tname')||"default";if(t!='default'){for(let e of ['bodyc','textc','linkc','greyc','lightc'])document.documentElement.style.setProperty('--'+e,localStorage.getItem(e))}
+else{for(let e of ['bodyc','textc','linkc','greyc','lightc'])document.documentElement.style.setProperty('--'+e,['white','black','#27598c','#eee','#444'][['bodyc','textc','linkc','greyc','lightc'].indexOf(e)])}}
+function togglefont(){const f=localStorage.getItem('fname')||"default";if(f!='default'){const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f+'&display=swap';document.head.appendChild(l);document.body.style.fontFamily=f+',sans-serif'}
+else{document.body.style.fontFamily='sans-serif'}}
+togglefont();toggletheme();
 
     </script>
     </body></html>

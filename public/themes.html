@@ -1,0 +1,298 @@
+<!DOCTYPE html><html><head>
+    <title>Themes page - RDX for reddit </title>
+    <meta name="description" content="Themes for reddit."/>
+    <link rel="shortcut icon" href="favicon.ico"> 
+  <link rel="icon" href="favicon.png">
+      <link rel="manifest" href="/manifest.json" />
+ <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta   name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <style>#body {
+    padding: 15px;
+}
+
+b,li{display:block;padding:5px;margin:5px;}
+     .theme {
+               padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 5px;
+        }
+
+        .themename {
+              font-weight: bold;
+    margin-right: 2px;
+    font-style: normal;
+    float: right;
+    font-size: 15px;
+        }
+
+        .theme span {
+            display: inline-block;
+    width: 20px;
+    height: 20px;
+    filter: drop-shadow(1px 1px 3px black);
+        }
+        select#fnm {
+    display: block;
+    margin: 10px;
+    padding:5px;
+    font-size:16px;
+}
+
+span#outfnm {
+    padding: 0px 10px;
+}
+</style>
+</head>   
+
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="pagetitletext">Themes</span>
+        </div>
+    </header>
+    <div id="body">
+           <b>Pick a theme<br><small style="font-weight:400;">Current: <span id="curthm"></span> <br><small>Scroll to the bottom to pick a font</small></small></b>
+           <div class="themeslist">
+
+
+
+
+<!-- hfhf -->
+                   <div class="theme" onclick="picktheme('Default','#ffffff','#000000','#27598c','#eee','#444')">
+    <i class="themename">Default</i>
+    <span style="background:#ffffff"></span><span style="background:#000000"></span><span style="background:#27598c;"></span><span style="background:#eee"></span><span style="background:#444"></span>
+</div>
+                <div class="theme" onclick="picktheme('Default Dark','#111222','#ffffff','#d9d983','#222233','#ddd')">
+    <i class="themename">Default Dark</i>
+    <span style="background:#111222"></span><span style="background:#ffffff"></span><span style="background:#d9d983;"></span><span style="background:#222233"></span><span style="background:#ddd"></span>
+</div>
+
+
+           <div style="
+    padding: 5px;
+    background: var(--greyc);
+    color: var(--linkc);
+    margin: 0px 5px;
+">Dark themes</div>
+<div class="theme" onclick="picktheme('Midnight City','#232323','#ffffff','#14a4ab','#000000','#ffa61a')">
+    <i class="themename">Midnight City</i>
+    <span style="background:#232323"></span><span style="background:#ffffff"></span><span style="background:#14a4ab;"></span><span style="background:#000000"></span><span style="background:#ffa61a"></span>
+</div>
+<div class="theme" onclick="picktheme('Dark Night','#1c2331','#ffffff','#4da9d5','#000c15','#cfd8dc')">
+    <i class="themename">Dark Night</i>
+    <span style="background:#1c2331"></span><span style="background:#ffffff"></span><span style="background: #4da9d5;"></span><span style="background:#000c15"></span><span style="background:#cfd8dc"></span>
+</div>
+<div class="theme" onclick="picktheme('Vintage Rose','#8b2635','#f9e1e4','#ffbac3','#4a1216','#f7c1c0')">
+    <i class="themename">Vintage Rose</i>
+    <span style="background:#8b2635"></span><span style="background:#f9e1e4"></span><span style="background:#ffbac3;"></span><span style="background:#4a1216"></span><span style="background:#f7c1c0"></span>
+</div>
+           <div class="theme" onclick="picktheme('Dark Galaxy','#230C33','#f4f4f4','#d8bdfb','#2a1240','#bdaaf1')">
+    <i class="themename">Dark Galaxy</i>
+    <span style="background:#230C33"></span><span style="background:#f4f4f4"></span><span style="background:#d8bdfb;"></span><span style="background:#2a1240"></span><span style="background:#bdaaf1"></span>
+</div>
+
+<div class="theme" onclick="picktheme('OLED Black','#000000','#fdfdfd','#bdc3a5','#000000','#b2cde1')">
+    <i class="themename">OLED Black</i>
+    <span style="background:#000000"></span><span style="background:#fdfdfd"></span><span style="background:#bdc3a5;"></span><span style="background:#000000"></span><span style="background:#b2cde1"></span>
+</div>
+<div class="theme" onclick="picktheme('Deep Space','#121212','#ffffff','#a1a1a1','#000000','#b3b3b3')">
+    <i class="themename">Deep Space</i>
+    <span style="background:#121212"></span><span style="background:#ffffff"></span><span style="background: #a1a1a1;"></span><span style="background:#000000"></span><span style="background:#b3b3b3"></span>
+</div>
+<div class="theme" onclick="picktheme('Rainforest Green','#004b23','#ffffff','#22c33e','#002c16','#68d88e')">
+    <i class="themename">Rainforest Green</i>
+    <span style="background:#004b23"></span><span style="background:#ffffff"></span><span style="background:#22c33e;"></span><span style="background:#002c16"></span><span style="background:#68d88e"></span>
+</div>
+        <div class="theme" onclick="picktheme('Ocean Blue','#03396c','#ffffff','#80ced6','#02141e','#b3e0f2')">
+    <i class="themename">Ocean Blue</i>
+    <span style="background:#03396c"></span><span style="background:#ffffff"></span><span style="background:#80ced6;"></span><span style="background:#02141e"></span><span style="background:#b3e0f2"></span>
+</div>
+    <div class="theme" onclick="picktheme('Barbie Pink','#E36BAE','#fffdfe','#fffbe5','#ca5596','#FCE38A')">
+    <i class="themename">Barbie Pink</i>
+    <span style="background:#E36BAE"></span><span style="background:#fffdfe"></span><span style="background:#fffbe5;"></span><span style="background:#ca5596"></span><span style="background:#FCE38A"></span>
+</div>
+<div class="theme" onclick="picktheme('Chocolate Brown','#35281E','#ffffff','#f3a85d','#271E16','#b99b80')">
+    <i class="themename">Chocolate Brown</i>
+    <span style="background:#35281E"></span><span style="background:#ffffff"></span><span style="background:#f3a85d;"></span><span style="background:#271E16"></span><span style="background:#b99b80"></span>
+</div>
+    <div class="theme" onclick="picktheme('Frog Green','#304D30','#EEF0E5','#94d994','#163020','#B6C4B6')">
+    <i class="themename">Frog Green</i>
+    <span style="background:#304D30"></span><span style="background:#EEF0E5"></span><span style="background:#94d994;"></span><span style="background:#163020"></span><span style="background:#B6C4B6"></span>
+</div>
+
+
+<div class="theme" onclick="picktheme('Fire Engine Red','#191919','#ffffff','#ff7b7b','#630e1e','#d3d37a')">
+    <i class="themename">Fire Engine Red</i>
+    <span style="background:#191919"></span><span style="background:#ffffff"></span><span style="background:#ff7b7b;"></span><span style="background:#630e1e"></span><span style="background:#d3d37a"></span>
+</div>
+<div class="theme" onclick="picktheme('Skyline Gray','#455a64','#ffffff','#bad7e6','#263238','#cfd8dc')">
+    <i class="themename">Skyline Gray</i>
+    <span style="background:#455a64"></span><span style="background:#ffffff"></span><span style="background:#bad7e6;"></span><span style="background:#263238"></span><span style="background:#cfd8dc"></span>
+</div>
+    <div class="theme" onclick="picktheme('Alien Blue','#001133','#ffffffdd','#5c8c9e','#002244','#aabbdd')">
+        <i class="themename">Alien Blue</i>
+        <span style="background:#001133"></span><span style="background:#ffffff"></span><span style="background:#5c8c9e;"></span><span style="background:#002244"></span><span style="background:#aabbdd"></span>
+    </div>
+    <div style="
+    padding: 5px;
+    background: var(--greyc);
+    color: var(--linkc);
+    margin: 0px 5px;
+">Light themes</div>
+<div class="theme" onclick="picktheme('Cherry Blossom','#fbd3d6','#000000','#e12a46','#fdeff2','#fa757d')">
+    <i class="themename">Cherry Blossom</i>
+    <span style="background:#fbd3d6"></span><span style="background:#000000"></span><span style="background:#e12a46;"></span><span style="background:#fdeff2"></span><span style="background:#fa757d"></span>
+</div>
+<div class="theme" onclick="picktheme('Summer Sky','#9dd1e7','#000000','#00435f','#d4eef6','#04345e')">
+    <i class="themename">Summer Sky</i>
+    <span style="background:#9dd1e7"></span><span style="background:#000000"></span><span style="background:#00435f;"></span><span style="background:#d4eef6"></span><span style="background:#04345e"></span>
+</div>
+
+<div class="theme" onclick="picktheme('Pineapple','#fdd835','#000000','#488408','#ffecb3','#4a2c20')">
+    <i class="themename">Pineapple</i>
+    <span style="background:#fdd835"></span><span style="background:#000000"></span><span style="background:#488408;"></span><span style="background:#ffecb3"></span><span style="background:#4a2c20"></span>
+</div>
+<div class="theme" onclick="picktheme('Day On The Beach','#ebe9e4','#232119','#567cc1','#dcdad3','#4a4842')">
+    <i class="themename">Day On The Beach</i>
+    <span style="background:#ebe9e4"></span><span style="background:#232119"></span><span style="background:#567cc1;"></span><span style="background:#dcdad3"></span><span style="background:#4a4842"></span>
+</div>
+
+
+<div class="theme" onclick="picktheme('Bubble Gum','#d3dff0','#000000','#fd099a','#EEF5FF','#000e8c')">
+    <i class="themename">Bubble Gum</i>
+    <span style="background:#d3dff0"></span><span style="background:#000000"></span><span style="background:#fd099a;"></span><span style="background:#EEF5FF"></span><span style="background:#000e8c"></span>
+</div>
+
+<div class="theme" onclick="picktheme('Orange Soda','#fff6f1','#000000','#ff6109','#ffece0','#903400')">
+    <i class="themename">Orange Soda</i>
+    <span style="background:#fff6f1"></span><span style="background:#000000"></span><span style="background:#ff6109;"></span><span style="background:#ffece0"></span><span style="background:#903400"></span>
+</div>
+<div class="theme" onclick="picktheme('Mint Green','#d3f0d6','#000000','#36a13d','#eefff1','#5a8a5e')">
+    <i class="themename">Mint Green</i>
+    <span style="background:#d3f0d6"></span><span style="background:#000000"></span><span style="background:#36a13d;"></span><span style="background:#eefff1"></span><span style="background:#5a8a5e"></span>
+</div>
+<div class="theme" onclick="picktheme('Silver Lining','#b0bec5','#000000','#263238','#95b0bd','#192a32')">
+    <i class="themename">Silver Lining</i>
+    <span style="background:#b0bec5"></span><span style="background:#000000"></span><span style="background:#263238;"></span><span style="background:#95b0bd"></span><span style="background:#192a32"></span>
+</div>
+<div class="theme" onclick="picktheme('Golden Sunset','#fcd344','#1c1b1b','#ff5722','#ffd18b','#361a1b')">
+    <i class="themename">Golden Sunset</i>
+    <span style="background:#fcd344"></span><span style="background:#1c1b1b"></span><span style="background:#ff5722;"></span><span style="background:#ffd18b"></span><span style="background:#361a1b"></span>
+</div>
+    <div style="
+    padding: 5px;
+    background: var(--greyc);
+    color: var(--linkc);
+    margin: 0px 5px;
+">Change font</div>
+<select name="font" id="fnm" onchange="changedfont();">
+<option value="em">Select a font</option>
+ <optgroup label="Default font (fastest)">
+<option value="default">default</option>
+</optgroup>
+ <optgroup label="Dyslexia friendly">
+<option value="Lexend">Lexend</option>
+</optgroup>
+ <optgroup label="Sans-serif">
+ <option value="Roboto">Roboto</option>
+<option value="Raleway">Raleway</option>
+<option value="Inter">Inter</option>
+<option value="Oswald">Oswald</option>
+<option value="Ubuntu">Ubuntu</option>
+<option value="Quicksand">Quicksand</option>
+<option value="Rubik">Rubik</option>
+<option value="Varela">Varela</option>
+</optgroup>
+ <optgroup label="Serif">
+  <option value="Alice">Alice</option>
+ <option value="Merriweather">Merriweather</option>
+<option value="Lora">Lora</option>
+<option value="Bitter">Bitter</option>
+<option value="Spectral">Spectral</option>
+</optgroup>
+ <optgroup label="Handwriting">
+<option value="Caveat">Caveat</option>
+<option value="Kalam">Kalam</option>
+<option value="Cookie">Cookie</option>
+<option value="Handlee">Handlee</option>
+</optgroup>
+</select> <span id="outfnm"></span>
+ 
+           </div>
+<a href="index.html" style="
+    display: block;
+    text-align: center;
+    border: 1px solid;
+    padding: 5px;
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: var(--greyc);
+">Save &amp; Apply</a>
+   
+   
+  <a href="contact.html" style="margin:10px;padding:5px;display:block;"> Please provide your feedback on this new feature - click here</a>
+</div>
+    <script>
+  
+        var curfont = localStorage.getItem('fname') || "default";
+document.getElementById('outfnm').innerHTML = "Current: " + curfont;
+function changedfont() {
+if(document.getElementById('fnm').value == "em") {return false;}
+localStorage.setItem('fname',document.getElementById('fnm').value);
+document.getElementById('outfnm').innerHTML = "Current: "+document.getElementById('fnm').value;
+togglefont();
+}
+
+
+        
+function picktheme(tname,a,b,c,d,e) {
+localStorage.setItem('tname', tname);
+localStorage.setItem('bodyc', a);
+localStorage.setItem('textc', b);
+localStorage.setItem('linkc', c);
+localStorage.setItem('greyc', d);
+localStorage.setItem('lightc', e);
+toggletheme();
+}
+function toggletheme(){
+const curtheme = localStorage.getItem('tname') || "default";
+document.getElementById('curthm').innerHTML = curtheme;
+if(curtheme != 'default'){
+	document.documentElement.style.setProperty('--bodyc', localStorage.getItem('bodyc'));
+document.documentElement.style.setProperty('--textc',  localStorage.getItem('textc'));
+document.documentElement.style.setProperty('--linkc',  localStorage.getItem('linkc'));
+document.documentElement.style.setProperty('--greyc',  localStorage.getItem('greyc'));
+document.documentElement.style.setProperty('--lightc', localStorage.getItem('lightc'));
+}
+else {
+document.documentElement.style.setProperty('--bodyc', 'white');
+document.documentElement.style.setProperty('--textc', 'black');
+document.documentElement.style.setProperty('--linkc', '#27598c');
+document.documentElement.style.setProperty('--greyc', '#eee');
+document.documentElement.style.setProperty('--lightc', '#444');
+}
+}
+function togglefont(){
+const curfont = localStorage.getItem('fname') || "default";
+if(curfont != 'default'){
+const le = document.createElement('link');
+le.rel = 'stylesheet';
+le.href = 'https://fonts.googleapis.com/css2?family='+curfont+'&display=swap';
+document.head.appendChild(le);
+document.body.style.fontFamily = curfont+', sans-serif';
+}
+else {
+document.body.style.fontFamily = 'sans-serif';
+}
+}
+togglefont();
+toggletheme();
+    </script>
+    </body></html>

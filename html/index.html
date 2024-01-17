@@ -68,7 +68,7 @@ fill += '<div class="navigate">';
 var curpage = window.location.href.replace(/\&after.*/,'');
 if(jsonResponse['data']['after'] != null) {
 if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
-fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><center>NEW: Themes are here <a href="themes.html">Go to settings!</a></center>'
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;

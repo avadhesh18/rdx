@@ -28,7 +28,7 @@
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a onclick="toggletheme('dark')" id="themebtn">Dark mode</a> | <a href="settings.html">Settings</a> 
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Change Theme</a> | <a href="settings.html">Settings</a> 
               </div> 
             </div>
         </div>
@@ -108,7 +108,7 @@ fill += '<div class="navigate">';
 var curpage = window.location.href.replace(/\&after.*/,'');
 if(jsonResponse['data']['after'] != null) {
 if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
-fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><center>NEW: Themes are here <a href="themes.html">Go to settings!</a></center>'
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
