@@ -770,6 +770,7 @@ div#newgallery {
     bottom: 0;
     overflow-y: scroll;
     animation: popsup 0.1s linear;
+    z-index:10000;
 }
 .gallery_main img {
     cursor: pointer;
@@ -789,13 +790,13 @@ transform:translateY(0%);
     display: block;
 }
 
-.displayimg:first-of-type {margin-top:80px;}
+.displayimg:first-of-type {margin-top:50px;}
 span#closegal {
     background: var(--greyc);
     color: var(--textc);
     padding: 5px 10px;
     position: fixed;
-    top: 65px;
+    top: 5px;
     right: 5px;
     border-radius: 10px;
     opacity: 0.95;
