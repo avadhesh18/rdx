@@ -193,6 +193,19 @@ function preloadImage(im_url) {
   }, 1);
 }
 
+function closegal(){
+document.getElementById('newgallery').outerHTML = '';
+}
+
+function galleryopen(theid){
+const jdiv = document.createElement('div');
+jdiv.id = 'newgallery';
+document.getElementsByTagName('body')[0].appendChild(jdiv);
+jdiv.innerHTML = '<span id="closegal" onclick="closegal();">Close</span>';
+document.querySelectorAll('[data-id="'+theid+'"]').forEach(el => {
+jdiv.innerHTML += '<div class="displayimg"><img src="'+el.getAttribute('data-msrc')+'"></div>';
+});
+}
 function urlpreview(urli,postjson) {
 returnpost = '';	
 	if (urli.match(/.(jpg|jpeg|png|gif)$/i))
@@ -222,7 +235,7 @@ let fakect = ' actv';
 		singleptlink = singleptlink.replace("preivew.redd", "i.redd");}
       	singletmlink =  pjmdsorted[singlept]['p']['0']['u'];
       	if(fakect == ' actv') {
-      	g_mimg  = '<img src="'+singleptlink+'" alt="main image" id="mi_'+postjson['id']+'"/>';
+      	g_mimg  = '<img src="'+singleptlink+'" alt="main image" id="mi_'+postjson['id']+'" onclick="galleryopen(\''+postjson['id']+'\')"/>';
       	}
       	g_timgs += '<img class="gtumb'+fakect+'" src="'+singletmlink+'" data-msrc="'+singleptlink+'" alt="thumbnail" data-id="'+postjson['id']+'">';
       	 preloadImage(singleptlink);

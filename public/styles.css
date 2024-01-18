@@ -761,6 +761,47 @@ span#taptoopenmenu {
 .infotext p {
     font-size: 14px;
 }
+div#newgallery {
+    background: black;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    animation: popsup 0.1s linear;
+}
+.gallery_main img {
+    cursor: pointer;
+}
+@keyframes popsup{
+from{
+transform:translateY(30%);
+}
+to{
+transform:translateY(0%);
+}
+}
+.displayimg img {
+    max-width: 95%;
+    max-height: 100vh;
+    margin: 5px auto;
+    display: block;
+}
+
+.displayimg:first-of-type {margin-top:50px;}
+span#closegal {
+    background: var(--greyc);
+    color: var(--textc);
+    padding: 5px 10px;
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    border-radius: 10px;
+    opacity: 0.95;
+    font-size:14px;
+    cursor:pointer;
+}
 @media all and (display-mode: standalone) {
 header#header {
     position: fixed;
