@@ -789,13 +789,13 @@ transform:translateY(0%);
     display: block;
 }
 
-.displayimg:first-of-type {margin-top:50px;}
+.displayimg:first-of-type {margin-top:80px;}
 span#closegal {
     background: var(--greyc);
     color: var(--textc);
     padding: 5px 10px;
     position: fixed;
-    top: 5px;
+    top: 65px;
     right: 5px;
     border-radius: 10px;
     opacity: 0.95;
