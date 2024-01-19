@@ -47,6 +47,10 @@ b,li{display:block;padding:5px;margin:5px;}
 span#outfnm {
     padding: 0px 10px;
 }
+.theme.current {
+    background: var(--linkc);
+    color: var(--bodyc);
+}
 </style>
 </head>   
 
@@ -207,6 +211,7 @@ span#outfnm {
 <option value="Lexend">Lexend</option>
 </optgroup>
  <optgroup label="Sans-serif">
+   <option value="Jost">Jost</option>
   <option value="Arimo">Arimo</option>
  <option value="Roboto">Roboto</option>
 <option value="Raleway">Raleway</option>
@@ -237,7 +242,6 @@ span#outfnm {
   <option value="Handlee">Handlee</option>
 
  <option value="Dosis">Dosis</option>
-  <option value="Jost">Jost</option>
 <option value="Caveat">Caveat</option>
 <option value="Satisfy">Satisfy</option>
 <option value="Kalam">Kalam</option>
@@ -263,12 +267,13 @@ span#outfnm {
 </div>
     <script>
   
-        var curfont = localStorage.getItem('fname') || "default";
+        var curfont = localStorage.getItem('fname') || "Default";
 document.getElementById('outfnm').innerHTML = "Current: " + curfont;
 function changedfont() {
 if(document.getElementById('fnm').value == "em") {return false;}
 localStorage.setItem('fname',document.getElementById('fnm').value);
 document.getElementById('outfnm').innerHTML = "Current: "+document.getElementById('fnm').value;
+
 togglefont();
 }
 
@@ -284,9 +289,21 @@ localStorage.setItem('lightc', e);
 toggletheme();
 }
 function toggletheme(){
-const curtheme = localStorage.getItem('tname') || "default";
+const curtheme = localStorage.getItem('tname') || "Default";
 document.getElementById('curthm').innerHTML = curtheme;
-if(curtheme != 'default'){
+
+var themes = document.querySelectorAll('.theme');
+themes.forEach(theme => {
+console.log(theme.textContent.trim());
+    if (theme.textContent.trim() == curtheme) {
+        theme.classList.add('current');
+    } else {
+        theme.classList.remove('current');
+    }
+});
+        
+        
+if(curtheme != 'Default'){
 	document.documentElement.style.setProperty('--bodyc', localStorage.getItem('bodyc'));
 document.documentElement.style.setProperty('--textc',  localStorage.getItem('textc'));
 document.documentElement.style.setProperty('--linkc',  localStorage.getItem('linkc'));
@@ -303,7 +320,17 @@ document.documentElement.style.setProperty('--lightc', '#444');
 }
 function togglefont(){
 const curfont = localStorage.getItem('fname') || "default";
-if(curfont != 'default'){
+
+   var fontOptions = document.querySelectorAll('#fnm option');
+        fontOptions.forEach(option => option.removeAttribute('selected'));
+        currfont = document.getElementById('fnm').value;
+        var selectedFontOption = document.querySelector(`#fnm option[value="${curfont}"]`);
+        if (selectedFontOption) {
+            selectedFontOption.setAttribute('selected', 'selected');
+        }
+        
+        
+if(curfont != 'default' && curfont != "Default"){
 const le = document.createElement('link');
 le.rel = 'stylesheet';
 le.href = 'https://fonts.googleapis.com/css2?family='+curfont+'&display=swap';
@@ -313,6 +340,7 @@ document.body.style.fontFamily = curfont+', sans-serif';
 else {
 document.body.style.fontFamily = 'sans-serif';
 }
+
 }
 togglefont();
 toggletheme();

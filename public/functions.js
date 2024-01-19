@@ -16,7 +16,7 @@ document.getElementById('subscribed').innerHTML = subslisted;
 
 function toggletheme(){
 const curtheme = localStorage.getItem('tname') || "default";
-if(curtheme != 'default'){
+if(curtheme != 'default' && curtheme != 'Default'){
 	document.documentElement.style.setProperty('--bodyc', localStorage.getItem('bodyc'));
 document.documentElement.style.setProperty('--textc',  localStorage.getItem('textc'));
 document.documentElement.style.setProperty('--linkc',  localStorage.getItem('linkc'));

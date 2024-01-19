@@ -181,6 +181,8 @@ a.next {
     padding: 5px;
     margin: 10px;
     border-radius: 6px;
+        background: var(--linkc);
+    color: var(--bodyc);
 }
 
 div#subssearch {
