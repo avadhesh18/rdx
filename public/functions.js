@@ -136,7 +136,7 @@ nexturl  = nexturl+"&after="+jsonResponse['data']['after'];
 else {
 nexturl = '';
 }
-document.getElementById('sxpy').innerHTML += fill;
+document.getElementById('sxpy').insertAdjacentHTML('beforeend',fill);
 document.getElementById('sentinel').innerHTML = ' ';
   runhsl();
 };

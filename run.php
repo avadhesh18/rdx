@@ -23,7 +23,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <div id="menus">
         <div id="subssearch" class="hidden">
             <input type="text" id="subssearchi" name="qury" onkeyup="searchsubs(this.value,event)" autocomplete="off">
-            <div id="subslist"></div>
+            <div id="subslist"></div> 
         </div>
         <div id="leftbar" class="hidden">
             <div class="list">
