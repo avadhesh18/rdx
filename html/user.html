@@ -49,34 +49,7 @@ if(getget('before') != null){
 url = url+'&before='+getget('before');
 }
 
-var req = new XMLHttpRequest();
-req.responseType = 'json';
-req.open('GET', url, true);
-req.onload  = function() {
-var jsonResponse = req.response;
- 
-
-var titlesx = url.replace("https://www.reddit.com/r/", "");
-titlesx = titlesx.replace("/.json", "");
-document.title = titlesx;
-posts = jsonResponse['data']['children'];
-
-
-for(var item in posts) {
-console.log("xx" + item);
-pid =  posts[item]['data'];
-fill += postbuilder(pid);
-}
-fill += '<div class="navigate">';
-var curpage = window.location.href.replace(/\&after.*/,'');
-if(jsonResponse['data']['after'] != null) {
-fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a>'
-}
-fill += '</div>';
-document.getElementById('body').innerHTML = fill;
-  runhsl();
-};
-req.send(null);
+makereq(url);
 }
 
 

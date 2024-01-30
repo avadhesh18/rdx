@@ -47,37 +47,7 @@ if(getget('before') != null){
 url = url+'&before='+getget('before');
 }
 
-var req = new XMLHttpRequest();
-req.responseType = 'json';
-req.open('GET', url, true);
-req.onload  = function() {
-var jsonResponse = req.response;
- 
-
-var titlesx = url.replace("https://www.reddit.com/r/", "");
-titlesx = titlesx.replace("/.json", "");
-document.title = "rdx - A lightweight mobile web client for reddi";
-posts = jsonResponse['data']['children'];
-
-
-for(var item in posts) {
-pid =  posts[item]['data'];
-fill += postbuilder(pid);
-}
-fill += '<div class="navigate">';
-var curpage = window.location.href.replace(/\&after.*/,'');
-if(jsonResponse['data']['after'] != null) {
-if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
-fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><center>NEW: Themes are here <a href="themes.html">Go to settings!</a></center>'
-}
-fill += '</div>';
-document.getElementById('body').innerHTML = fill;
-  runhsl();
-};
-req.onerror = function () {
-document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
-};
-req.send(null);
+makereq(url);
 }
 
 

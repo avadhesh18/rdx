@@ -1,7 +1,7 @@
 var bmr = '';
 // Utility functions [UNIVERSAL]
 
-
+var nexturl = ''; var nextseturl = '';
 if(JSON.parse(localStorage.getItem("subs")) !== null){
 subslisted = ''; subslistedarray = JSON.parse(localStorage.getItem("subs")); 
   subslistedarray.sort(function(a, b) {
@@ -41,8 +41,19 @@ document.head.appendChild(le);
 document.body.style.fontFamily = curfont+', sans-serif';
 }
 }
+
+var curinfi = localStorage.getItem('curinfi') || false;
+if (window.location.href.indexOf("comments.html") == -1)
+{
+if(curinfi == "true") {
+var style = document.createElement('style');
+style.innerHTML = '.footer, .infotext, .next {display:none !important}';
+document.head.appendChild(style);
+}
+}
 toggletheme();
 togglefont();
+
 function toggle(id){
 var x = document.getElementsByClassName("show");
 for (k = 0; k < x.length; k++) {
@@ -62,6 +73,108 @@ document.getElementById("subssearchi").focus();
   // handle case of empty input
  // return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 //}
+
+function makereq(url){
+var fill = '';
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = titlesx.replace("/.json", "");
+document.title = titlesx;
+posts = jsonResponse['data']['children'];
+for(var item in posts) {
+console.log("xx" + item);
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+fill += '<a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
+nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
+nexturl  = url.split('&after')[0]+"&after="+jsonResponse['data']['after'];
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+  runhsl();
+  if(curinfi == "true") {
+      observe();
+  }
+};
+req.onerror = function () {
+document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
+};
+req.send(null);
+}
+
+function scorllmore() {
+const url = nexturl;
+let fill = '';
+if(nexturl != '') {console.log(nexturl); } else {return false;}
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+posts = jsonResponse['data']['children'];
+for(var item in posts) {
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+history.pushState("", "newtitle", nextseturl);
+nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
+nexturl = url.split('&after')[0];
+nexturl  = nexturl+"&after="+jsonResponse['data']['after'];
+}
+else {
+nexturl = '';
+}
+document.getElementById('sxpy').innerHTML += fill;
+document.getElementById('sentinel').innerHTML = ' ';
+  runhsl();
+};
+req.onerror = function () {
+document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
+nexturl = '';
+};
+req.send(null);
+}
+
+function observe() {
+const options = {
+        root: null,
+        threshold: 1.0 
+    };
+cantload = false;
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if(cantload == false) {
+                    document.getElementById('sentinel').innerHTML = '<center>Loading more posts..</center>';
+                cantload = true;
+                setTimeout(() => {
+               scorllmore();
+               cantload  = false;
+                }, 100);
+                }
+            }
+        });
+    }
+    const observer = new IntersectionObserver(callback, options);
+    const sentinel = document.getElementById('sentinel');
+    if (sentinel) {
+        observer.observe(sentinel);
+    } 
+}
+
+
 function htmlDecode(input) {
   var parser = new DOMParser();
   var decoded = parser.parseFromString(input, 'text/html');
@@ -100,7 +213,7 @@ xhr.onreadystatechange = function()
 		fillsubs = '';
 		for (var singlesub in subslist['subreddits'] )   
 {
-console.log(subslist[singlesub]);
+//console.log(subslist[singlesub]);
 fillsubs += '<a href="subreddit.html?r=' + subslist['subreddits'][singlesub]['name']+'">'+subslist['subreddits'][singlesub]['name']+'</a>';
 }
 document.getElementById('subslist').innerHTML = fillsubs;
@@ -151,14 +264,17 @@ var replacedText = replaceRedditLinks(post["selftext_html"]);
 returnfpost += '<div class="postc selftext">'+htmlDecode(replacedText)+'</div>';
 }
 urli = post['url_overridden_by_dest'];
-console.log((typeof  post['crosspost_parent_list'] !== 'undefined' &&  post['crosspost_parent_list'].length > 0));
+
 
 if((post['crosspost_parent_list'] != null &&  post['crosspost_parent_list'].length > 0) ||  (typeof  post['crosspost_parent_list'] !== 'undefined' &&  post['crosspost_parent_list'].length > 0)){
 returnfpost += postbuilder(post['crosspost_parent_list'][0]);
 }
 else {
 if(over18 === 'over18') {returnfpost += '<button onclick="allown_sfw()" class="sfwtoggle">Click to Allow this content</button>';}
-if(typeof urli != "undefined"){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'"><small>Open URL</small></a></div>'; }
+if(typeof urli != "undefined" && post['removed_by_category'] == null){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'"><small>Open URL</small></a></div>'; }
+if(post['removed_by_category'] != null) {
+returnfpost += 'Removed by '+ post['removed_by_category'];
+}
 if(post['poll_data'] != null){
 returnfpost += pollbuilder(post);
 }
@@ -178,16 +294,10 @@ function allown_sfw(){
 	window.location.reload();
 }
 function preloadImage(im_url) {
-  // Create a div element to contain the image tag
   let container = document.createElement('div');
-
-  // Set the innerHTML of the container with the image tag
   container.innerHTML = `<img src="${im_url}" />`;
 
-  // Append the container to the document body to trigger loading
   document.body.appendChild(container);
-
-  // Remove the container after a short delay (you can adjust the delay as needed)
   setTimeout(function() {
     document.body.removeChild(container);
   }, 1);
@@ -218,13 +328,14 @@ returnpost = '';
 	pjmd = postjson['media_metadata'];
 	pjgd= postjson['gallery_data'];
 	const pjmdsorted = {};
-
+if(pjgd) {
 pjgd.items.forEach((item, index) => {
   const mediaId = item.media_id;
   if (pjmd.hasOwnProperty(mediaId)) {
     pjmdsorted[mediaId] = pjmd[mediaId];
   }
 });
+}
 let g_timgs = '<div class="gallery_thumbs">';
 let fakect = ' actv';
 	for(var singlept in pjmdsorted) {
@@ -274,6 +385,7 @@ let fakect = ' actv';
 	else if (urli.match(/redgifs/g) && postjson.preview)
 	{
 	returnpost += '<div class="postc video">';
+	if(postjson['secure_media']) {
 	vidurl = postjson['secure_media']['oembed']['thumbnail_url']; 
 	if(typeof vidurl == "undefined"){
 		vidurl = urli.replace("redgifs.com/watch/", "redgifs.com/ifr/");
@@ -290,6 +402,7 @@ let fakect = ' actv';
 		vidurl = vidurl.replace("size_restricted.gif", "mobile.mp4")
 		
 		returnpost +='<video src="'+vidurl+'#t=0.001" poster="'+postjson["preview"]["images"]["0"]["source"]["url"]+'" width="100%" height="240" preload="metadata" controls> </video>';
+	}
 	}
 	returnpost += '</div>';
 	}

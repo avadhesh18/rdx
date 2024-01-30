@@ -1,0 +1,259 @@
+<body style="max-width:400px;">
+
+<div id="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+</div>
+
+
+<div id="obme">Loading more...</div>
+<script>
+function observe() {
+const options = {
+        root: null,
+        threshold: 1.0 // Adjust if needed
+    };
+
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+               scrollMore();
+            }
+        });
+    }
+
+    const observer = new IntersectionObserver(callback, options);
+
+    const sentinel = document.getElementById('obme');
+    if (sentinel) {
+        observer.observe(sentinel);
+    } else {
+        console.error('Sentinel element not found');
+    }
+}
+function scrollMore() {
+    // Wait for one second before starting to add numbers
+    setTimeout(() => {
+        // Get the div element by its ID
+        const textDiv = document.getElementById('text');
+ const randomNumber = Math.floor(Math.random() * 9) + 1;
+        // Loop 300 times
+        for (let i = 0; i < 300; i++) {
+            // Generate a random number between 1 and 9
+           
+
+            // Add the random number to the div
+            textDiv.innerHTML += randomNumber+' ';
+        }
+    }, 1000); // 1000 milliseconds = 1 second
+}
+observe();
+</script>
+
+</body>
+
+
+
+
+
+
+<!DOCTYPE html><html><head>
+    <title>RDX for Reddit -  Apollo For Reddit Inspired Web Viewer</title>
+    <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse Reddit without Ads."/>
+    <link rel="shortcut icon" href="favicon.ico">   
+  <link rel="icon" href="favicon.png"> 
+<link rel="manifest" href="/manifest.json" /> <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="rdx" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
+    </head>  
+<body>
+    <header id="header">
+        <div id="pagetitle">
+            <span id="plus" onclick="toggle('leftbar')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Menu"><path d="M140.001-254.616v-59.999h679.998v59.999H140.001Zm0-195.385v-59.998h679.998v59.998H140.001Zm0-195.384v-59.999h679.998v59.999H140.001Z"></path></svg></span>
+            <span id="taptoopenmenu" onclick="toggle('subssearch')"><span id="pagetitletext">Loading...</span>
+            <svg aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="icon-target" style=""><path fill="currentColor" d="M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z"></path></svg></span>
+            <span id="menu" onclick="toggle('rightbar')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Sort and other options"><path d="M411.155-260.001V-320h137.306v59.999H411.155Zm-155-190v-59.998H703.46v59.998H256.155ZM140.001-640v-59.999h679.998V-640H140.001Z"/></svg></span>
+        </div>
+    <div id="menus">
+        <div id="subssearch" class="hidden">
+            <input type="text" id="subssearchi" name="qury" onkeyup="searchsubs(this.value,event)" autocomplete="off">
+            <div id="subslist"></div>
+        </div>
+        <div id="leftbar" class="hidden">
+            <div class="list">
+                <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Change Theme</a> | <a href="settings.html">Settings</a> | <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Support RDX</a>
+              </div></div>
+        </div>
+        <div id="rightbar" class="hidden"></div>
+    </div>
+    </header>
+    <div id="body"></div>
+    <div id="sentinel"><center>Loading...</center></div>
+    <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}'></script> 
+    <script src="https://cdn.jsdelivr.net/npm/ios-pwa-splash@1.0.0/cdn.min.js"></script>
+<script>iosPWASplash('5122.png', '#4e2a72');</script> 
+<script>
+
+var nexturl = ''; var isloading = false; var nextseturl = '';
+//Loading of posts
+function doit(){
+links = '<a href="/?x=y&sort=new">New</a><a href="/?x=y&sort=best">Best</a><a href="/?x=y&sort=rising">Rising</a><a href="/?x=y&sort=top">Top</a><a onclick="shareit();" id="sharebutton">Share</a>';
+
+
+document.getElementById('rightbar').innerHTML = links;
+var fill = '';
+/*
+url = getget('url');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+*/
+
+if(JSON.parse(localStorage.getItem("subs")) == null || JSON.parse(localStorage.getItem("subs")).length == 0){
+substoload = "all";
+}
+else {
+subsarray= JSON.parse(localStorage.getItem("subs"));
+substoload = subsarray.join("+");
+}
+document.getElementById('pagetitletext').innerHTML = 'rdx';
+
+url='https://www.reddit.com/r/'+substoload+'/';
+if(getget('sort') != null){
+url = url+''+getget('sort')+'';
+}
+
+console.log(url);
+limit = localStorage.getItem('ppg') || 20;
+url = url+'.json?limit='+limit;
+if(getget('t') != null){
+console.log(getget('t'));
+url = url+'&t='+getget('t');
+}
+
+if(getget('after') != null){
+url = url+'&after='+getget('after');
+}
+if(getget('before') != null){
+url = url+'&before='+getget('before');
+}
+
+var req = new XMLHttpRequest();
+isloading = true;
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+ 
+
+var titlesx = url.replace("https://www.reddit.com/r/", "");
+titlesx = titlesx.replace("/.json", "");
+document.title = "rdx - A lightweight mobile web client for reddi";
+posts = jsonResponse['data']['children'];
+
+
+for(var item in posts) {
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+fill += '<div class="navigate">';
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+fill += '<div id="sxpy"><a class="next" href="'+curpage+'&after='+jsonResponse['data']['after']+'">Next page</a><center>NEW: Themes are here <a href="themes.html">Go to settings!</a></center></div>';
+nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
+nexturl = url.split('&after')[0];
+nexturl  = nexturl+"&after="+jsonResponse['data']['after'];
+}
+fill += '</div>';
+document.getElementById('body').innerHTML = fill;
+observe();
+  runhsl();
+};
+req.onerror = function () {
+document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
+};
+req.send(null);
+}
+
+function scorllmore() {
+const url = nexturl;
+let fill = '';
+if(nexturl != '') {console.log(nexturl); } else {return false;}
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+var jsonResponse = req.response;
+posts = jsonResponse['data']['children'];
+for(var item in posts) {
+pid =  posts[item]['data'];
+fill += postbuilder(pid);
+}
+var curpage = window.location.href.replace(/\&after.*/,'');
+if(jsonResponse['data']['after'] != null) {
+if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
+history.pushState("", "newtitle", nextseturl);
+nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
+nexturl = url.split('&after')[0];
+nexturl  = nexturl+"&after="+jsonResponse['data']['after'];
+}
+else {
+nexturl = '';
+}
+document.getElementById('sxpy').innerHTML += fill;
+  runhsl();
+};
+req.onerror = function () {
+document.getElementById('sxpy').innerHTML = '<center style="padding:15px;">Can\'t load content!</center>';
+nexturl = '';
+};
+req.send(null);
+}
+
+doit();
+function observe() {
+const options = {
+        root: null,
+        threshold: 1.0 
+    };
+cantload = false;
+    function callback(entries, observer) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if(cantload == false) {
+                cantload = true;
+                setTimeout(() => {
+               scorllmore();
+               cantload  = false;
+                }, 500);
+                }
+            }
+        });
+    }
+    const observer = new IntersectionObserver(callback, options);
+    const sentinel = document.getElementById('sentinel');
+    if (sentinel) {
+        observer.observe(sentinel);
+    } 
+}
+</script>
+<div class="footer" style="display:none;"><a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="140" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br><br><small><a href="new.html">What's new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a></small></div> <div id="popitup" style="display:none;"> 
+  <span onclick="document.getElementById('popitup').style.display='none'">Cancel</span>
+  <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>      
+<input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>    
+</div> <div class="infotext" style="display:none;">
+<h1>Explore RDX for Reddit: A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
+<p>Discover a seamless Reddit browsing experience with rdx, a mobile-friendly web viewer designed for speed and simplicity. Based on the now closed Apollo app, rdx allows you to navigate Reddit without the distraction of ads.</p>
+<h2>Enjoy Reddit Anywhere: rdx's Mobile-Friendly Design and Dark Mode</h2>
+<p>Experience the freedom of browsing Reddit on the mobile easily with rdx's mobile-friendly design. The interface is optimized for various devices, ensuring a smooth experience across different screen sizes. Additionally, rdx offers a Dark Mode for users who prefer a more comfortable and eye-friendly viewing experience, making it easy to enjoy Reddit in any lighting condition.</p>
+</div> </body></html>

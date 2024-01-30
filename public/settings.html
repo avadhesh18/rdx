@@ -32,6 +32,7 @@ b,li{display:block;padding:5px;margin:5px;}
       <li>
       <input id="ppg" type="range" min="10" max="60" step="5" onchange="changedppg();"/> <span id="outppg">20</span>
       </li>
+      <b>Enable infinite scrolling (beta): <input type="checkbox" id="infibox" onchange="checkinfi();"></b>
       <b>Export Subscriptions:</b>
       <li>
     <button onclick="exportData()">Export Data</button></li>
@@ -67,7 +68,11 @@ localStorage.setItem('ppg',document.getElementById('ppg').value);
 document.getElementById('outppg').innerHTML = document.getElementById('ppg').value + " (saved)";
 }
 
-
+const curinfi = localStorage.getItem('curinfi') === "true";
+document.getElementById("infibox").checked = curinfi;
+function checkinfi(){
+localStorage.setItem('curinfi',document.getElementById("infibox").checked);
+}
 
 
         function exportData() {
