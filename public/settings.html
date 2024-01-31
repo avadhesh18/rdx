@@ -32,7 +32,9 @@ b,li{display:block;padding:5px;margin:5px;}
       <li>
       <input id="ppg" type="range" min="10" max="60" step="5" onchange="changedppg();"/> <span id="outppg">20</span>
       </li>
-      <b>Enable infinite scrolling (beta): <input type="checkbox" id="infibox" onchange="checkinfi();"></b>
+      <b>Enable Infinite Scrolling (beta): <input type="checkbox" id="infibox" onchange="checkinfi();"></b>
+     <b>Enable Compact mode : <input type="checkbox" id="compbox" onchange="compchng();"></b>
+
       <b>Export Subscriptions:</b>
       <li>
     <button onclick="exportData()">Export Data</button></li>
@@ -59,6 +61,20 @@ else{for(let e of ['bodyc','textc','linkc','greyc','lightc'])document.documentEl
 function togglefont(){const f=localStorage.getItem('fname')||"default";if(f!='default'){const l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+f+'&display=swap';document.head.appendChild(l);document.body.style.fontFamily=f+',sans-serif'}
 else{document.body.style.fontFamily='sans-serif'}}
 togglefont();toggletheme();
+
+var curcomp = localStorage.getItem('curmode') || "original";
+if(curcomp == "comp") {
+document.getElementById("compbox").checked = true;
+}
+function compchng() {
+if(document.getElementById("compbox").checked) {
+localStorage.setItem('curmode','comp');
+}
+else {
+localStorage.setItem('curmode','original');
+
+}
+}
 
 var curpp = localStorage.getItem('ppg') || 20;
 document.getElementById('outppg').innerHTML = curpp;

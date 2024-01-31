@@ -19,7 +19,8 @@ padding:10px;margin-bottom:5px;    word-break: break-word;position:relative;}
 h1 {
     margin: 6px 0px;
     padding: 0;
-    font-size: 1.5em;
+    font-size: 1.3em;
+    line-height: normal;
 }
 
 h2 {
@@ -810,6 +811,47 @@ span#closegal {
     opacity: 0.6;
     margin: 0 auto;
     backdrop-filter: blur(47px);
+}
+.post.comp {overflow: hidden;clear: both;}
+
+.compthumb,.comptext {
+    width: 80px;
+    overflow: hidden;
+    margin-right: 10px;
+    display: inline-table;
+    text-align:center;
+}
+
+.rop {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100% - 90px);
+}
+
+.compthumb img {
+    max-width: 80px;
+    max-height: 80px;
+}
+
+
+.rop .post_author {
+    white-space: normal;
+}
+
+
+
+.rop  .post_link a {
+    font-size: 16px;
+}
+
+.rop  .post_link {
+    padding: 2px 0px 0px;
+}
+.comptext {
+    height: 20px;
+    text-align: center;
+    color: var(--greyc);
+    margin-top: 20px;
 }
 @media all and (display-mode: standalone) {
 header#header {

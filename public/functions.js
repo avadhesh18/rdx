@@ -250,6 +250,10 @@ function replaceRedditLinks(htmlContent) {
 
 function postbuilder(post){
 returnfpost = '';
+ let mode = localStorage.getItem('curmode') || "original";
+if (window.location.href.indexOf("comments.html") != -1) {
+ mode = "original";
+}
 timeagoed = timeago(post['created_utc']*1000);
 sticky = post['stickied'] ? " sticky" :" ";
 over18 = '';
@@ -257,7 +261,29 @@ if(checklc('a18','yes') != true) {
 over18 = post['over_18'] ? "over18" :" ";
 }
 ismod = (post['distinguished'] == "moderator") ? " moderator" :" ";
-returnfpost +=  '<div class="post" id="'+post['id']+'"><div class="post_author"><a href="subreddit.html?r='+post["subreddit"]+'">'+post["subreddit_name_prefixed"]+'</a> &bull;  <a href="user.html?u='+post["author"]+'">'+post["author"]+'</a>  &bull; '+timeagoed+'</div><div class="post_link'+ sticky+' '+ismod+'"><a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['title']+'</a></div>';
+returnfpost +=  '<div class="post '+mode+'" id="'+post['id']+'">';
+if(mode == "comp") {
+thumbnail = post['thumbnail'];
+if(thumbnail != "self" && thumbnail != "spoiler" && thumbnail != "default" && thumbnail != ""  && thumbnail != "nsfw") {
+if(thumbnail == "image") {
+thumbnail = post["preview"]['images'][0]['resolutions'][0]['url'];
+}
+returnfpost +=  '<div class="compthumb"><img src="'+thumbnail+'" alt="thumbnail"/></div><div class="rop">';
+} else {
+thumbnail = thumbnail || "&bull;"; 
+	  const  mx = post?.preview?.images?.[0]?.resolutions?.[0]?.url || "none";
+if(mx != "none") {
+returnfpost +=  '<div class="compthumb"><img src="'+mx+'" alt="thumbnail"/></div><div class="rop">';
+
+}
+else {
+returnfpost += '<div class="comptext">'+thumbnail+'</div><div class="rop">';
+}
+}
+}
+returnfpost +=  '<div class="post_author"><a href="subreddit.html?r='+post["subreddit"]+'">'+post["subreddit_name_prefixed"]+'</a> &bull;  <a href="user.html?u='+post["author"]+'">'+post["author"]+'</a>  &bull; '+timeagoed+'</div><div class="post_link'+ sticky+' '+ismod+'"><a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'">'+post['title']+'</a></div>';
+
+if(mode != "comp") {
 if(post["selftext_html"] != null){
 var replacedText = replaceRedditLinks(post["selftext_html"]);
 
@@ -279,14 +305,19 @@ if(post['poll_data'] != null){
 returnfpost += pollbuilder(post);
 }
 }
-
+}
 
 
 returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
 if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
   returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
-returnfpost += '</div></div>';
+returnfpost += '</div>';
+if(mode == "comp") {
+returnfpost += '</div>';
+}
+
+returnfpost += '</div>';
 return returnfpost;
 }
 function allown_sfw(){
@@ -318,9 +349,28 @@ jdiv.innerHTML += '<div class="displayimg"><img src="'+el.getAttribute('data-msr
 }
 function urlpreview(urli,postjson) {
 returnpost = '';	
-	if (urli.match(/.(jpg|jpeg|png|gif)$/i))
+	if (urli.match(/.(jpg|jpeg|png)$/i))
 	{
 		returnpost += '<div class="postc singleimage"><img src="'+ urli +'"/></div>';
+	}
+	else if (urli.match(/.(gif|gifv)$/i)){
+	  const  x = postjson?.preview?.images?.[0]?.variants?.mp4?.source?.url || "none";
+if(x == "none") {
+		returnpost += '<div class="postc singleimage"><img src="'+ urli +'"/></div>';
+
+}
+else {
+	vidposter = postjson["preview"];
+		if(typeof vidposter == "undefined"){
+			vidposter = postjson["thumbnail"];
+		}
+		else {
+			
+			vidposter = postjson["preview"]["images"]["0"]["source"]["url"];
+		}
+		returnpost += '<div class="postc video"><video src="'+ x +'#t=0.001" poster="'+vidposter+'" width="100%" height="240" preload="metadata" controls></video></div>';
+
+}
 	}
 	else if (urli.match(/www.reddit.com\/gallery/g))
 	{
@@ -501,11 +551,12 @@ cret += '</div>';
 return cret;
 }
 function runhsl(){
- const videos = document.querySelectorAll('.reddit_hls');
+ const videos = document.querySelectorAll('.reddit_hls:not(.goner)');
                 
 
         videos.forEach(video => {
         	const videoContainer = video.parentElement;
+        	video.classList.add('goner');
           //  if (video.canPlayType('application/vnd.apple.mpegurl')) {
                 // Browser natively supports HLS
            //     video.src = video.src;
