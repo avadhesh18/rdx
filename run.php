@@ -28,8 +28,8 @@ $headhtml = '<!DOCTYPE html><html><head>
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Themes</a>  <a href="settings.html"><span style="color:var(--lightc);">&bull;</span> Settings</a>  <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a> <a href="new.html" rel="nofollow">New</a> <a href="contact.html" >Feedback</a> <br>
-                <small><span style="color:var(--lightc);">&bull;</span>  New settings: Infinite Scrolling and Compact Mode.</small>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Themes</a>  <a href="settings.html">Settings</a>  <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a> <a href="new.html" rel="nofollow">New</a> <a href="contact.html" >Feedback</a> <br>
+                <small><span style="color:var(--lightc);">*</span>  New settings: Infinite Scrolling and Compact Mode.</small>
               </div></div>
         </div>
         <div id="rightbar" class="hidden"></div>

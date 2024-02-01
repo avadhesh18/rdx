@@ -821,7 +821,15 @@ span#closegal {
     display: inline-table;
     text-align:center;
 }
-
+span.authorttext.isop:after {
+    content: "OP";
+    margin-left: 5px;
+    background: var(--lightc);
+    color: var(--greyc);
+    border-radius: 5px;
+    padding: 1px 5px;
+    font-size: 11px;
+}
 .rop {
     display: inline-block;
     vertical-align: top;
