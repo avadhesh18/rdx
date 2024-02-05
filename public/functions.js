@@ -308,7 +308,7 @@ returnfpost += pollbuilder(post);
 }
 
 
-returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; '+post['num_comments']+' comments';
+returnfpost += '<div class="post_meta">'+post['score']+' votes &bull; <a href="comments.html?url=https://www.reddit.com'+ post['permalink']+'" >'+post['num_comments']+' comments</a>';
 if (localStorage.getItem('refreshToken') !== null && window.location.href.includes('comments.html')) {
   returnfpost += ' &bull; <span onclick="replyto(\'t3_' + post['id'] + '\')">Reply</span>';
 }
@@ -353,7 +353,7 @@ returnpost = '';
 	{
 		returnpost += '<div class="postc singleimage"><img src="'+ urli +'"/></div>';
 	}
-	else if (urli.match(/.(gif|gifv)$/i)){
+	else if (urli.match(/.(gif)$/i)){
 	  const  x = postjson?.preview?.images?.[0]?.variants?.mp4?.source?.url || "none";
 if(x == "none") {
 		returnpost += '<div class="postc singleimage"><img src="'+ urli +'"/></div>';
