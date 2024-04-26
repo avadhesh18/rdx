@@ -389,7 +389,8 @@ pjgd.items.forEach((item, index) => {
 let g_timgs = '<div class="gallery_thumbs">';
 let fakect = ' actv';
 	for(var singlept in pjmdsorted) {
-		if(pjmdsorted[singlept]['status'] != 'failed') {
+	    
+		if(pjmdsorted[singlept]['status'] != 'failed' && pjmdsorted[singlept]['status'] != 'unprocessed') {
 		singleptlink = pjmdsorted[singlept]['s']['u'];
 		if(typeof singleptlink == "undefined"){          singleptlink = pjmdsorted[singlept]['s']['gif'];          }
 		else {
