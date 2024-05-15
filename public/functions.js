@@ -290,7 +290,9 @@ var replacedText = replaceRedditLinks(post["selftext_html"]);
 returnfpost += '<div class="postc selftext">'+htmlDecode(replacedText)+'</div>';
 }
 urli = post['url_overridden_by_dest'];
-
+if (post['url'] && post['url'].includes('reddit.com/gallery')) {
+        urli = post['url'];
+    }
 
 if((post['crosspost_parent_list'] != null &&  post['crosspost_parent_list'].length > 0) ||  (typeof  post['crosspost_parent_list'] !== 'undefined' &&  post['crosspost_parent_list'].length > 0)){
 returnfpost += postbuilder(post['crosspost_parent_list'][0]);
