@@ -54,7 +54,7 @@ $data = str_replace('</body>','<div class="footer">  <a rel="nofollow" href="htt
 if($file == 'html/index.html') 
 {
 $data = str_replace('<!-- rdx -->','<div class="infotext">
-<h1>Explore RDX for Reddit: A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
+<h1>Explore RDX for Reddit : A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
 <p>Discover a seamless Reddit browsing experience with rdx, a mobile-friendly web viewer designed for speed and simplicity. Based on the now closed Apollo app, rdx allows you to navigate Reddit without the distraction of ads.</p>
 <h2>Enjoy Reddit Anywhere: rdx\'s Mobile-Friendly Design and Dark Mode</h2>
 <p>Experience the freedom of browsing Reddit on the mobile easily with rdx\'s mobile-friendly design. The interface is optimized for various devices, ensuring a smooth experience across different screen sizes. Additionally, rdx offers a Dark Mode for users who prefer a more comfortable and eye-friendly viewing experience, making it easy to enjoy Reddit in any lighting condition.</p>
