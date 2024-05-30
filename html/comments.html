@@ -28,6 +28,7 @@ url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
 url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
 url = url.replace(/m.reddit.com/g, 'www.reddit.com');
 url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+url = url.replace(/www.reddit.com/g, 'old.reddit.com');
 links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
 document.getElementById('rightbar').innerHTML = links;
 url = url+'.json?limit=500';
