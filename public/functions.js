@@ -74,7 +74,7 @@ document.getElementById("subssearchi").focus();
  // return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
 //}
 
-function makereq(url){
+function xmakereq(url){
 var fill = '';
 var req = new XMLHttpRequest();
 req.responseType = 'json';
@@ -109,6 +109,47 @@ req.onerror = function () {
 document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><b>I know about the error of home feed and user feed not working(individual subreddits are working). Reddit is making it hard to fix but I am trying. Meanwhile I have made an iOS App(free,ad-free, fast) to get around this and will launch it in 2-3 days. You can subscribe using your email below and I will send you an email when the app is ready.</b><iframe width="340" height="305" src="https://7a945f05.sibforms.com/serve/MUIFALUnKUyQYm475r-rbc10FSp870Ra3M3xoAR8XhhH5n1peSVzsoaHNqfh1r8UUqRbVjg_fljGuixCyVnGnCo3dQDsIrAat_5vYvjlI25DzLl6VEwr2SCM9GzniHmLjV7VpsHzaO0F26IGQPRIThB4OimW0sdaN9Eq8cTYV79Abo2j1HHLb-77KQkDzWtHHMdmSKbUXcOEd9Pa" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
 };
 req.send(null);
+}
+async function makereq(url) {
+  try {
+    let response = await fetch(url, { redirect: 'follow' });
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+
+    let jsonResponse = await response.json();
+    let fill = '';
+    let titlesx = url.replace("https://www.reddit.com/r/", "");
+    titlesx = titlesx.replace("/.json", "");
+    document.title = titlesx;
+
+    let posts = jsonResponse['data']['children'];
+    for (let item of posts) {
+      console.log("xx" + item);
+      let pid = item['data'];
+      fill += postbuilder(pid);
+    }
+
+    fill += '<div class="navigate">';
+    let curpage = window.location.href.replace(/\&after.*/, '');
+    if (jsonResponse['data']['after'] != null) {
+      if (curpage.indexOf("?") === -1) {
+        curpage = curpage + '?a=b';
+      }
+      fill += '<a class="next" href="' + curpage + '&after=' + jsonResponse['data']['after'] + '">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
+      let nextseturl = curpage + '&after=' + jsonResponse['data']['after'];
+      let nexturl = url.split('&after')[0] + "&after=" + jsonResponse['data']['after'];
+    }
+    fill += '</div>';
+    document.getElementById('body').innerHTML = fill;
+
+    runhsl();
+    if (curinfi == "true") {
+      observe();
+    }
+  } catch (error) {
+    document.getElementById('body').innerHTML = `<center style="padding:15px;">Can't load content!<br><b>I know about the error of home feed and user feed not working(individual subreddits are working). Reddit is making it hard to fix but I am trying. Meanwhile I have made an iOS App(free,ad-free, fast) to get around this and will launch it in 2-3 days. You can subscribe using your email below and I will send you an email when the app is ready.</b><iframe width="340" height="305" src="https://7a945f05.sibforms.com/serve/MUIFALUnKUyQYm475r-rbc10FSp870Ra3M3xoAR8XhhH5n1peSVzsoaHNqfh1r8UUqRbVjg_fljGuixCyVnGnCo3dQDsIrAat_5vYvjlI25DzLl6VEwr2SCM9GzniHmLjV7VpsHzaO0F26IGQPRIThB4OimW0sdaN9Eq8cTYV79Abo2j1HHLb-77KQkDzWtHHMdmSKbUXcOEd9Pa" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe><small>There can be multiple reasons for this, your browser's aggressive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPN/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn't work click the feedback link and send me some info.</small></center>`;
+  }
 }
 
 function scorllmore() {

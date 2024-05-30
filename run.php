@@ -46,7 +46,7 @@ $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
 
 
-$data = str_replace('</body>','<div class="footer">  <a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br><br><small><a href="new.html"> What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> | <a href="https://apps.apple.com/us/app/miai-create-your-ai-friend/id6475200501">Try My AI Chat app </a></small></div> <div id="popitup" style="display:none;"> 
+$data = str_replace('</body>','<div class="footer">   <a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br><br><small><a href="new.html"> What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> | <a href="https://apps.apple.com/us/app/miai-create-your-ai-friend/id6475200501">Try My AI Chat app </a></small></div> <div id="popitup" style="display:none;"> 
   <span onclick="document.getElementById(\'popitup\').style.display=\'none\'">Cancel</span>
   <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>      
 <input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>    
@@ -54,7 +54,7 @@ $data = str_replace('</body>','<div class="footer">  <a rel="nofollow" href="htt
 if($file == 'html/index.html') 
 {
 $data = str_replace('<!-- rdx -->','<div class="infotext">
-<h1>Explore RDX for Reddit : A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
+<h1>Explore RDX for Reddit: A Fast and Lightweight Web Viewer Inspired by Apollo</h1>
 <p>Discover a seamless Reddit browsing experience with rdx, a mobile-friendly web viewer designed for speed and simplicity. Based on the now closed Apollo app, rdx allows you to navigate Reddit without the distraction of ads.</p>
 <h2>Enjoy Reddit Anywhere: rdx\'s Mobile-Friendly Design and Dark Mode</h2>
 <p>Experience the freedom of browsing Reddit on the mobile easily with rdx\'s mobile-friendly design. The interface is optimized for various devices, ensuring a smooth experience across different screen sizes. Additionally, rdx offers a Dark Mode for users who prefer a more comfortable and eye-friendly viewing experience, making it easy to enjoy Reddit in any lighting condition.</p>
