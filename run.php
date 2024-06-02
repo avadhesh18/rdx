@@ -29,13 +29,14 @@ $headhtml = '<!DOCTYPE html><html><head>
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
                 <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Themes</a>  <a href="settings.html">Settings</a>  <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a> <a href="new.html" rel="nofollow">New</a> <a href="contact.html" >Feedback</a> <br>
-                <small><span style="color:var(--lightc);">*</span>  New settings: Infinite Scrolling and Compact Mode.</small>
+                <small><span style="color:var(--lightc);">*</span>  rdx iPhone App is here : <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Download</a></small>
               </div></div>
         </div>
         <div id="rightbar" class="hidden"></div>
     </div>
     </header>
-    <div id="body"></div>
+    <div id="body">
+    </div>
     <script src="functions.js"></script><!-- Web Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token": "5ce6e4ad5599462c8e3c36f2223a7184"}\'></script> 
     <script src="https://cdn.jsdelivr.net/npm/ios-pwa-splash@1.0.0/cdn.min.js"></script>
 <script>iosPWASplash(\'5122.png\', \'#4e2a72\');</script> ';

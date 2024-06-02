@@ -875,3 +875,25 @@ div#body {
 }
 
 }
+div#rdxapp {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--greyc);
+    align-items: center;
+}
+
+div#rdxapp {}
+
+a.dlbtnapp {
+    border: 1px solid var(--linkc);
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+span.axeit {
+    font-family: monospace;
+    padding: 0px 5px;
+    color: var(--linkc);
+}

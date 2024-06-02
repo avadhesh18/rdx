@@ -100,10 +100,12 @@ nexturl  = url.split('&after')[0]+"&after="+jsonResponse['data']['after'];
 }
 fill += '</div>';
 document.getElementById('body').innerHTML = fill;
+  document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" style="display:none;">rdx iPhone app is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="exit();">X</span></div>');
   runhsl();
   if(curinfi == "true") {
       observe();
   }
+
 };
 req.onerror = function () {
 document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><b>I know about the error of home feed and user feed not working(individual subreddits are working). Reddit is making it hard to fix but I am trying. Meanwhile I have made an iOS App(free,ad-free, fast) to get around this and will launch it in 2-3 days. You can subscribe using your email below and I will send you an email when the app is ready.</b><iframe width="340" height="305" src="https://7a945f05.sibforms.com/serve/MUIFALUnKUyQYm475r-rbc10FSp870Ra3M3xoAR8XhhH5n1peSVzsoaHNqfh1r8UUqRbVjg_fljGuixCyVnGnCo3dQDsIrAat_5vYvjlI25DzLl6VEwr2SCM9GzniHmLjV7VpsHzaO0F26IGQPRIThB4OimW0sdaN9Eq8cTYV79Abo2j1HHLb-77KQkDzWtHHMdmSKbUXcOEd9Pa" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
@@ -147,6 +149,8 @@ async function makereq(url) {
     if (curinfi == "true") {
       observe();
     }
+ 
+
   } catch (error) {
     document.getElementById('body').innerHTML = `<center style="padding:15px;">Can't load content!<br><b>I know about the error of home feed and user feed not working(individual subreddits are working). Reddit is making it hard to fix but I am trying. Meanwhile I have made an iOS App(free,ad-free, fast) to get around this and will launch it in 2-3 days. You can subscribe using your email below and I will send you an email when the app is ready.</b><iframe width="340" height="305" src="https://7a945f05.sibforms.com/serve/MUIFALUnKUyQYm475r-rbc10FSp870Ra3M3xoAR8XhhH5n1peSVzsoaHNqfh1r8UUqRbVjg_fljGuixCyVnGnCo3dQDsIrAat_5vYvjlI25DzLl6VEwr2SCM9GzniHmLjV7VpsHzaO0F26IGQPRIThB4OimW0sdaN9Eq8cTYV79Abo2j1HHLb-77KQkDzWtHHMdmSKbUXcOEd9Pa" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe><small>There can be multiple reasons for this, your browser's aggressive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPN/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn't work click the feedback link and send me some info.</small></center>`;
   }
@@ -187,8 +191,17 @@ nexturl = '';
 };
 req.send(null);
 }
+function axit(){
+        localStorage.setItem('appshown', 'yes');
+document.getElementById('rdxapp').style.display = 'none';
+}
+
 
 function observe() {
+    if (localStorage.getItem('appshown') !== 'yes') {
+
+     document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" >rdx iPhone app is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
+     }
 const options = {
         root: null,
         threshold: 1.0 
