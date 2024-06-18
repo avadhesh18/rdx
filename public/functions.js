@@ -86,7 +86,7 @@ titlesx = titlesx.replace("/.json", "");
 document.title = titlesx;
 posts = jsonResponse['data']['children'];
 for(var item in posts) {
-console.log("xx" + item);
+//console.log("xx" + item);
 pid =  posts[item]['data'];
 fill += postbuilder(pid);
 }
@@ -103,6 +103,7 @@ document.getElementById('body').innerHTML = fill;
   document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" style="display:none;">rdx iPhone app is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="exit();">X</span></div>');
   runhsl();
   if(curinfi == "true") {
+    //  console.log('running observe');
       observe();
   }
 
@@ -127,7 +128,7 @@ async function makereq(url) {
 
     let posts = jsonResponse['data']['children'];
     for (let item of posts) {
-      console.log("xx" + item);
+    //  console.log("xx" + item);
       let pid = item['data'];
       fill += postbuilder(pid);
     }
@@ -135,12 +136,14 @@ async function makereq(url) {
     fill += '<div class="navigate">';
     let curpage = window.location.href.replace(/\&after.*/, '');
     if (jsonResponse['data']['after'] != null) {
+        
       if (curpage.indexOf("?") === -1) {
         curpage = curpage + '?a=b';
       }
       fill += '<a class="next" href="' + curpage + '&after=' + jsonResponse['data']['after'] + '">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
       let nextseturl = curpage + '&after=' + jsonResponse['data']['after'];
-      let nexturl = url.split('&after')[0] + "&after=" + jsonResponse['data']['after'];
+       nexturl = url.split('&after')[0] + "&after=" + jsonResponse['data']['after'];
+
     }
     fill += '</div>';
     document.getElementById('body').innerHTML = fill;
@@ -157,7 +160,9 @@ async function makereq(url) {
 }
 
 function scorllmore() {
+
 const url = nexturl;
+
 let fill = '';
 if(nexturl != '') {console.log(nexturl); } else {return false;}
 var req = new XMLHttpRequest();
@@ -192,15 +197,15 @@ nexturl = '';
 req.send(null);
 }
 function axit(){
-        localStorage.setItem('appshown', 'yes');
+        localStorage.setItem('appshown1', 'yes');
 document.getElementById('rdxapp').style.display = 'none';
 }
 
 
 function observe() {
-    if (localStorage.getItem('appshown') !== 'yes') {
+    if (localStorage.getItem('appshown1') !== 'yes') {
 
-     document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" >rdx iPhone app is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
+     document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" >rdx iPhone app v1.2 is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
      }
 const options = {
         root: null,
