@@ -109,7 +109,7 @@ document.getElementById('body').innerHTML = fill;
 
 };
 req.onerror = function () {
-document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><b>I know about the error of home feed and user feed not working(individual subreddits are working). Reddit is making it hard to fix but I am trying. Meanwhile I have made an iOS App(free,ad-free, fast) to get around this and will launch it in 2-3 days. You can subscribe using your email below and I will send you an email when the app is ready.</b><iframe width="340" height="305" src="https://7a945f05.sibforms.com/serve/MUIFALUnKUyQYm475r-rbc10FSp870Ra3M3xoAR8XhhH5n1peSVzsoaHNqfh1r8UUqRbVjg_fljGuixCyVnGnCo3dQDsIrAat_5vYvjlI25DzLl6VEwr2SCM9GzniHmLjV7VpsHzaO0F26IGQPRIThB4OimW0sdaN9Eq8cTYV79Abo2j1HHLb-77KQkDzWtHHMdmSKbUXcOEd9Pa" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
+document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><b>You can try the <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a> and <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> apps to get around it. If the error persists there too then it\'s a reddit problem and probably won\'t be fixed.</b><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
 };
 req.send(null);
 }
@@ -197,16 +197,12 @@ nexturl = '';
 req.send(null);
 }
 function axit(){
-        localStorage.setItem('appshown1', 'yes');
+        localStorage.setItem('appshown2', 'yes');
 document.getElementById('rdxapp').style.display = 'none';
 }
 
 
 function observe() {
-    if (localStorage.getItem('appshown1') !== 'yes') {
-
-     document.getElementById('body').insertAdjacentHTML("afterbegin",'<div id="rdxapp" >rdx iPhone app v1.2 is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
-     }
 const options = {
         root: null,
         threshold: 1.0 
@@ -619,6 +615,27 @@ cret += '</div>';
 return cret;
 }
 function runhsl(){
+    if (localStorage.getItem('appshown2') !== 'yes') {
+
+    var userAgent = navigator.userAgent || navigator.vendor;
+
+    if (/android/i.test(userAgent)) {
+        // User is on an Android device
+        document.getElementById('body').insertAdjacentHTML("afterbegin",
+            '<div id="rdxapp">rdx Android app is here <a class="dlbtnapp" href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
+    } else if (/iPad|iPhone|iPod/.test(userAgent)) {
+        // User is on an iOS device
+        document.getElementById('body').insertAdjacentHTML("afterbegin",
+            '<div id="rdxapp">rdx iPhone app v1.2 is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
+    } else if (/Mac/.test(userAgent)) {
+        // User is on a macOS device
+        document.getElementById('body').insertAdjacentHTML("afterbegin",
+            '<div id="rdxapp">rdx iPhone app v1.2 is here <a class="dlbtnapp" href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">Install</a> <span class="axeit" onclick="axit();">X</span></div>');
+    }
+
+     }
+
+
  const videos = document.querySelectorAll('.reddit_hls:not(.goner)');
                 
 
