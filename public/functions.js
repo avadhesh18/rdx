@@ -124,7 +124,23 @@ async function makereq(url) {
     let fill = '';
     let titlesx = url.replace("https://www.reddit.com/r/", "");
     titlesx = titlesx.replace("/.json", "");
-    document.title = titlesx;
+  //  var titlesx = url.match(/\/r\/([^\/]+)/)[1];
+const titlesxz = url.match(/\/(r|u|user)\/([^\/]+)/);
+if (titlesxz) {
+if(window.location.href == "https://rdx.overdevs.com/") {
+
+}
+else {
+    document.title = titlesxz[2] +" • "+titlesxz[1]+"/"+titlesxz[2] ;
+}
+    const metadesc = "Browse "+titlesxz[1]+"/"+titlesxz[2] +" images, videos, GIFs and text posts on rdx for reddit a fast, lightweight mobile Web Viewer for Reddit by overdevs.";
+     let metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+        metaDescription.setAttribute("content", metadesc);
+    }
+}
+
+  //  document.title = titlesx;
 
     let posts = jsonResponse['data']['children'];
     for (let item of posts) {
@@ -354,7 +370,7 @@ returnfpost += postbuilder(post['crosspost_parent_list'][0]);
 }
 else {
 if(over18 === 'over18') {returnfpost += '<button onclick="allown_sfw()" class="sfwtoggle">Click to Allow this content</button>';}
-if(typeof urli != "undefined" && post['removed_by_category'] == null){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'"><small>Open URL</small></a></div>'; }
+if(typeof urli != "undefined" && post['removed_by_category'] == null){  returnfpost += '<div class="urlpreview '+over18+'">'+urlpreview(urli,post)+'</div><div style="text-align: right;font-size:12px;"><a href="'+post['url']+'" target="_blank"><small>Open URL</small></a></div>'; }
 if(post['removed_by_category'] != null) {
 returnfpost += 'Removed by '+ post['removed_by_category'];
 }
