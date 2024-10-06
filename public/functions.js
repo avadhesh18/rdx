@@ -291,7 +291,7 @@ document.getElementById('subslist').innerHTML = fillsubs;
 		}
 }
 xhr.responseType = 'json';
-xhr.open('GET', 'https://www.reddit.com//api/subreddit_autocomplete/.json?query='+q+'&include_profiles=false&include_over_18=true', true)
+xhr.open('GET', 'https://old.reddit.com//api/subreddit_autocomplete/.json?query='+q+'&include_profiles=false&include_over_18=true', true)
 xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 xhr.send();
 if(q.length > 1){
