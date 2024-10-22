@@ -8,7 +8,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <meta name="apple-mobile-web-app-title" content="rdx" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta charset="utf-8">
+    <meta charset="utf-8"> <!-- meta -->
         <meta name="apple-itunes-app" content="app-id=6503479190">
     <meta name="google-play-app" content="app-id=com.overdevs.rdx">
 
@@ -49,6 +49,10 @@ echo "Processing ".$file."...";
 $data = file_get_contents($file);
 $data = str_replace('<!--headhtml-->',$headhtml,$data);
 
+if($file == 'html/user.html') 
+{
+$data = str_replace('<!-- meta -->','<meta name="robots" content="noindex,follow">',$data);
+}
 
 $data = str_replace('</body>','<div class="footer"> <a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br>Download apps: <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> &bull; <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a><br><small><a href="new.html"> What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> </small></div> <div id="popitup" style="display:none;"> 
   <span onclick="document.getElementById(\'popitup\').style.display=\'none\'">Cancel</span>
