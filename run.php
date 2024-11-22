@@ -1,6 +1,6 @@
 <?php
 $headhtml = '<!DOCTYPE html><html><head>
-    <title>RDX for Reddit -  Apollo For Reddit Inspired Web Viewer</title>
+    <title>RDX for Reddit -  Reddit Viewer</title>
     <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse rdx for reddit Reddit without Ads."/>
     <link rel="shortcut icon" href="favicon.ico">   
   <link rel="icon" href="favicon.png"> 
@@ -52,6 +52,9 @@ $data = str_replace('<!--headhtml-->',$headhtml,$data);
 if($file == 'html/user.html') 
 {
 $data = str_replace('<!-- meta -->','<meta name="robots" content="noindex,follow">',$data);
+}
+else {
+$data = str_replace('<!-- meta -->','<meta name="robots" content="index,follow">',$data);
 }
 
 $data = str_replace('</body>','<div class="footer"> <a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br>Download apps: <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> &bull; <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a><br><small><a href="new.html"> What\'s new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> </small></div> <div id="popitup" style="display:none;"> 
