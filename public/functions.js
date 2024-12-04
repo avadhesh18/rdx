@@ -480,7 +480,9 @@ let fakect = ' actv';
 		fakect = '';
 	}
 	returnpost += '<div class="gallery_main">';
+	if(typeof g_mimg != "undefined") {
 	returnpost += g_mimg;
+	}
 	returnpost += '</div>';
 	returnpost +=  g_timgs;
     returnpost += '</div></div>';

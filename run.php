@@ -1,7 +1,7 @@
 <?php
 $headhtml = '<!DOCTYPE html><html><head>
     <title>RDX for Reddit -  Reddit Viewer</title>
-    <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit based on Apollo. Mobile friendly reader for Reddit. Browse rdx for reddit Reddit without Ads."/>
+    <meta name="description" content="rdx for reddit is a fast, lightweight mobile Web Viewer for Reddit app based on Apollo. Mobile friendly reader for Reddit. Browse rdx for reddit app without Ads."/>
     <link rel="shortcut icon" href="favicon.ico">   
   <link rel="icon" href="favicon.png"> 
 <link rel="manifest" href="/manifest.json" /> <meta name="apple-mobile-web-app-capable" content="yes" />
