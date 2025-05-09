@@ -13,6 +13,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <meta name="google-play-app" content="app-id=com.overdevs.rdx">
 
     <link rel="stylesheet" href="styles.css" type="text/css">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
     </head>  
 <body>
@@ -31,7 +32,7 @@ $headhtml = '<!DOCTYPE html><html><head>
         <div id="leftbar" class="hidden">
             <div class="list">
                 <a href="index.html" class="homelinks halfit">Home</a><a onClick="window.location.reload()" class="homelinks halfit">Refresh</a><a href="saved.html" class="homelinks halfit">Saved</a><a href="subreddit.html?r=popular" class="homelinks halfit">Popular</a>
-                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Themes</a>  <a href="settings.html">Settings</a>  <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a> <a href="new.html" rel="nofollow">New</a> <a href="contact.html" >Feedback</a> <br>
+                <div id="subscribed">Subscribe to subreddits to view them here.</div>        <div id="cthemew"><a href="themes.html" id="themebtn">Themes</a>  <a href="settings.html">Settings</a>  <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a> <a href="new.html" rel="nofollow">New</a> <a href="contact.html" >Feedback</a>  <br>
                 <small><span style="color:var(--lightc);">*</span>  Download rdx APP: <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> &bull; <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a></small>
               </div></div>
         </div>
