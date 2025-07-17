@@ -637,8 +637,9 @@ cret += '</div>';
 return cret;
 }
 function runhsl(){
-   if (localStorage.getItem('promptshown') == 'yes') {
-       document.getElementById('promptapp').style.display ="none";
+   if (localStorage.getItem('promptshown') !== 'yes') {
+         document.getElementById('header').insertAdjacentHTML("beforebegin", '<div class="prompt" id="promptapp"><a href="https://offchess.com">Try my Chess Puzzles app  - OffChess</a> <button onclick="hideprompt();">X</button></div>');
+       
       }
     if (localStorage.getItem('appshown2') !== 'yes') {
 
