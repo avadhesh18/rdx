@@ -897,3 +897,23 @@ span.axeit {
     padding: 0px 5px;
     color: var(--linkc);
 }
+.prompt {
+    background: #191919;
+    color: white;
+    text-align: center;
+}
+
+.prompt a {
+    color: #88e64a;
+    padding: 7px;
+    display: inline-block;
+    text-align: center;
+}
+
+.prompt button {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-weight: bold;
+    font-family: sans-serif;
+}

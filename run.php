@@ -17,6 +17,7 @@ $headhtml = '<!DOCTYPE html><html><head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.1/dash.all.min.js"></script>
     </head>  
 <body>
+<div class="prompt" id="promptapp"><a href="https://offchess.com">Try my Chess Puzzles app  - OffChess</a> <button onclick="hideprompt();">X</button></div>
     <header id="header">
         <div id="pagetitle">
             <span id="plus" onclick="toggle(\'leftbar\')"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#fff" role="img" aria-label="Menu"><path d="M140.001-254.616v-59.999h679.998v59.999H140.001Zm0-195.385v-59.998h679.998v59.998H140.001Zm0-195.384v-59.999h679.998v59.999H140.001Z"></path></svg></span>

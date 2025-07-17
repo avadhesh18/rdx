@@ -216,6 +216,10 @@ function axit(){
         localStorage.setItem('appshown2', 'yes');
 document.getElementById('rdxapp').style.display = 'none';
 }
+function hideprompt() {
+  localStorage.setItem('promptshown', 'yes');
+document.getElementById('promptapp').style.display = 'none';
+}
 
 
 function observe() {
@@ -633,6 +637,9 @@ cret += '</div>';
 return cret;
 }
 function runhsl(){
+   if (localStorage.getItem('promptshown') == 'yes') {
+       document.getElementById('promptapp').style.display ="none";
+      }
     if (localStorage.getItem('appshown2') !== 'yes') {
 
     var userAgent = navigator.userAgent || navigator.vendor;
