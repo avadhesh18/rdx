@@ -113,105 +113,169 @@ document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'
 };
 req.send(null);
 }
+var callbackCounter = 0;
+
+// Modified makereq function to use JSONP
 async function makereq(url) {
-  try {
-    let response = await fetch(url, { redirect: 'follow' });
-    if (!response.ok) {
-      throw new Error('Network response was not ok ' + response.statusText);
+  return new Promise((resolve, reject) => {
+    // Create unique callback name
+    const callbackName = 'jsonp_callback_' + (++callbackCounter);
+    
+    // Add .json and callback parameter to URL
+    let jsonpUrl = url;
+    if (!jsonpUrl.includes('.json')) {
+      jsonpUrl = url.replace(/\/$/, '') + '.json';
     }
-
-    let jsonResponse = await response.json();
-    let fill = '';
-    let titlesx = url.replace("https://www.reddit.com/r/", "");
-    titlesx = titlesx.replace("/.json", "");
-  //  var titlesx = url.match(/\/r\/([^\/]+)/)[1];
-const titlesxz = url.match(/\/(r|u|user)\/([^\/]+)/);
-if (titlesxz) {
-if(window.location.href == "https://rdx.overdevs.com/") {
-
-}
-else {
-    document.title = titlesxz[2] +" • "+titlesxz[1]+"/"+titlesxz[2] ;
-}
-    const metadesc = "Browse "+titlesxz[1]+"/"+titlesxz[2] +" images, videos, GIFs and text posts on rdx for reddit a fast, lightweight mobile Web Viewer for Reddit by overdevs.";
-     let metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-        metaDescription.setAttribute("content", metadesc);
-    }
-}
-
-  //  document.title = titlesx;
-
-    let posts = jsonResponse['data']['children'];
-    for (let item of posts) {
-    //  console.log("xx" + item);
-      let pid = item['data'];
-      fill += postbuilder(pid);
-    }
-
-    fill += '<div class="navigate">';
-    let curpage = window.location.href.replace(/\&after.*/, '');
-    if (jsonResponse['data']['after'] != null) {
+    jsonpUrl += (jsonpUrl.includes('?') ? '&' : '?') + 'jsonp=' + callbackName;
+    
+    // Create global callback function
+    window[callbackName] = function(jsonResponse) {
+      try {
+        let fill = '';
+        let titlesx = url.replace("https://www.reddit.com/r/", "");
+        titlesx = titlesx.replace("/.json", "");
         
-      if (curpage.indexOf("?") === -1) {
-        curpage = curpage + '?a=b';
+        const titlesxz = url.match(/\/(r|u|user)\/([^\/]+)/);
+        if (titlesxz) {
+          if(window.location.href == "https://rdx.overdevs.com/") {
+            // Don't change title for home page
+          } else {
+            document.title = titlesxz[2] +" • "+titlesxz[1]+"/"+titlesxz[2] ;
+          }
+          const metadesc = "Browse "+titlesxz[1]+"/"+titlesxz[2] +" images, videos, GIFs and text posts on rdx for reddit a fast, lightweight mobile Web Viewer for Reddit by overdevs.";
+          let metaDescription = document.querySelector('meta[name="description"]');
+          if (metaDescription) {
+            metaDescription.setAttribute("content", metadesc);
+          }
+        }
+
+        let posts = jsonResponse['data']['children'];
+        for (let item of posts) {
+          let pid = item['data'];
+          fill += postbuilder(pid);
+        }
+
+        fill += '<div class="navigate">';
+        let curpage = window.location.href.replace(/\&after.*/, '');
+        if (jsonResponse['data']['after'] != null) {
+          if (curpage.indexOf("?") === -1) {
+            curpage = curpage + '?a=b';
+          }
+          fill += '<a class="next" href="' + curpage + '&after=' + jsonResponse['data']['after'] + '">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
+          let nextseturl = curpage + '&after=' + jsonResponse['data']['after'];
+          nexturl = url.split('&after')[0] + "&after=" + jsonResponse['data']['after'];
+        }
+        fill += '</div>';
+        document.getElementById('body').innerHTML = fill;
+
+        runhsl();
+        if (curinfi == "true") {
+          observe();
+        }
+        
+        // Clean up
+        delete window[callbackName];
+        document.head.removeChild(script);
+        resolve();
+        
+      } catch (error) {
+        // Clean up on error
+        delete window[callbackName];
+        if (script.parentNode) {
+          document.head.removeChild(script);
+        }
+        reject(error);
       }
-      fill += '<a class="next" href="' + curpage + '&after=' + jsonResponse['data']['after'] + '">Next page</a><div id="sxpy"></div><div id="sentinel"> </div>';
-      let nextseturl = curpage + '&after=' + jsonResponse['data']['after'];
-       nexturl = url.split('&after')[0] + "&after=" + jsonResponse['data']['after'];
-
-    }
-    fill += '</div>';
-    document.getElementById('body').innerHTML = fill;
-
-    runhsl();
-    if (curinfi == "true") {
-      observe();
-    }
- 
-
-  } catch (error) {
-    document.getElementById('body').innerHTML = `<center style="padding:15px;">Can't load content!<br><b>I know about the errors. Reddit is making it hard to fix but I am trying. Meanwhile ou can try the <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a> and <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> apps to get around it.</b><small>There can be multiple reasons for this, your browser's aggressive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPN/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn't work click the feedback link and send me some info.</small></center>`;
-  }
+    };
+    
+    // Create script tag for JSONP
+    const script = document.createElement('script');
+    script.src = jsonpUrl;
+    script.onerror = function() {
+      delete window[callbackName];
+      document.head.removeChild(script);
+      document.getElementById('body').innerHTML = `<center style="padding:15px;">Can't load content!<br><b>I know about the errors. Reddit is making it hard to fix but I am trying. Meanwhile you can try the <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a> and <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> apps to get around it.</b><small>There can be multiple reasons for this, your browser's aggressive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPN/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn't work click the feedback link and send me some info.</small></center>`;
+      reject(new Error('JSONP request failed'));
+    };
+    
+    document.head.appendChild(script);
+  });
 }
 
+// Modified scorllmore function to use JSONP
 function scorllmore() {
+  const url = nexturl;
+  let fill = '';
+  
+  if(nexturl == '') {
+    return false;
+  }
+  
+  console.log(nexturl);
+  
+  // Create unique callback name
+  const callbackName = 'jsonp_scroll_' + (++callbackCounter);
+  
+  // Add .json and callback parameter to URL
+  let jsonpUrl = url;
+  if (!jsonpUrl.includes('.json')) {
+    jsonpUrl = url.replace(/\/$/, '') + '.json';
+  }
+  jsonpUrl += (jsonpUrl.includes('?') ? '&' : '?') + 'jsonp=' + callbackName;
+  
+  // Create global callback function
+  window[callbackName] = function(jsonResponse) {
+    try {
+      let posts = jsonResponse['data']['children'];
+      for(var item in posts) {
+        let pid = posts[item]['data'];
+        fill += postbuilder(pid);
+      }
+      
+      var curpage = window.location.href.replace(/\&after.*/,'');
+      if(jsonResponse['data']['after'] != null) {
+        if(curpage.indexOf("?") === -1) {
+          curpage = curpage+'?a=b';
+        } 
+        history.pushState("", "newtitle", nextseturl);
+        nextseturl = curpage+'&after='+jsonResponse['data']['after'];
+        nexturl = url.split('&after')[0];
+        nexturl = nexturl+"&after="+jsonResponse['data']['after'];
+      } else {
+        nexturl = '';
+      }
+      
+      document.getElementById('sxpy').insertAdjacentHTML('beforeend', fill);
+      document.getElementById('sentinel').innerHTML = ' ';
+      runhsl();
+      
+      // Clean up
+      delete window[callbackName];
+      document.head.removeChild(script);
+      
+    } catch (error) {
+      delete window[callbackName];
+      if (script.parentNode) {
+        document.head.removeChild(script);
+      }
+      document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
+      nexturl = '';
+    }
+  };
+  
+  // Create script tag for JSONP
+  const script = document.createElement('script');
+  script.src = jsonpUrl;
+  script.onerror = function() {
+    delete window[callbackName];
+    document.head.removeChild(script);
+    document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
+    nexturl = '';
+  };
+  
+  document.head.appendChild(script);
+}
 
-const url = nexturl;
-
-let fill = '';
-if(nexturl != '') {console.log(nexturl); } else {return false;}
-var req = new XMLHttpRequest();
-req.responseType = 'json';
-req.open('GET', url, true);
-req.onload  = function() {
-var jsonResponse = req.response;
-posts = jsonResponse['data']['children'];
-for(var item in posts) {
-pid =  posts[item]['data'];
-fill += postbuilder(pid);
-}
-var curpage = window.location.href.replace(/\&after.*/,'');
-if(jsonResponse['data']['after'] != null) {
-if(curpage.indexOf("?") === -1) {curpage = curpage+'?a=b';} 
-history.pushState("", "newtitle", nextseturl);
-nextseturl   = curpage+'&after='+jsonResponse['data']['after'];
-nexturl = url.split('&after')[0];
-nexturl  = nexturl+"&after="+jsonResponse['data']['after'];
-}
-else {
-nexturl = '';
-}
-document.getElementById('sxpy').insertAdjacentHTML('beforeend',fill);
-document.getElementById('sentinel').innerHTML = ' ';
-  runhsl();
-};
-req.onerror = function () {
-document.getElementById('sxpy').innerHTML += '<center style="padding:15px;">Can\'t load content! Refresh the page or try again later.</center>';
-nexturl = '';
-};
-req.send(null);
-}
 function axit(){
         localStorage.setItem('appshown2', 'yes');
 document.getElementById('rdxapp').style.display = 'none';
