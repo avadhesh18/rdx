@@ -46,8 +46,8 @@
 <div id="paginate"></div>
 <script>
 
-// Global callback counter for unique callback names
-var callbackCounter = 0;
+ 
+ 
 
 function getget(name, url = window.location.href) {
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -63,68 +63,39 @@ var fill = '';
 var sr = '';
 var thisthread;
 var defaultsort;
-
-// Modified doit function to use JSONP
 function doit(){
-    url = getget('url');
-    roqs = url.split('?');
-    url = roqs[0];
-    roqs = roqs[1] || '';
-    url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
-    url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/m.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/i.reddit.com/g, 'www.reddit.com');
-    url = url.replace(/www.reddit.com/g, 'www.reddit.com');
-    
-    links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
-    document.getElementById('rightbar').innerHTML = links;
-    
-    let jsonpUrl = url+'.json?limit=500';
-    if(getget('sort') != null){
-        jsonpUrl = jsonpUrl+'&sort='+getget('sort');
-    }
-    if(roqs) {
-        jsonpUrl = jsonpUrl+'&'+roqs;
-    }
-    
-    // Create unique callback name
-    const callbackName = 'jsonp_comments_' + (++callbackCounter);
-    jsonpUrl += '&jsonp=' + callbackName;
-    
-    // Create global callback function
-    window[callbackName] = function(jsonResponse) {
-        try {
-            thisthread = jsonResponse[0]['data']['children'][0]['data'];
-            fill += postbuilder(thisthread);
-            document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
-            document.title = thisthread['title'];
-            sr = thisthread['subreddit'];
-            comments = jsonResponse[1]['data']['children'];
-            loadcomments(comments);
-            runhsl();
-            
-            // Clean up
-            delete window[callbackName];
-            document.head.removeChild(script);
-        } catch (error) {
-            console.error('Error loading comments:', error);
-            delete window[callbackName];
-            if (script.parentNode) {
-                document.head.removeChild(script);
-            }
-        }
-    };
-    
-    // Create script tag for JSONP
-    const script = document.createElement('script');
-    script.src = jsonpUrl;
-    script.onerror = function() {
-        delete window[callbackName];
-        document.head.removeChild(script);
-        console.error('Comments request failed');
-    };
-    
-    document.head.appendChild(script);
+url = getget('url');
+roqs = url.split('?');
+url = roqs[0];
+roqs = roqs[1];
+url = url.replace(/https:\/\/reddit.com/g, 'https://www.reddit.com');
+url = url.replace(/amp.reddit.com/g, 'www.reddit.com');
+url = url.replace(/m.reddit.com/g, 'www.reddit.com');
+url = url.replace(/i.reddit.com/g, 'www.reddit.com');
+url = url.replace(/www.reddit.com/g, 'www.reddit.com');
+links = '<a href="comments.html?url='+url+'&sort=new">New</a><a href="comments.html?url='+url+'&sort=best">Best</a><a href="comments.html?url='+url+'&sort=top">Top</a><a href="comments.html?url='+url+'&sort=controversial">Controversial</a><a href="comments.html?url='+url+'&sort=old">Old</a><a href="comments.html?url='+url+'&sort=qa">QnA</a><a onclick="saveit(this)" id="sharebutton" style="border-top: 5px solid var(--greyc);">Save</a><a onclick="shareit();" id="sharebutton">Share</a>';
+document.getElementById('rightbar').innerHTML = links;
+url = url+'.json?limit=500';
+if(getget('sort') != null){
+url = url+'&sort='+getget('sort');
+
+}
+url = url+'&'+roqs;
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+req.open('GET', url, true);
+req.onload  = function() {
+ var jsonResponse = req.response;
+thisthread = jsonResponse[0]['data']['children'][0]['data'];
+fill += postbuilder(thisthread);
+document.getElementById('pagetitletext').innerHTML = thisthread['subreddit'];
+document.title= thisthread['title'];
+sr = thisthread['subreddit'];
+comments = jsonResponse[1]['data']['children'];
+loadcomments(comments);
+runhsl();
+};
+req.send(null);
 }
 
 function handlerepliesmn(repliesca){
@@ -197,58 +168,39 @@ commentsdivs[i].addEventListener('dblclick', collapse);
 
 //universal post functions
 
+
 var pagenum = 0;
 
-// Modified loadmore function to use JSONP
 function loadmore(){
-    //console.log(morejson);
-    urljson = '';
+//console.log(morejson);
+urljson = '';
 
-    for (var i = pagenum*60; i < morejson.length; i++){
-        urljson += morejson[i]+',';
-        if(i > 60*(pagenum+1)) {
-            pagenum = pagenum + 1;
-            break;
-        }
-    }
-    console.log(urljson);
-    
-    urljson = urljson.replace(/,\s*$/, "");
-    
-    // Create unique callback name
-    const callbackName = 'jsonp_loadmore_' + (++callbackCounter);
-    
-    let jsonpUrl = 'https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson+'&jsonp=' + callbackName;
+for (var i = pagenum*60; i < morejson.length; i++){
+urljson += morejson[i]+',';
+if(i > 60*(pagenum+1)) {
+pagenum = pagenum + 1;
+break;
+}
+}
+console.log(urljson);
+var req = new XMLHttpRequest();
+req.responseType = 'json';
+urljson = urljson.replace(/,\s*$/, "");
 
-    // Create global callback function
-    window[callbackName] = function(jsonResponse) {
-        try {
-            fill = '';
-            comments = jsonResponse['json']['data']['things'];
-            loadcomments(comments);
-            
-            // Clean up
-            delete window[callbackName];
-            document.head.removeChild(script);
-        } catch (error) {
-            console.error('Error loading more comments:', error);
-            delete window[callbackName];
-            if (script.parentNode) {
-                document.head.removeChild(script);
-            }
-        }
-    };
-    
-    // Create script tag for JSONP
-    const script = document.createElement('script');
-    script.src = jsonpUrl;
-    script.onerror = function() {
-        delete window[callbackName];
-        document.head.removeChild(script);
-        console.error('Load more comments request failed');
-    };
-    
-    document.head.appendChild(script);
+req.open('GET','https://www.reddit.com/r/'+thisthread['subreddit']+'/api/morechildren.json?api_type=json&&link_id='+thisthread['name']+'&limit=500&r=AskReddit&children='+urljson, true);
+req.onload  = function() {
+ var jsonResponse = req.response;
+//thisthread = jsonResponse[0]['data']['children'][0]['data'];
+fill = '';
+//document.getElementById('pagetitletext').innerHTML = thisthread['subreddit']
+comments = jsonResponse['json']['data']['things'];
+loadcomments(comments);
+
+};
+req.send(null);
+
+
+
 }
 
 
@@ -364,7 +316,7 @@ border-radius:0px 5px 5px 0px;
 
 </style>
 
-<div class="footer"> <a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br>Download apps: <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> &bull; <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a><br><small><a href="new.html"> What's new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> </small></div> <div id="popitup" style="display:none;"> 
+<div class="footer"><a rel="nofollow" href="https://www.buymeacoffee.com/overdevsapps" class="bmac"><img src="bmac.png"  width="150" alt="donate"></a><br>If you use rdx for Reddit&reg; please provide <a href="contact.html">Feedback</a> and <a href="https://www.buymeacoffee.com/overdevsapps" rel="nofollow">Donate</a>.<br>Download apps: <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> &bull; <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a><br><small><a href="new.html"> What's new?</a> | <a href="settings.html">Settings</a> | <a href="https://github.com/avadhesh18/rdx/">Star on Github</a> </small></div> <div id="popitup" style="display:none;"> 
   <span onclick="document.getElementById('popitup').style.display='none'">Cancel</span>
   <div id="helptext"></div><textarea class="cmntarea" id="commentText" placeholder="Write a reply!" required></textarea>      
 <input id="cmtid" value="" type="hidden"/> <input id="actype" value="" type="hidden"/> <button id="cmntbtn" onclick="apiAction();">Submit</button>    
