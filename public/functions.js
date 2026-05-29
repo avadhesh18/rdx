@@ -109,7 +109,14 @@ document.getElementById('body').innerHTML = fill;
 
 };
 req.onerror = function () {
-document.getElementById('body').innerHTML = '<center style="padding:15px;">Can\'t load content!<br><b>You can try the <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a> and <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> apps to get around it. If the error persists there too then it\'s a reddit problem and probably won\'t be fixed.</b><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
+document.getElementById('body').innerHTML = '<center style="padding:15px;">
+Last night  <b><a href="https://www.reddit.com/r/modnews/comments/1tq9vxo/protecting_communities_from_scrapers_and_platform/">reddit disabled JSON feeds</a> that is affecting your usage of rdx website and app. I am trying to find ways to fix this. Maybe I can fix the apps using some workaround, maybe I can\'t but I will try. You can keep the apps or get the apps from app stores. <br>
+Thanks for your support for RDX for over 3 years. A small project that reached millions of people. You can <a href="https://buymeacoffee.com/overdevsapps">buy me a coffee here</a> if rdx has helped you and you want to support it in some way.<br>
+You can also try my other apps <a href="https://offchess.com">OffChess - Chess Puzzles</a> and <a href="https://at4klauncher.com">AT4K Android TV Launcher inspired by Apple tv</a>.
+<br>
+-Avadhesh <br>
+Old info:<br>
+Can\'t load content!<br><b>You can try the <a href="https://play.google.com/store/apps/details?id=com.overdevs.rdx">Android</a> and <a href="https://apps.apple.com/us/app/rdx-for-reddit/id6503479190">iPhone</a> apps to get around it. If the error persists there too then it\'s a reddit problem and probably won\'t be fixed.</b><small>There can be multiple reasons for this, your browser\'s aggresive privacy settings may be blocking the one call to reddit.com RDX makes. This happens usually when you use a VPM/Proxy and/or a privacy focused browser like Firefox.<br> Play around with privacy/tracking options or change your browser. If it still doesn\'t work click the feedback link and send me some info.</small></center>';
 };
 req.send(null);
 }
